@@ -1,0 +1,32 @@
+{
+  "name": "bus-api",
+  "version": "1.0.0",
+  "description": "TopCoder Notifications - Bus API Server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "lint": "standard --fix",
+    "generate-tokens": "node generate-tokens.js"
+  },
+  "engines": {
+    "node": "8.7.0"
+  },
+  "devDependencies": {
+    "standard": "^10.0.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "config": "^1.26.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.1",
+    "get-parameter-names": "^0.3.0",
+    "http-errors": "^1.6.2",
+    "joi": "^11.1.1",
+    "jsonwebtoken": "^8.1.0",
+    "lodash": "^4.17.4",
+    "morgan": "^1.9.0",
+    "no-kafka": "^3.2.4",
+    "require-dir": "^0.3.2",
+    "winston": "^2.4.0"
+  }
+}

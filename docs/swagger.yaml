@@ -1,0 +1,101 @@
+---
+swagger: "2.0"
+info:
+  description: "TopCoder Notifications - Bus API Server"
+  version: "1.0.0"
+  title: "bus-api"
+  contact: {}
+host: "localhost:3000"
+basePath: "/api/v1"
+schemes:
+- "https"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+security:
+- Bearer: []
+paths:
+  /events:
+    post:
+      tags:
+      - "Event"
+      summary: "Post event"
+      description: "Post an event to the message bus."
+      consumes: []
+      parameters:
+      - name: "body"
+        in: "body"
+        required: true
+        schema:
+          type: "object"
+          required:
+          - "message"
+          - "type"
+          properties:
+            type:
+              type: "string"
+              description: "the event type, should be a dot separated fully qualitied\
+                \ name"
+              example: "connect.project.update"
+            message:
+              type: "string"
+              description: "the message, should be a JSON formatted string"
+              example: "{ \\\"test\\\": \\\"test-value\\\" }"
+      responses:
+        204:
+          description: "OK"
+        400:
+          description: "missing or invalid request, unknown type"
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: "missing, invalid, or expired token"
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: "the calling service is not allowed"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "internal server error"
+          schema:
+            $ref: "#/definitions/Error"
+  /topics:
+    get:
+      tags:
+      - "Topic"
+      summary: "Get topics"
+      description: "Get all topic names."
+      parameters: []
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              type: "string"
+        401:
+          description: "missing, invalid, or expired token"
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: "the calling service is not allowed"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "internal server error"
+          schema:
+            $ref: "#/definitions/Error"
+securityDefinitions:
+  Bearer:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+definitions:
+  Error:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+    description: "The error model"
