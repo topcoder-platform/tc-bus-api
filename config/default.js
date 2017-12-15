@@ -4,7 +4,7 @@
 module.exports = {
     KAFKA_CLIENT_CERT: process.env.KAFKA_CLIENT_CERT ? process.env.KAFKA_CLIENT_CERT.replace('\\n', '\n') : null,
   KAFKA_CLIENT_CERT_KEY: process.env.KAFKA_CLIENT_CERT_KEY ? process.env.KAFKA_CLIENT_CERT_KEY.replace('\\n', '\n') : null,
-  ALLOWED_SERVICES: process.env.ALLOWED_SERVICES ? process.env.ALLOWED_SERVICES.replace(/\\"/g, '').split(',') : ['project-service'],
+  ALLOWED_SERVICES: ['project-service','message-service'],
   LOG_LEVEL: process.env.LOG_LEVEL || 'debug',
   CONTEXT_PATH: process.env.API_VERSION || '/eventbus/',
   PORT: process.env.PORT || '3000',
