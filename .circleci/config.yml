@@ -1,0 +1,89 @@
+version: 2
+
+jobs:
+  # Build & Deploy against development backend rer
+  "build-dev":
+    docker:
+      - image: docker:17.06.1-ce-git
+    steps:
+      # Initialization.
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Installation of build dependencies.
+          command: apk add --no-cache bash
+
+      # Restoration of node_modules from cache.
+      - restore_cache:
+          key: docker-tc-bus-api-{{ checksum "package-lock.json" }}
+
+      # Build of Docker image.
+      - run:
+          name: Build of Docker image
+          command: ./build.sh DEV
+
+      # Caching node modules.
+      - save_cache:
+          key: docker-tc-bus-api-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+
+      # Deployment.
+      - run:
+          name: Installing AWS client
+          command: |
+            apk add --no-cache jq py-pip sudo
+            sudo pip install awscli --upgrade
+
+      - deploy:
+          command: ./deploy.sh DEV $CIRCLE_SHA1
+
+  "build-prod":
+    docker:
+      - image: docker:17.06.1-ce-git
+    steps:
+      # Initialization.
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Installation of build dependencies.
+          command: apk add --no-cache bash
+
+      # Restoration of node_modules from cache.
+      - restore_cache:
+          key: docker-tc-bus-api-{{ checksum "package-lock.json" }}
+
+      # Build of Docker image.
+      - run:
+          name: Build of Docker image
+          command: ./build.sh PROD
+
+      # Caching node modules.
+      - save_cache:
+          key: docker-tc-bus-api-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+
+      # Deployment.
+      - run:
+          name: Installing AWS client
+          command: |
+            apk add --no-cache jq py-pip sudo
+            sudo pip install awscli --upgrade
+
+      - deploy:
+          command: ./deploy.sh PROD $CIRCLE_SHA1
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      # Development builds are executed on "develop" branch only.
+      - "build-dev":
+          filters:
+            branches:
+              only: dev
+      - "build-prod":
+          filters:
+            branches:
+              only: master
