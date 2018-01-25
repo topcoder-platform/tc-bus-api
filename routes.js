@@ -3,7 +3,7 @@
  */
 const {Router} = require('express')
 const requireDir = require('require-dir')
-const auth = require('./common/auth')
+const jwtAuth = require('tc-core-library-js').middleware.jwtAuthenticator
 
 const router = Router()
 const controllers = requireDir('./controllers')
@@ -12,8 +12,8 @@ const controllers = requireDir('./controllers')
 const wrap = fn => (...args) => fn(...args).catch(args[2])
 
 // Routes
-router.post('/events', auth, wrap(controllers.EventController.create))
-router.get('/topics', auth, wrap(controllers.TopicController.getAll))
+router.post('/events', jwtAuth(), wrap(controllers.EventController.create))
+router.get('/topics', jwtAuth(), wrap(controllers.TopicController.getAll))
 router.get('/health', wrap(controllers.HealthController.health))
 
 module.exports = router

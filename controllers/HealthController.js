@@ -1,14 +1,14 @@
 /**
  * Contains endpoints related to service health
  */
-'use strict';
+'use strict'
 
 /**
  * Health Check.
  * @param req the request
  * @param res the response
  */
-async function health(req, res, next) {
+async function health (req, res, next) {
   res.json({health: 'ok'})
   next()
 }
@@ -16,4 +16,4 @@ async function health(req, res, next) {
 // Exports
 module.exports = {
   health
-};
+}
