@@ -8,7 +8,7 @@ module.exports = {
   CONTEXT_PATH: process.env.API_VERSION || '/eventbus/',
   PORT: process.env.PORT || '3000',
   authSecret: process.env.JWT_TOKEN_SECRET,
-  authDomain: process.env.authDomain,
+  authDomain: process.env.AUTH_DOMAIN,
   jwksUri: process.env.jwksUri,
   validIssuers: process.env.validIssuers ? process.env.validIssuers.replace(/\\"/g, '') : null,
   KAFKA_TOPIC_PREFIX: process.env.KAFKA_TOPIC_PREFIX || 'joan-26673.notifications.'
