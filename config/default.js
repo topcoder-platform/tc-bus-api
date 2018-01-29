@@ -10,6 +10,6 @@ module.exports = {
   authSecret: process.env.JWT_TOKEN_SECRET,
   authDomain: process.env.AUTH_DOMAIN,
   jwksUri: process.env.jwksUri,
-  validIssuers: process.env.validIssuers ? process.env.validIssuers.replace(/\\"/g, '') : null,
+  validIssuers: process.env.VALID_ISSUERS ? process.env.VALID_ISSUERS.replace(/\\"/g, '') : null,
   KAFKA_TOPIC_PREFIX: process.env.KAFKA_TOPIC_PREFIX || 'joan-26673.notifications.'
 }
