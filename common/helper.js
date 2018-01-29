@@ -6,7 +6,6 @@ const _ = require('lodash')
 const Joi = require('joi')
 const getParams = require('get-parameter-names')
 const config = require('config')
-const jwt = require('jsonwebtoken')
 const createError = require('http-errors')
 
 const logger = require('./logger')
@@ -91,42 +90,6 @@ function buildService (service) {
 }
 
 /**
- * Verify the JWT token and get the payload.
- *
- * @param {String} token the JWT token to verify
- * @returns {Object} the payload decoded from the token
- */
-function verifyJwtToken (token) {
-  let payload
-
-  try {
-    payload = jwt.verify(token, config.JWT_TOKEN_SECRET)
-  } catch (err) {
-    if (err.message === 'jwt expired') {
-      throw createError.Unauthorized('Token has been expired')
-    }
-
-    throw createError.Unauthorized('Failed to verify token')
-  }
-
-  if (!payload) {
-    throw createError.Unauthorized('Failed to decode token')
-  }
-
-  return payload
-}
-
-/**
- * Sign the payload and get the JWT token.
- *
- * @param {Object} payload the payload to be sign
- * @returns {String} the token
- */
-function signJwtToken (payload) {
-  return jwt.sign(payload, config.JWT_TOKEN_SECRET, {expiresIn: config.JWT_TOKEN_EXPIRES_IN})
-}
-
-/**
  * Validate the event based on the source service, type, and message.
  *
  * @param {String} sourceServiceName the source service name
@@ -148,7 +111,5 @@ function validateEvent (sourceServiceName, event) {
 
 module.exports = {
   buildService,
-  verifyJwtToken,
-  signJwtToken,
   validateEvent
 }
