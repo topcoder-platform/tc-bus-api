@@ -136,12 +136,12 @@ make_task_def(){
 								"name": "PORT",
 								"value": "%s"
 						},
-						{
+												{
 								"name": "AUTH_DOMAIN",
 								"value": "%s"
 						},
 						{
-								"name": "VALID_ISSUERS,
+								"name": "VALID_ISSUERS",
 								"value": "%s"
 						}
 
