@@ -12,5 +12,5 @@ module.exports = {
   jwksUri: process.env.jwksUri,
   validIssuers: process.env.VALID_ISSUERS ? process.env.VALID_ISSUERS.replace(/\\"/g, '') : null,
   KAFKA_TOPIC_PREFIX: process.env.KAFKA_TOPIC_PREFIX || 'joan-26673.notifications.',
-  ALLOWED_SERVICES: ['project-service','message-service']
+  ALLOWED_SERVICES: ['project-service', 'message-service']
 }

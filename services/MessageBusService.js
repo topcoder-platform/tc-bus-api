@@ -20,8 +20,8 @@ async function init () {
   await producer.init()
 }
 
-function validateServiceAccess(sourceServiceName){
-  if (config.ALLOWED_SERVICES.indexOf(sourceServiceName)<0){
+function validateServiceAccess (sourceServiceName) {
+  if (config.ALLOWED_SERVICES.indexOf(sourceServiceName) < 0) {
     throw createError.Unauthorized(`Service not allowed`)
   }
 }
@@ -34,7 +34,7 @@ function validateServiceAccess(sourceServiceName){
  */
 async function postEvent (sourceServiceName, event) {
   helper.validateEvent(sourceServiceName, event)
-  validateServiceAccess(sourceServiceName);
+  validateServiceAccess(sourceServiceName)
 
   // Post
   const result = await producer.send({
