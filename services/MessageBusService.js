@@ -20,6 +20,12 @@ async function init () {
   await producer.init()
 }
 
+function validateServiceAccess (sourceServiceName) {
+  if (config.ALLOWED_SERVICES.indexOf(sourceServiceName) < 0) {
+    throw createError.Unauthorized(`Service not allowed`)
+  }
+}
+
 /**
  * Post a new event to Kafka.
  *
@@ -28,6 +34,7 @@ async function init () {
  */
 async function postEvent (sourceServiceName, event) {
   helper.validateEvent(sourceServiceName, event)
+  validateServiceAccess(sourceServiceName)
 
   // Post
   const result = await producer.send({

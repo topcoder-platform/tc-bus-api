@@ -11,7 +11,7 @@ const MessageBusService = require('../services/MessageBusService')
  * @param {Function} next the next middleware
  */
 async function create (req, res, next) {
-  await MessageBusService.postEvent(req.sourceServiceName, req.body)
+  await MessageBusService.postEvent(req.authUser.name, req.body)
   res.status(204).end()
   next()
 }
