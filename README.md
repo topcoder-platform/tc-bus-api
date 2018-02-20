@@ -1,4 +1,4 @@
-# TopCoder Notifications  -  Bus API Server
+# TopCoder Notifications -  Bus API Server
 ------------------------------------------------------------
 
 ## Requirements
