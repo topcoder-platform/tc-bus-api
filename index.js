@@ -1,6 +1,7 @@
 /**
  * Initialize and start the express application.
  */
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
