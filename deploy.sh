@@ -45,6 +45,9 @@ KAFKA_URL=$(eval "echo \$${ENV}_KAFKA_URL")
 KAFKA_CLIENT_CERT=$(eval "echo \$${ENV}_KAFKA_CLIENT_CERT")
 KAFKA_CLIENT_CERT_KEY=$(eval "echo \$${ENV}_KAFKA_CLIENT_CERT_KEY")
 
+TC_EMAIL_SERVICE_URL=$(eval "echo \$${ENV}_TC_EMAIL_SERVICE_URL")
+TC_EMAIL_SERVICE_TOKEN=$(eval "echo \$${ENV}_TC_EMAIL_SERVICE_TOKEN")
+
 echo $APP_NAME
 
 configure_aws_cli() {
@@ -132,6 +135,14 @@ make_task_def(){
 						{
 								"name": "PORT",
 								"value": "%s"
+						},
+						{
+								"name": "TC_EMAIL_SERVICE_URL",
+								"value": "%s"
+						},
+						{
+								"name": "TC_EMAIL_SERVICE_TOKEN",
+								"value": "%s"
 						}
 
 				],
@@ -153,7 +164,7 @@ make_task_def(){
 		}
 	]'
 	
-	task_def=$(printf "$task_template" $AWS_ECS_CONTAINER_NAME $AWS_ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $ENV $KAFKA_URL "$KAFKA_CLIENT_CERT" "$KAFKA_CLIENT_CERT_KEY" $LOG_LEVEL $JWT_TOKEN_SECRET "$KAFKA_TOPIC_PREFIX" "$ALLOWED_SERVICES" $JWT_TOKEN_EXPIRES_IN "$API_VERSION" $PORT $AWS_ECS_CLUSTER $AWS_REGION $AWS_ECS_CLUSTER $ENV)
+	task_def=$(printf "$task_template" $AWS_ECS_CONTAINER_NAME $AWS_ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $ENV $KAFKA_URL "$KAFKA_CLIENT_CERT" "$KAFKA_CLIENT_CERT_KEY" $LOG_LEVEL $JWT_TOKEN_SECRET "$KAFKA_TOPIC_PREFIX" "$ALLOWED_SERVICES" $JWT_TOKEN_EXPIRES_IN "$API_VERSION" $PORT $TC_EMAIL_SERVICE_URL $TC_EMAIL_SERVICE_TOKEN $AWS_ECS_CLUSTER $AWS_REGION $AWS_ECS_CLUSTER $ENV)
 }
 
 register_definition() {
