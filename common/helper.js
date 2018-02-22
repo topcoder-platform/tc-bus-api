@@ -11,8 +11,6 @@ const createError = require('http-errors')
 
 const logger = require('./logger')
 
-const permittedEvents = ['notifications', 'email']
-
 /**
  * Convert array with arguments to object.
  *
@@ -144,15 +142,6 @@ function validateEvent (sourceServiceName, event) {
     throw createError.BadRequest(
       `"message" is not a valid JSON-formatted string: ${err.message}`)
   }
-
-  // check event type has notifications or email prefix
-  const splitEvent = event.type.split('.')
-  if (!_.includes(permittedEvents, splitEvent[0])) {
-    throw createError.BadRequest(`Invalid event type prefix - permitted [${permittedEvents}]`)
-  }
-
-  // The message should match with the source service and type
-  // no-op for now
 
   return message
 }
