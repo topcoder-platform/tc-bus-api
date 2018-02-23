@@ -13,9 +13,7 @@ const logger = require('./common/logger')
 const routes = require('./routes')
 const MessageBusService = require('./services/MessageBusService')
 
-if (!process.env.NODE_ENV) {
-  process.env.NODE_ENV = 'development'
-}
+process.env.NODE_ENV = (process.env.ENV === 'PROD') ? 'production' : 'development'
 
 // Create app
 const app = express()
