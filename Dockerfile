@@ -8,4 +8,4 @@ RUN apt-get update
 WORKDIR /opt/app
 COPY . .
 RUN npm install
-ENTRYPOINT ["npm", "start"]
+CMD ["npm", "start"]

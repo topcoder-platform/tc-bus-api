@@ -37,7 +37,7 @@ paths:
               type: "string"
               description: "the event type, should be a dot separated fully qualitied\
                 \ name"
-              example: "connect.project.update"
+              example: "notifications.connect.project.update"
             message:
               type: "string"
               description: "the message, should be a JSON formatted string"

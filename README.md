@@ -1,4 +1,4 @@
-# TopCoder Notifications  -  Bus API Server
+# TopCoder Notifications - Bus API Server
 ------------------------------------------------------------
 
 ## Requirements
@@ -80,6 +80,9 @@ The other configurations can be changed in `config/default.js` or by setting env
 - `JWT_TOKEN_SECRET` the secret to sign JWT tokens
 - `JWT_TOKEN_EXPIRES_IN` the JWT token expiration
 - `KAFKA_TOPIC_PREFIX` the prefix of all topics in Kafka
+- `TC_EMAIL_URL` the email service URL (http://localhost:4001, if deployed locally)
+- `TC_EMAIL_TOKEN` the email service authentication token (see tc-email README for details **link should be added later**)
+- `TC_EMAIL_CACHE_PERIOD` the period to cache template placeholders from email service (60 min default)
 
 ## Code Standard
 The code follows StandardJS:
@@ -104,11 +107,13 @@ To generate JWT Tokens for allowed services, run:
   npm run start
   ```
 
-- Import `docs/topcoder-notifications - bus-api-server.postman_collection.json` and `docs/topcoder-notifications - bus-api-server.postman_environment.json` to Postman
+- Import `docs/tc-bus-api-server.postman_collection.json` and `docs/tc-bus-api-server.postman_environment.json` to Postman
 - Change `URL` environment variable in Postman according to your deployment. If you deploy locally, it should be `http://localhost:3000/api/v1` by default
 - Change `VALID_TOKEN` if you want to test with another JWT token
 - Change `VALID_MESSAGE_TYPE` if you want to test with another message type
+- Change `EMAIL` to a valid e-mail address
 - Execute calls to verify the endpoints
+
 
 ### Verify the messsages end up in Kafka queue
 Check `bus-api-test/README.md` to run a consumer that consumes and prints all messages in Kafka queue.
