@@ -9,6 +9,8 @@ const Kafka = require('no-kafka')
 
 const helper = require('../common/helper')
 
+const PlaceholderService = require('./PlaceholderService')
+
 // Create a new producer instance with KAFKA_URL, KAFKA_CLIENT_CERT, and
 // KAFKA_CLIENT_CERT_KEY environment variables
 const producer = new Kafka.Producer()
@@ -20,12 +22,6 @@ async function init () {
   await producer.init()
 }
 
-function validateServiceAccess (sourceServiceName) {
-  if (config.ALLOWED_SERVICES.indexOf(sourceServiceName) < 0) {
-    throw createError.Unauthorized(`Service not allowed`)
-  }
-}
-
 /**
  * Post a new event to Kafka.
  *
@@ -33,8 +29,26 @@ function validateServiceAccess (sourceServiceName) {
  * @param {Object} event the event to post
  */
 async function postEvent (sourceServiceName, event) {
-  helper.validateEvent(sourceServiceName, event)
-  validateServiceAccess(sourceServiceName)
+  const message = helper.validateEvent(sourceServiceName, event)
+
+  if (event.type.startsWith('email.')) {
+    let placeholders
+    try {
+      placeholders = await PlaceholderService.getAllPlaceholders(event.type)
+    } catch (err) {
+      throw createError.InternalServerError()
+    }
+
+    const keys = _.fromPairs(_.map(placeholders, o => [o, Joi.string().required().min(1)]))
+    const schema = Joi.object().keys({
+      data: Joi.object().keys(keys).required(),
+      recipients: Joi.array().items(Joi.string().email()).min(1).required()
+    })
+    const { error } = Joi.validate(message, schema)
+    if (error) {
+      throw error
+    }
+  }
 
   // Post
   const result = await producer.send({

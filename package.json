@@ -28,6 +28,8 @@
     "no-kafka": "^3.2.4",
     "require-dir": "^0.3.2",
     "tc-core-library-js": "appirio-tech/tc-core-library-js.git#eedc98867f640858fc021fd7dbaec6f7b6732051",
-    "winston": "^2.4.0"
+    "winston": "^2.4.0",
+    "memory-cache": "^0.2.0",
+    "superagent": "^3.8.2"
   }
 }
