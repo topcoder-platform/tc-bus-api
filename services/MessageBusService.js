@@ -42,7 +42,8 @@ async function postEvent (sourceServiceName, event) {
     const keys = _.fromPairs(_.map(placeholders, o => [o, Joi.string().required().min(1)]))
     const schema = Joi.object().keys({
       data: Joi.object().keys(keys).required(),
-      recipients: Joi.array().items(Joi.string().email()).min(1).required()
+      recipients: Joi.array().items(Joi.string().email()).min(1).required(),
+      replyTo: Joi.string().email()
     })
     const { error } = Joi.validate(message, schema)
     if (error) {
