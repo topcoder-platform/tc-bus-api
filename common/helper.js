@@ -133,6 +133,24 @@ function signJwtToken (payload) {
  * @param {Object} event the event
  */
 function validateEvent (sourceServiceName, event) {
+  const schema = Joi.object().keys({
+    sourceServiceName: Joi.string().required(),
+    event: Joi.object().keys({
+      type: Joi
+        .string()
+        .regex(/^([a-zA-Z0-9]+\.)+[a-zA-Z0-9]+$/)
+        .error(createError.BadRequest(
+          '"type" must be a fully qualified name - dot separated string'))
+        .required(),
+      message: Joi.string().required()
+    })
+  })
+
+  const { error } = Joi.validate({sourceServiceName, event}, schema)
+  if (error) {
+    throw error
+  }
+
   // The message should be a JSON-formatted string
   let message
   try {
@@ -146,9 +164,37 @@ function validateEvent (sourceServiceName, event) {
   return message
 }
 
+/**
+ * Validate the event payload
+ *
+ * @param {Object} event the event payload
+ */
+function validateEventPayload (event) {
+  const schema = Joi.object().keys({
+    event: Joi.object().keys({
+      topic: Joi
+        .string()
+        .regex(/^([a-zA-Z0-9]+\.)+[a-zA-Z0-9]+$/)
+        .error(createError.BadRequest(
+          '"topic" must be a fully qualified name - dot separated string'))
+        .required(),
+      originator: Joi.string().required(),
+      timestamp: Joi.string().required(),
+      'mime-type': Joi.string().required(),
+      payload: Joi.any()
+    })
+  })
+
+  const { error } = Joi.validate({event}, schema)
+  if (error) {
+    throw error
+  }
+}
+
 module.exports = {
   buildService,
   verifyJwtToken,
   signJwtToken,
-  validateEvent
+  validateEvent,
+  validateEventPayload
 }

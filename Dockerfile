@@ -8,4 +8,5 @@ RUN apt-get update
 WORKDIR /opt/app
 COPY . .
 RUN npm install
+RUN npm run lint
 CMD ["npm", "start"]

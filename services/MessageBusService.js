@@ -29,59 +29,69 @@ async function init () {
  * @param {Object} event the event to post
  */
 async function postEvent (sourceServiceName, event) {
-  const message = helper.validateEvent(sourceServiceName, event)
+  // var result
 
-  if (event.type.startsWith('email.')) {
-    let placeholders
-    try {
-      placeholders = await PlaceholderService.getAllPlaceholders(event.type)
-    } catch (err) {
+  if (_.has(event, 'message')) {
+    const message = helper.validateEvent(sourceServiceName, event)
+
+    if (event.type.startsWith('email.')) {
+      let placeholders
+      try {
+        placeholders = await PlaceholderService.getAllPlaceholders(event.type)
+      } catch (err) {
+        throw createError.InternalServerError()
+      }
+
+      const keys = _.fromPairs(_.map(placeholders, o => [o, Joi.string().required().min(1)]))
+      const schema = Joi.object().keys({
+        data: Joi.object().keys(keys).required(),
+        recipients: Joi.array().items(Joi.string().email()).min(1).required(),
+        replyTo: Joi.string().email()
+      })
+      const { error } = Joi.validate(message, schema)
+      if (error) {
+        throw error
+      }
+    }
+
+    // Post old structure
+    const result = await producer.send({
+      topic: `${config.KAFKA_TOPIC_PREFIX}${event.type}`,
+      message: {
+        value: event.message
+      }
+    })
+    // Check if there is any error
+    const error = _.get(result, '[0].error')
+    if (error) {
+      if (error.code === 'UnknownTopicOrPartition') {
+        throw createError.BadRequest(`Unknown event type "${event.type}"`)
+      }
+
       throw createError.InternalServerError()
     }
+  } else if (_.has(event, 'payload')) {
+    helper.validateEventPayload(event)
 
-    const keys = _.fromPairs(_.map(placeholders, o => [o, Joi.string().required().min(1)]))
-    const schema = Joi.object().keys({
-      data: Joi.object().keys(keys).required(),
-      recipients: Joi.array().items(Joi.string().email()).min(1).required(),
-      replyTo: Joi.string().email()
+    // Post new structure
+    const result = await producer.send({
+      topic: event.topic,
+      message: {
+        value: JSON.stringify(event)
+      }
     })
-    const { error } = Joi.validate(message, schema)
+    // Check if there is any error
+    const error = _.get(result, '[0].error')
     if (error) {
-      throw error
+      if (error.code === 'UnknownTopicOrPartition') {
+        throw createError.BadRequest(`Unknown event type "${event.topic}"`)
+      }
+      throw createError.InternalServerError()
     }
-  }
-
-  // Post
-  const result = await producer.send({
-    topic: `${config.KAFKA_TOPIC_PREFIX}${event.type}`,
-    message: {
-      value: event.message
-    }
-  })
-
-  // Check if there is any error
-  const error = _.get(result, '[0].error')
-  if (error) {
-    if (error.code === 'UnknownTopicOrPartition') {
-      throw createError.BadRequest(`Unknown event type "${event.type}"`)
-    }
-
-    throw createError.InternalServerError()
+  } else {
+    throw createError.BadRequest(`Expecting either old (type-message) structure or new (mimetype-payload)`)
   }
 }
-
-postEvent.schema = Joi.object().keys({
-  sourceServiceName: Joi.string().required(),
-  event: Joi.object().keys({
-    type: Joi
-      .string()
-      .regex(/^([a-zA-Z0-9]+\.)+[a-zA-Z0-9]+$/)
-      .error(createError.BadRequest(
-        '"type" must be a fully qualified name - dot separated string'))
-      .required(),
-    message: Joi.string().required()
-  })
-})
 
 /**
  * Get all topic names from Kafka.
