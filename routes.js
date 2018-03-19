@@ -15,5 +15,6 @@ const wrap = fn => (...args) => fn(...args).catch(args[2])
 router.post('/events', jwtAuth(), wrap(controllers.EventController.create))
 router.get('/topics', jwtAuth(), wrap(controllers.TopicController.getAll))
 router.get('/health', wrap(controllers.HealthController.health))
+router.delete('/placeholders', jwtAuth(), wrap(controllers.PlaceholderController.clearAll))
 
 module.exports = router
