@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Routes
-app.use(config.API_CONTEXT_PATH, routes)
+app.use(`/${config.API_VERSION}/${config.API_CONTEXT_PATH}`, routes)
 
 // Error handler
 app.use((err, req, res, next) => {
