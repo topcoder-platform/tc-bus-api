@@ -4,6 +4,7 @@
 const {Router} = require('express')
 const requireDir = require('require-dir')
 const jwtAuth = require('tc-core-library-js').middleware.jwtAuthenticator
+const config = require('config')
 
 const router = Router()
 const controllers = requireDir('./controllers')
