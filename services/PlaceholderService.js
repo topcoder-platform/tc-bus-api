@@ -16,7 +16,7 @@ async function getAllPlaceholders (name) {
   const cachedData = cache.get(`placeholders-${name}`)
   if (cachedData == null) {
     const data = await request
-      .get(`${config.TC_EMAIL_SERVICE_URL}/templates/eventType/${name}`)
+      .get(`${config.TC_EMAIL_SERVICE_URL}/templates/${name}`)
       .set('accept', 'json')
       .set('authorization', `Bearer ${config.TC_EMAIL_SERVICE_TOKEN}`)
     const parsedData = JSON.parse(data.text)
