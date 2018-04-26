@@ -129,12 +129,10 @@ function signJwtToken (payload) {
 /**
  * Validate the event based on the source service, type, and message.
  *
- * @param {String} sourceServiceName the source service name
  * @param {Object} event the event
  */
-function validateEvent (sourceServiceName, event) {
+function validateEvent (event) {
   const schema = Joi.object().keys({
-    sourceServiceName: Joi.string().required(),
     event: Joi.object().keys({
       type: Joi
         .string()
@@ -146,7 +144,7 @@ function validateEvent (sourceServiceName, event) {
     })
   })
 
-  const { error } = Joi.validate({sourceServiceName, event}, schema)
+  const { error } = Joi.validate({event}, schema)
   if (error) {
     throw error
   }

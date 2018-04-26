@@ -16,5 +16,15 @@ module.exports = {
   ALLOWED_SERVICES: process.env.ALLOWED_SERVICES || ['project-service', 'message-service'],
   TC_EMAIL_SERVICE_URL: process.env.TC_EMAIL_SERVICE_URL,
   TC_EMAIL_SERVICE_TOKEN: process.env.TC_EMAIL_SERVICE_TOKEN,
-  TC_EMAIL_SERVICE_CACHE_PERIOD: process.env.TC_EMAIL_SERVICE_CACHE_PERIOD || (3600 * 1000)
+  TC_EMAIL_SERVICE_CACHE_PERIOD: process.env.TC_EMAIL_SERVICE_CACHE_PERIOD || (3600 * 1000),
+  
+  // Configuration for generating machine to machine auth0 token.
+  // The token will be used for calling another internal API.
+  auth0Url: process.env.auth0Url || 'https://topcoder-newauth.auth0.com/oauth/token',
+  auth0Audience: process.env.auth0Audience || 'https://www.topcoder.com',
+  // The token will be cached.
+  // We define the time period of the cached token.
+  tokenCacheTime: process.env.tokenCacheTime || 86400000,
+  auth0CliendId: process.env.auth0CliendId,
+  auth0CliendSecret: process.env.auth0CliendSecret,
 }
