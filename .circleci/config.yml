@@ -82,7 +82,7 @@ workflows:
       - "build-dev":
           filters:
             branches:
-              only: feature/m2mtoken-support
+              only: "feature/m2mtoken-support"
       - "build-prod":
           filters:
             branches:
