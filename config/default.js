@@ -20,11 +20,11 @@ module.exports = {
   
   // Configuration for generating machine to machine auth0 token.
   // The token will be used for calling another internal API.
-  auth0Url: process.env.auth0Url || '',
-  auth0Audience: process.env.auth0Audience || '',
+  auth0Url: process.env.AUTH0_URL || '',
+  auth0Audience: process.env.AUTH0_AUDIENCE || '',
   // The token will be cached.
   // We define the time period of the cached token.
-  tokenCacheTime: process.env.tokenCacheTime || 86400000,
-  auth0CliendId: process.env.auth0CliendId,
-  auth0CliendSecret: process.env.auth0CliendSecret,
+  tokenCacheTime: process.env.TOKEN_CACHE_TIME || 86400000,
+  AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
+  AUTH0_CLIENT_Secret: process.env.AUTH0_CLIENT_SECRET,
 }
