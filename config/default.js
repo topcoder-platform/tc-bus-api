@@ -20,8 +20,8 @@ module.exports = {
   
   // Configuration for generating machine to machine auth0 token.
   // The token will be used for calling another internal API.
-  auth0Url: process.env.auth0Url || 'https://topcoder-newauth.auth0.com/oauth/token',
-  auth0Audience: process.env.auth0Audience || 'https://www.topcoder.com',
+  auth0Url: process.env.auth0Url || '',
+  auth0Audience: process.env.auth0Audience || '',
   // The token will be cached.
   // We define the time period of the cached token.
   tokenCacheTime: process.env.tokenCacheTime || 86400000,
