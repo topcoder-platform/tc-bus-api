@@ -7,9 +7,8 @@ module.exports = {
   LOG_LEVEL: process.env.LOG_LEVEL || 'debug',
   CONTEXT_PATH: process.env.API_VERSION || '/eventbus/',
   PORT: process.env.PORT || '3000',
-  authSecret: process.env.JWT_TOKEN_SECRET,
-  authDomain: process.env.AUTH_DOMAIN,
-  validIssuers: process.env.VALID_ISSUERS ? process.env.VALID_ISSUERS.replace(/\\"/g, '') : null,
+  AUTH_SECRET: process.env.JWT_TOKEN_SECRET,
+  VALID_ISSUERS: process.env.VALID_ISSUERS ? process.env.VALID_ISSUERS.replace(/\\"/g, '') : null,
   JWT_TOKEN_SECRET: process.env.JWT_TOKEN_SECRET || '',
   JWT_TOKEN_EXPIRES_IN: process.env.JWT_TOKEN_EXPIRES_IN || '100 days',
   KAFKA_TOPIC_PREFIX: process.env.KAFKA_TOPIC_PREFIX || '',
@@ -20,11 +19,11 @@ module.exports = {
   
   // Configuration for generating machine to machine auth0 token.
   // The token will be used for calling another internal API.
-  auth0Url: process.env.AUTH0_URL || '',
-  auth0Audience: process.env.AUTH0_AUDIENCE || '',
+  AUTH0_URL: process.env.AUTH0_URL || '',
+  AUTH0_AUDIENCE: process.env.AUTH0_AUDIENCE || '',
   // The token will be cached.
   // We define the time period of the cached token.
-  tokenCacheTime: process.env.TOKEN_CACHE_TIME || 86400000,
+  TOKEN_CACHE_TIME: process.env.TOKEN_CACHE_TIME || 86400000,
   AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
   AUTH0_CLIENT_Secret: process.env.AUTH0_CLIENT_SECRET,
 }
