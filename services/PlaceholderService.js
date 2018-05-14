@@ -6,24 +6,32 @@ const Joi = require('joi')
 const config = require('config')
 const request = require('superagent')
 const cache = require('memory-cache')
+const tcCoreLibAuth = require('tc-core-library-js').auth
+const m2m = tcCoreLibAuth.m2m(config)
+
 
 /**
  * Get all email template placeholders name.
  *
  * @returns {Array} list with email template placeholders name
  */
-async function getAllPlaceholders (name) {
+async function getAllPlaceholders(name) {
   const cachedData = cache.get(`placeholders-${name}`)
   if (cachedData == null) {
-    const data = await request
-      .get(`${config.TC_EMAIL_SERVICE_URL}/templates/${name}`)
-      .set('accept', 'json')
-      .set('authorization', `Bearer ${config.TC_EMAIL_SERVICE_TOKEN}`)
-    const parsedData = JSON.parse(data.text)
+    try {
+      const token = await m2m.getMachineToken(config.AUTH0_CLIENT_ID, config.AUTH0_CLIENT_SECRET)
+      const data = await request
+        .get(`${config.TC_EMAIL_SERVICE_URL}/templates/${name}`)
+        .set('accept', 'json')
+        .set('authorization', `Bearer ${token}`)
+      const parsedData = JSON.parse(data.text)
 
-    cache.put(`placeholders-${name}`, parsedData, config.TC_EMAIL_SERVICE_CACHE_PERIOD)
+      cache.put(`placeholders-${name}`, parsedData, config.TC_EMAIL_SERVICE_CACHE_PERIOD)
 
-    return parsedData
+      return parsedData
+    } catch (err) {
+      console.log(`Error generating m2m token: ${err.message}`)
+    }
   }
 
   return cachedData
