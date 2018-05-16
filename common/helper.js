@@ -189,10 +189,20 @@ function validateEventPayload (event) {
   }
 }
 
+function verifyTokenScope(req, scope) {
+  const isMachineToken = _.get(req, 'authUser.isMachine', false);
+  const scopes = _.get(req, 'authUser.scopes', []);
+  if (isMachineToken && (_.indexOf(scopes, scope) >= 0)) {
+    return true;
+  }
+  throw createError.Unauthorized("Check your token scope.")
+}
+
 module.exports = {
   buildService,
   verifyJwtToken,
   signJwtToken,
   validateEvent,
-  validateEventPayload
+  validateEventPayload,
+  verifyTokenScope
 }
