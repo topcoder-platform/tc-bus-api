@@ -14,9 +14,8 @@ module.exports = {
   KAFKA_TOPIC_PREFIX: process.env.KAFKA_TOPIC_PREFIX || '',
   ALLOWED_SERVICES: process.env.ALLOWED_SERVICES || ['project-service', 'message-service'],
   TC_EMAIL_SERVICE_URL: process.env.TC_EMAIL_SERVICE_URL,
-  TC_EMAIL_SERVICE_TOKEN: process.env.TC_EMAIL_SERVICE_TOKEN,
   TC_EMAIL_SERVICE_CACHE_PERIOD: process.env.TC_EMAIL_SERVICE_CACHE_PERIOD || (3600 * 1000),
-  
+
   // Configuration for generating machine to machine auth0 token.
   // The token will be used for calling another internal API.
   AUTH0_URL: process.env.AUTH0_URL || '',
@@ -26,4 +25,8 @@ module.exports = {
   TOKEN_CACHE_TIME: process.env.TOKEN_CACHE_TIME || 86400000,
   AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
   AUTH0_CLIENT_Secret: process.env.AUTH0_CLIENT_SECRET,
+  SCOPES: {
+    "writeBusApi": "write:bus_api",
+    "readBusTopics": "read:bus_topics"
+  }
 }
