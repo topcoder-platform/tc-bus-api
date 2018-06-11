@@ -25,14 +25,13 @@ async function init () {
 /**
  * Post a new event to Kafka.
  *
- * @param {String} sourceServiceName the source service name
  * @param {Object} event the event to post
  */
-async function postEvent (sourceServiceName, event) {
+async function postEvent (event) {
   // var result
 
   if (_.has(event, 'message')) {
-    const message = helper.validateEvent(sourceServiceName, event)
+    const message = helper.validateEvent(event)
 
     if (event.type.startsWith('email.')) {
       let placeholders
