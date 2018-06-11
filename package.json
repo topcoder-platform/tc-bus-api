@@ -1,35 +1,20 @@
 {
-  "name": "bus-api",
-  "version": "1.0.0",
-  "description": "TopCoder Notifications - Bus API Server",
+  "name": "topcoder-meta-services-rest-api",
+  "version": "5.0.0",
+  "description": "REST API for Topcoder Meta Services.  This describes a service that can give information on other services existing on Topcoder.  Available service links can be listed by sending GET request. Also, each service can return links to further services in their responses.  ### Pagination   Requests that return multiple items will be paginated to 20 items by default. You can specify   further pages with the ```page``` parameter. You can also set a custom page   size up to 100 with the ```perPage``` parameter.    Pagination response data is included in http headers. By Default, the response header contains links with ```next```, ```last```, ```first```, ```prev``` resource links. ",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "lint": "standard --fix",
-    "generate-tokens": "node generate-tokens.js"
+    "prestart": "npm install",
+    "start": "node index.js"
   },
-  "engines": {
-    "node": "8.7.0"
-  },
-  "devDependencies": {
-    "standard": "^10.0.3"
-  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
   "dependencies": {
-    "body-parser": "^1.18.2",
-    "config": "^1.26.2",
-    "cors": "^2.8.4",
-    "express": "^4.16.1",
-    "get-parameter-names": "^0.3.0",
-    "http-errors": "^1.6.2",
-    "joi": "^11.1.1",
-    "jsonwebtoken": "^8.1.0",
-    "lodash": "^4.17.4",
-    "morgan": "^1.9.0",
-    "no-kafka": "^3.2.4",
-    "require-dir": "^0.3.2",
-    "tc-core-library-js": "appirio-tech/tc-core-library-js.git#v2.3",
-    "winston": "^2.4.0",
-    "memory-cache": "^0.2.0",
-    "superagent": "^3.8.2"
+    "connect": "^3.2.0",
+    "js-yaml": "^3.3.0",
+    "swagger-tools": "0.10.1"
   }
 }

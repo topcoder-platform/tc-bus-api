@@ -1,53 +1,44 @@
-/**
- * Initialize and start the express application.
- */
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const config = require('config')
-const morgan = require('morgan')
-const _ = require('lodash')
+'use strict';
 
-const logger = require('./common/logger')
-const routes = require('./routes')
-const MessageBusService = require('./services/MessageBusService')
+var fs = require('fs'),
+    path = require('path'),
+    http = require('http');
 
-process.env.NODE_ENV = (process.env.ENV === 'PROD') ? 'production' : 'development'
+var app = require('connect')();
+var swaggerTools = require('swagger-tools');
+var jsyaml = require('js-yaml');
+var serverPort = 8080;
 
-// Create app
-const app = express()
-app.use(cors())
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
+// swaggerRouter configuration
+var options = {
+  swaggerUi: path.join(__dirname, '/swagger.json'),
+  controllers: path.join(__dirname, './controllers'),
+  useStubs: process.env.NODE_ENV === 'development' // Conditionally turn on stubs (mock mode)
+};
 
-// Request logging
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'))
-} else if (process.env.NODE_ENV === 'production') {
-  app.use(morgan('common', {skip: (req, res) => res.statusCode < 400}))
-}
+// The Swagger document (require it, build it programmatically, fetch it from a URL, ...)
+var spec = fs.readFileSync(path.join(__dirname,'api/swagger.yaml'), 'utf8');
+var swaggerDoc = jsyaml.safeLoad(spec);
 
-// Routes
-app.use(config.CONTEXT_PATH, routes)
+// Initialize the Swagger middleware
+swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
-// Error handler
-app.use((err, req, res, next) => {
-  let status = err.status || 500
-  let message = err.message
-  if (err.isJoi) {
-    status = 400
-    message = _(err.details).map('message').join(', ')
-  } else if (status === 500) {
-    message = 'Internal server error'
-  }
-  res.status(status)
-  res.send({message})
-  logger.error(err)
-})
+  // Interpret Swagger resources and attach metadata to request - must be first in swagger-tools middleware chain
+  app.use(middleware.swaggerMetadata());
 
-// Start
-MessageBusService.init()
-  .then(() => {
-    app.listen(config.PORT, '0.0.0.0')
-    logger.info('Express server listening on port %d in %s mode', config.PORT, process.env.NODE_ENV)
-  })
+  // Validate Swagger requests
+  app.use(middleware.swaggerValidator());
+
+  // Route validated requests to appropriate controller
+  app.use(middleware.swaggerRouter(options));
+
+  // Serve the Swagger documents and Swagger UI
+  app.use(middleware.swaggerUi());
+
+  // Start the server
+  http.createServer(app).listen(serverPort, function () {
+    console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
+    console.log('Swagger-ui is available on http://localhost:%d/docs', serverPort);
+  });
+
+});

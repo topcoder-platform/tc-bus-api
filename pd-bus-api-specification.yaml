@@ -1,0 +1,1030 @@
+swagger: '2.0'
+info:
+  description: |
+    REST API for Topcoder Meta Services.
+
+    This describes a service that can give information on other services existing on Topcoder.
+
+    Available service links can be listed by sending GET request. Also, each service can return links to further services in their responses.
+
+    ### Pagination
+      Requests that return multiple items will be paginated to 20 items by default. You can specify
+      further pages with the ```page``` parameter. You can also set a custom page
+      size up to 100 with the ```perPage``` parameter.
+
+      Pagination response data is included in http headers. By Default, the response header contains links with ```next```, ```last```, ```first```, ```prev``` resource links.
+  version: '5.0.0'
+  title: Topcoder Meta Services REST API
+  termsOfService: 'http://topcoder.com/terms/'
+  contact:
+    url: 'http://www.topcoder.com/support'
+    email: support@topcoder.com
+
+host: api.topcoder.com
+basePath: /v5
+schemes:
+  - https
+
+produces:
+  - application/json
+consumes:
+  - application/json
+
+tags:
+  - name: service
+    description: Everything about service.
+  - name: Events
+    description: Everything about events.
+  - name: Topics
+    description: Everything about topics.
+  - name: Placeholders
+    description: Everything about placeholders.
+  - name: Healthchecks
+    description: Everything about health checks.
+
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    in: header
+    name: Authorization
+
+security:
+  - Bearer: []
+
+paths:
+  /bus/services:
+    get:
+      summary: Get all services.
+      description: |
+        Get all services. Link headers are sent back and they have rel set to prev, next, first, last and contain the relevant URL.
+      tags:
+        - service
+      operationId: getServices
+      parameters:
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/perPage'
+      responses:
+        200:
+          description: OK - The request was successful, the resources are returned.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ExtendedService'
+          headers:
+            X-Next-Page:
+              type: integer
+              description: The index of the next page
+            X-Page:
+              type: integer
+              description: The index of the current page (starting at 1)
+            X-Per-Page:
+              type: integer
+              description: The number of items to list per page
+            X-Prev-Page:
+              type: integer
+              description: The index of the previous page
+            X-Total:
+              type: integer
+              description: The total number of items
+            X-Total-Pages:
+              type: integer
+              description: The total number of pages
+            Link:
+              type: string
+              description: Pagination link header.
+        400:
+          $ref: '#/definitions/BadRequest'
+        401:
+          $ref: '#/definitions/Unauthorized'
+        403:
+          $ref: '#/definitions/Forbidden'
+        304:
+          $ref: '#/definitions/NotModified'
+        500:
+          $ref: '#/definitions/ServerError'
+
+    head:
+      summary: Get only response status and headers information but no response body for the endpoint.
+      description: |
+        Get response status and headers information for the endpoint. The Link header is provided in the header and they have rel set to prev, next, first, last and contain the relevant URL. It does not contain response body.
+      tags:
+        - service
+      operationId: headServices
+      parameters:
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/perPage'
+      responses:
+        200:
+          description: OK - The request was successful.
+          headers:
+            X-Next-Page:
+              type: integer
+              description: The index of the next page
+            X-Page:
+              type: integer
+              description: The index of the current page (starting at 1)
+            X-Per-Page:
+              type: integer
+              description: The number of items to list per page
+            X-Prev-Page:
+              type: integer
+              description: The index of the previous page
+            X-Total:
+              type: integer
+              description: The total number of items
+            X-Total-Pages:
+              type: integer
+              description: The total number of pages
+            Link:
+              type: string
+              description: Pagination link header.
+        400:
+          description: Bad Request - Request validation error, unable to process the request due to an error (e.g., malformed request syntax, size too large, invalid request message framing, or deceptive request routing).
+        401:
+          description: Unauthorized - Occurs when the JWT token provided is either expired or invalid.
+        403:
+          description: Forbidden - The request is not allowed.
+        304:
+          description: Not Modified - Indicates that the resource has not been modified since the last request.
+        500:
+          description: Server Error - While handling the request something went wrong server-side.
+
+    post:
+      summary: Create a service.
+      description: |
+        Create a new service.
+      tags:
+        - service
+      operationId: createService
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Service'
+      responses:
+        201:
+          $ref: '#/definitions/ExtendedService'
+        400:
+          $ref: '#/definitions/BadRequest'
+        401:
+          $ref: '#/definitions/Unauthorized'
+        403:
+          $ref: '#/definitions/Forbidden'
+        409:
+          $ref: '#/definitions/Conflict'
+        500:
+          $ref: '#/definitions/ServerError'
+
+  '/bus/services/{serviceName}':
+    get:
+      summary: Get the service.
+      description: |
+        Get the service by service name.
+      tags:
+        - service
+      operationId: getService
+      parameters:
+        - $ref: '#/parameters/serviceName'
+      responses:
+        200:
+          description: OK - The request was successful and the resource is returned.
+          schema:
+            $ref: '#/definitions/ExtendedService'
+        400:
+          $ref: '#/definitions/BadRequest'
+        401:
+          $ref: '#/definitions/Unauthorized'
+        403:
+          $ref: '#/definitions/Forbidden'
+        404:
+          $ref: '#/definitions/NotFound'
+        304:
+          $ref: '#/definitions/NotModified'
+        500:
+          $ref: '#/definitions/ServerError'
+
+    head:
+      summary: Get only response status and headers information but no response body for the endpoint.
+      description: |
+        Get response status and headers information for the endpoint. It does not contain response body.
+      tags:
+        - service
+      operationId: headService
+      parameters:
+        - $ref: '#/parameters/serviceName'
+      responses:
+        200:
+          description: OK - The request was successful.
+        400:
+          description: Bad Request - Request validation error, unable to process the request due to an error (e.g., malformed request syntax, size too large, invalid request message framing, or deceptive request routing).
+        401:
+          description: Unauthorized - Occurs when the JWT token provided is either expired or invalid.
+        403:
+          description: Forbidden - The request is not allowed.
+        404:
+          description: Not Found - The requested resource could not be found.
+        304:
+          description: Not Modified - Indicates that the resource has not been modified since the last request.
+        500:
+          description: Server Error - While handling the request something went wrong server-side.
+
+    put:
+      summary: Update the service.
+      description: |
+        Update the service by service name.
+      tags:
+        - service
+      operationId: updateService
+      parameters:
+        - $ref: '#/parameters/serviceName'
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/ExtendedService'
+      responses:
+        200:
+          description: OK - The request was successful and the updated resource is returned.
+          schema:
+            $ref: '#/definitions/ExtendedService'
+        400:
+          $ref: '#/definitions/BadRequest'
+        401:
+          $ref: '#/definitions/Unauthorized'
+        403:
+          $ref: '#/definitions/Forbidden'
+        404:
+          $ref: '#/definitions/NotFound'
+        500:
+          $ref: '#/definitions/ServerError'
+
+    patch:
+      summary: Partially update the service.
+      description: |
+        Allows to partially modify the service with the provided request parameters.
+      tags:
+        - service
+      operationId: patchService
+      parameters:
+        - $ref: '#/parameters/serviceName'
+        - in: body
+          name: body
+          required: true
+          description: |
+              The Service entity.
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The service name.
+              version:
+                type: string
+                description: The service version.
+              commitHash:
+                type: string
+                description: The service commit hash.
+              description:
+                type: string
+                description: The service description.
+              baseURL:
+                type: string
+                description: The service base URL.
+              payloads:
+                type: array
+                description: The service payloads
+                items:
+                  $ref: '#/definitions/Payload'
+            example:
+              name: 'ap-challenge-service'
+              version: '5.0.2'
+              commitHash: a20387acaf982370286b21eca2e40f4353b59e9c9
+      responses:
+        200:
+          description: OK - The request was successful and the updated resource is returned.
+          schema:
+            $ref: '#/definitions/ExtendedService'
+        400:
+          $ref: '#/definitions/BadRequest'
+        401:
+          $ref: '#/definitions/Unauthorized'
+        403:
+          $ref: '#/definitions/Forbidden'
+        404:
+          $ref: '#/definitions/NotFound'
+        500:
+          $ref: '#/definitions/ServerError'
+
+    delete:
+      summary: Delete the service.
+      description: |
+        Delete the service.
+      tags:
+        - service
+      operationId: deleteService
+      parameters:
+        - $ref: '#/parameters/serviceName'
+      responses:
+        204:
+          $ref: '#/definitions/NoContent'
+        400:
+          $ref: '#/definitions/BadRequest'
+        401:
+          $ref: '#/definitions/Unauthorized'
+        403:
+          $ref: '#/definitions/Forbidden'
+        404:
+          $ref: '#/definitions/NotFound'
+        500:
+          $ref: '#/definitions/ServerError'
+
+  '/bus/services/{serviceName}/payloads':
+    get:
+      summary: Search the service payloads.
+      description: |
+        Search payloads for the service.
+      tags:
+        - service
+      operationId: getServicePayloads
+      parameters:
+        - $ref: '#/parameters/serviceName'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/perPage'
+      responses:
+        200:
+          description: OK - The request was successful, the resources are returned.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Payload'
+          headers:
+            X-Next-Page:
+              type: integer
+              description: The index of the next page
+            X-Page:
+              type: integer
+              description: The index of the current page (starting at 1)
+            X-Per-Page:
+              type: integer
+              description: The number of items to list per page
+            X-Prev-Page:
+              type: integer
+              description: The index of the previous page
+            X-Total:
+              type: integer
+              description: The total number of items
+            X-Total-Pages:
+              type: integer
+              description: The total number of pages
+            Link:
+              type: string
+              description: Pagination link header.
+
+        400:
+          $ref: '#/definitions/BadRequest'
+        401:
+          $ref: '#/definitions/Unauthorized'
+        403:
+          $ref: '#/definitions/Forbidden'
+        404:
+          $ref: '#/definitions/NotFound'
+        304:
+          $ref: '#/definitions/NotModified'
+        500:
+          $ref: '#/definitions/ServerError'
+
+    head:
+      summary: Get only response status and headers information but no response body for the endpoint.
+      description: |
+        Get response status and headers information for the endpoint. The Link header is provided in the header and they have rel set to prev, next, first, last and contain the relevant URL. It does not contain response body.
+      tags:
+        - service
+      operationId: headServicePayloads
+      parameters:
+        - $ref: '#/parameters/serviceName'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/perPage'
+      responses:
+        200:
+          description: OK - The request was successful.
+          headers:
+            X-Next-Page:
+              type: integer
+              description: The index of the next page
+            X-Page:
+              type: integer
+              description: The index of the current page (starting at 1)
+            X-Per-Page:
+              type: integer
+              description: The number of items to list per page
+            X-Prev-Page:
+              type: integer
+              description: The index of the previous page
+            X-Total:
+              type: integer
+              description: The total number of items
+            X-Total-Pages:
+              type: integer
+              description: The total number of pages
+            Link:
+              type: string
+              description: Pagination link header.
+
+        400:
+          description: Bad Request - Request validation error, unable to process the request due to an error (e.g., malformed request syntax, size too large, invalid request message framing, or deceptive request routing).
+        401:
+          description: Unauthorized - Occurs when the JWT token provided is either expired or invalid.
+        403:
+          description: Forbidden - The request is not allowed.
+        404:
+          description: Not Found - The requested resource could not be found.
+        304:
+          description: Not Modified - Indicates that the resource has not been modified since the last request.
+        500:
+          description: Server Error - While handling the request something went wrong server-side.
+
+    post:
+      summary: Create the service payload.
+      description: |
+        Create the payload for the given service.
+      tags:
+        - service
+      operationId: createServicePayload
+      parameters:
+        - $ref: '#/parameters/serviceName'
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Payload'
+      responses:
+        201:
+          description: Created - The request was successful and the resource is created.
+          schema:
+            $ref: '#/definitions/Payload'
+        400:
+          $ref: '#/definitions/BadRequest'
+        401:
+          $ref: '#/definitions/Unauthorized'
+        403:
+          $ref: '#/definitions/Forbidden'
+        404:
+          $ref: '#/definitions/NotFound'
+        409:
+          $ref: '#/definitions/Conflict'
+        500:
+          $ref: '#/definitions/ServerError'
+
+  '/bus/services/{serviceName}/payloads/{payloadName}':
+    get:
+      summary: Get the service payload.
+      description: |
+        Get the payload for the given service.
+      tags:
+        - service
+      operationId: getServicePayload
+      parameters:
+        - $ref: '#/parameters/serviceName'
+        - $ref: '#/parameters/payloadName'
+      responses:
+        200:
+          description: OK - The request was successful and the resource is returned.
+          schema:
+            $ref: '#/definitions/Payload'
+        400:
+          $ref: '#/definitions/BadRequest'
+        401:
+          $ref: '#/definitions/Unauthorized'
+        403:
+          $ref: '#/definitions/Forbidden'
+        404:
+          $ref: '#/definitions/NotFound'
+        304:
+          $ref: '#/definitions/NotModified'
+        500:
+          $ref: '#/definitions/ServerError'
+
+    head:
+      summary: Get only response status and headers information but no response body for the endpoint.
+      description: |
+        Get response status and headers information for the endpoint. It does not contain response body.
+      tags:
+        - service
+      operationId: headServicePayload
+      parameters:
+        - $ref: '#/parameters/serviceName'
+        - $ref: '#/parameters/payloadName'
+      responses:
+        200:
+          description: OK - The request was successful.
+        400:
+          description: Bad Request - Request validation error, unable to process the request due to an error (e.g., malformed request syntax, size too large, invalid request message framing, or deceptive request routing).
+        401:
+          description: Unauthorized - Occurs when the JWT token provided is either expired or invalid.
+        403:
+          description: Forbidden - The request is not allowed.
+        404:
+          description: Not Found - The requested resource could not be found.
+        304:
+          description: Not Modified - Indicates that the resource has not been modified since the last request.
+        500:
+          description: Server Error - While handling the request something went wrong server-side.
+
+    put:
+      summary: Update the service payload.
+      description: |
+        Update the payload for the given service.
+      tags:
+        - service
+      operationId: updateServicePayload
+      parameters:
+        - $ref: '#/parameters/serviceName'
+        - $ref: '#/parameters/payloadName'
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Payload'
+      responses:
+        200:
+          description: OK - The request was successful and the resource is returned.
+          schema:
+            $ref: '#/definitions/Payload'
+        400:
+          $ref: '#/definitions/BadRequest'
+        401:
+          $ref: '#/definitions/Unauthorized'
+        403:
+          $ref: '#/definitions/Forbidden'
+        404:
+          $ref: '#/definitions/NotFound'
+        500:
+          $ref: '#/definitions/ServerError'
+
+    patch:
+      summary: Partially update the payload.
+      description: |
+        Allows to partially modify the payload with the provided request parameters.
+      tags:
+        - service
+      operationId: patchServicePayload
+      parameters:
+        - $ref: '#/parameters/serviceName'
+        - $ref: '#/parameters/payloadName'
+        - in: body
+          name: body
+          required: true
+          schema:
+            description: |
+              The payload entity.
+            type: object
+            properties:
+              id:
+                type: string
+                description: The payload name.
+              topics:
+                type: array
+                description: The list of topics for a payload.
+                items:
+                  type: string
+              payloadMimeType:
+                type: string
+                description: The payload mime type.
+              payloadFormat:
+                type: object
+                description: The payload format.
+            example:
+              name: createEvent
+              topics:
+                - 'notifications.kafka.queue.java.test'
+      responses:
+        200:
+          description: OK - The request was successful and the resource is returned.
+          schema:
+            $ref: '#/definitions/Payload'
+        400:
+          $ref: '#/definitions/BadRequest'
+        401:
+          $ref: '#/definitions/Unauthorized'
+        403:
+          $ref: '#/definitions/Forbidden'
+        404:
+          $ref: '#/definitions/NotFound'
+        500:
+          $ref: '#/definitions/ServerError'
+
+    delete:
+      summary: Delete the service payload.
+      description: |
+        Delete the payload for the given service.
+      tags:
+        - service
+      operationId: deleteServicePayload
+      parameters:
+        - $ref: '#/parameters/serviceName'
+        - $ref: '#/parameters/payloadName'
+      responses:
+        204:
+          $ref: '#/definitions/NoContent'
+        400:
+          $ref: '#/definitions/BadRequest'
+        401:
+          $ref: '#/definitions/Unauthorized'
+        403:
+          $ref: '#/definitions/Forbidden'
+        404:
+          $ref: '#/definitions/NotFound'
+        500:
+          $ref: '#/definitions/ServerError'
+
+  '/bus/events':
+    post:
+      tags:
+        - "Events"
+      summary: Post event to the message bus.
+      description: |
+        Post an event to the message bus.
+      operationId: postEvent
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/EventPayload'
+      responses:
+        202: # event is successfully sent to the message bus
+          $ref: '#/definitions/Accepted'
+        400: # missing or invalid request, unknown type
+          $ref: '#/definitions/BadRequest'
+        401: # missing, invalid, or expired token
+          $ref: '#/definitions/Unauthorized'
+        403: # the calling service is not allowed
+          $ref: '#/definitions/Forbidden'
+        409:
+          $ref: '#/definitions/Conflict'
+        500: # internal server error
+          $ref: '#/definitions/ServerError'
+
+  '/bus/topics':
+    get:
+      tags:
+        - "Topics"
+      summary: Get topics.
+      description: |
+        Get all topic names.
+      operationId: getTopics
+      responses:
+        200:
+          description: OK - The request was successful, the resources are returned.
+          schema:
+            type: array
+            items:
+              type: string
+            example:
+              - 'notifications.kafka.queue.java.test'
+              - 'example.kafka.queue.java.test'
+        400:
+          $ref: '#/definitions/BadRequest'
+        401: # missing, invalid, or expired token
+          $ref: '#/definitions/Unauthorized'
+        403: # the calling service is not allowed
+          $ref: '#/definitions/Forbidden'
+        500: # internal server error
+          $ref: '#/definitions/ServerError'
+
+    head:
+      summary: Get only response status and headers information but no response body for the endpoint.
+      description: |
+        Get response status and headers information for the endpoint. It does not contain response body.
+      tags:
+        - "Topics"
+      operationId: headTopics
+      responses:
+        200:
+          description: OK - The request was successful.
+        304:
+          description: Not Modified - Indicates that the resource has not been modified since the last request.
+        400:
+          description: Bad Request - Request validation error, unable to process the request due to an error (e.g., malformed request syntax, size too large, invalid request message framing, or deceptive request routing).
+        401:
+          description: Unauthorized - Occurs when the JWT token provided is either expired or invalid.
+        403:
+          description: Forbidden - The request is not allowed.
+        500:
+          description: Server Error - While handling the request something went wrong server-side.
+
+  '/bus/placeholders':
+    delete:
+      tags:
+        - "Placeholders"
+      summary: Clear placeholders cache.
+      description: |
+        Clear the cache for placeholder validation of email topics.
+      operationId: clearPlaceholdersCache
+      responses:
+        204:
+          $ref: '#/definitions/NoContent'
+        400:
+          $ref: '#/definitions/BadRequest'
+        401:
+          $ref: '#/definitions/Unauthorized'
+        403:
+          $ref: '#/definitions/Forbidden'
+        500:
+          $ref: '#/definitions/ServerError'
+
+  '/bus/health':
+    get:
+      summary: Check API is healthy.
+      description: |
+        Check API is healthy.
+      tags:
+        - Healthchecks
+      operationId: getHealth
+      security: []
+      responses:
+        200:
+          description: OK - The request was successful.
+          schema:
+            $ref: '#/definitions/HealthCheckStatus'
+        400:
+          $ref: '#/definitions/BadRequest'
+        404:
+          $ref: '#/definitions/NotFound'
+        304:
+          $ref: '#/definitions/NotModified'
+        500:
+          $ref: '#/definitions/ServerError'
+
+    head:
+      summary: |
+        Get only response status and headers information but no response body for the endpoint.
+      description: |
+        Get response status and headers information for the endpoint. It does not contain response body.
+      tags:
+        - Healthchecks
+      operationId: headHealth
+      security: []
+      responses:
+        200:
+          description: OK - The request was successful.
+        400:
+          description: Bad Request - Request validation error, unable to process the request due to an error (e.g., malformed request syntax, size too large, invalid request message framing, or deceptive request routing).
+        404:
+          description: Not Found - The requested resource could not be found.
+        304:
+          description: Not Modified - Indicates that the resource has not been modified since the last request.
+        500:
+          description: Server Error - While handling the request something went wrong server-side.
+
+
+definitions:
+  Service:
+    description: |
+      The Service entity.
+    required:
+      - name
+      - version
+      - commitHash
+      - description
+      - baseURL
+      - payloads
+    properties:
+      name:
+        type: string
+        description: The service name.
+      version:
+        type: string
+        description: The service version.
+      commitHash:
+        type: string
+        description: The service commit hash.
+      description:
+        type: string
+        description: The service description.
+      baseURL:
+        type: string
+        description: The service base URL.
+      payloads:
+        type: array
+        description: The service payloads
+        items:
+          $ref: '#/definitions/Payload'
+    example:
+      name: 'ap-challenge-service'
+      version: '5.0.1'
+      commitHash: b2037acaf982370286b21eca2e40f4353b59e9c9
+      description: TC Challenge API
+      baseURL: 'https://api.topcoder.com/v5/challenges'
+      payloads:
+        - name: createEvent
+          topics:
+            - 'notifications.kafka.queue.java.test'
+          payloadMimeType: 'application/json'
+          payloadFormat: {}
+
+  ExtendedService:
+    description: |
+      The extended service entity.
+    required:
+      - serviceId
+    allOf:     # Combines the BasicErrorModel and the inline model
+      - type: object
+        properties:
+          serviceId:
+            description: The service id.
+            type: string
+        example:
+          serviceId: 59e774dac301ea001249bb22
+      - $ref: '#/definitions/Service'
+
+  Payload:
+    description: |
+      The payload entity.
+    required:
+      - name
+      - topics
+      - payloadMimeType
+      - payloadFormat
+    properties:
+      id:
+        type: string
+        description: The payload name.
+      topics:
+        type: array
+        description: The list of topics for a payload.
+        items:
+          type: string
+      payloadMimeType:
+        type: string
+        description: The payload mime type.
+      payloadFormat:
+        type: object
+        description: The payload format.
+    example:
+      name: createEvent
+      topics:
+        - 'notifications.kafka.queue.java.test'
+      payloadMimeType: 'application/json'
+      payloadFormat: {}
+
+  EventPayload:
+    description: The event payload entity.
+    type: object
+    required:
+      - topic
+      - originator
+      - timestamp
+      - mime-type
+      - payload
+    properties:
+      topic:
+        type: string
+        pattern: '^([a-zA-Z0-9]+\.)+[a-zA-Z0-9]+$'
+        description: |
+          Topic name should be a dot separated fully qualified name i.e. domain.type.operation.
+        example: "notifications.action.email.project.topic.created"
+      originator:
+        type: string
+        description: |
+          Service repository name, from where message is published.
+        example: "tc-notifications"
+      timestamp:
+        type: string
+        format: date-time
+        description: |
+          Timestamp at which message is published. The date-time notation as defined by RFC 3339, section 5.6, for example, 2018-04-13T00:00:00Z
+        example: "2018-04-13T00:00:00Z"
+      mime-type:
+        type: string
+        description: |
+          Mime-type for 'payload'.
+        example: "application/json"
+      payload:
+        type: object
+        description: |
+          Actual payload depending on mime-type for consumer.
+        example:
+          data:
+            subject: "project topic created"
+            name: "name1"
+          recipients:
+            - "tc@topcoder.com"
+            - "tc2@topcoder.com"
+          replyTo: ""
+
+  HealthCheckStatus:
+    description: Health check response.
+    type: object
+    required:
+      - health
+    properties:
+      health:
+        description: Health check status.
+        type: string
+        default: 'ok'
+        example: 'ok'
+
+  Accepted:
+    description: Accepted - request has been accepted for processing, but the processing has not been completed.
+
+  NoContent:
+    description: No Content - The server has successfully fulfilled the request and that there is no additional content to send in the response payload body.
+
+  Unauthorized:
+    type: object
+    description: The unauthorized error entity.
+    properties:
+      message:
+        type: string
+        description: The unauthorized error message.
+        example: Unable to authenticate the user.
+
+  NotFound:
+    type: object
+    description: The not found error entity.
+    properties:
+      message:
+        type: string
+        description: The not found error message.
+        example: A resource with the name could not be found.
+
+  NotModified:
+    type: object
+    description: The not modified entity.
+    properties:
+      message:
+        type: string
+        description: The not modified error message.
+        example: There is no need to transfer a representation of the target resource because the request indicates that the client, which made the request conditional, already has a valid representation.
+
+  ServerError:
+    type: object
+    description: The server error entity.
+    properties:
+      message:
+        type: string
+        description: The server error message.
+        example: Something went wrong while processing your request. We’re sorry for the trouble. We’ve been notified of the error and will correct it as soon as possible. Please try your request again in a moment.
+
+  BadRequest:
+    type: object
+    description: The bad request error entity.
+    properties:
+      message:
+        type: string
+        description: The bad request error message.
+        example: Invalid input.
+
+  Forbidden:
+    type: object
+    description: The permission error entity.
+    properties:
+      message:
+        type: string
+        description: The forbidden error message.
+        example: You are not allowed to access the request.
+
+  Conflict:
+    type: object
+    description: The conflict error entity.
+    required:
+    - message
+    properties:
+      message:
+        type: string
+        description: The conflict error message.
+        example: Creating a resource with a name already exists.
+
+parameters:
+  page:
+    name: page
+    in: query
+    description: The page number.
+    required: false
+    type: integer
+    default: 1
+
+  perPage:
+    name: perPage
+    in: query
+    description: The number of items to list per page.
+    required: false
+    type: integer
+    default: 20
+    maximum: 100
+
+  serviceName:
+    name: serviceName
+    in: path
+    description: The service name.
+    required: true
+    type:  string
+
+  payloadName:
+    name: payloadName
+    in: path
+    description: The payload name.
+    required: true
+    type:  string
