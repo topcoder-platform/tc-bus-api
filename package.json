@@ -1,10 +1,12 @@
 {
   "name": "topcoder-meta-services-rest-api",
   "version": "5.0.0",
-  "description": "REST API for Topcoder Meta Services.  This describes a service that can give information on other services existing on Topcoder.  Available service links can be listed by sending GET request. Also, each service can return links to further services in their responses.  ### Pagination   Requests that return multiple items will be paginated to 20 items by default. You can specify   further pages with the ```page``` parameter. You can also set a custom page   size up to 100 with the ```perPage``` parameter.    Pagination response data is included in http headers. By Default, the response header contains links with ```next```, ```last```, ```first```, ```prev``` resource links. ",
+  "description": "REST API for Topcoder Meta Services.  This describes a service that can give information on other services existing on Topcoder.  Available service links can be listed by sending GET request. Also, each service can return links to further services in their responses.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "lint": "standard --fix",
+    "generate-tokens": "node generate-tokens.js"
   },
   "keywords": [
     "swagger"
@@ -12,11 +14,22 @@
   "license": "Unlicense",
   "private": true,
   "dependencies": {
+    "config": "^1.30.0",
     "connect": "^3.2.0",
+    "http-errors": "^1.6.3",
+    "joi": "^13.4.0",
     "js-yaml": "^3.3.0",
-    "swagger-tools": "0.10.1"
+    "lodash": "^4.17.10",
+    "memory-cache": "^0.2.0",
+    "no-kafka": "^3.2.10",
+    "superagent": "^3.8.3",
+    "swagger-tools": "0.10.1",
+    "tc-core-library-js": "appirio-tech/tc-core-library-js.git#v2.3"
   },
   "engines": {
     "node": "~8"
+  },
+  "devDependencies": {
+    "standard": "^11.0.1"
   }
 }
