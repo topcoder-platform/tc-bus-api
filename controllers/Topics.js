@@ -1,24 +1,27 @@
-'use strict';
+'use strict'
 
-var utils = require('../utils/writer.js');
-var Topics = require('../service/TopicsService');
+const utils = require('../utils/writer.js')
+const Topics = require('../service/TopicsService')
+const MessageBusService = require('../service/MessageBusService')
+const helper = require('../common/helper')
+const config = require('config')
 
 module.exports.getTopics = function getTopics (req, res, next) {
-  Topics.getTopics()
-    .then(function (response) {
-      utils.writeJson(res, response);
+  helper.verifyTokenScope(req, config.SCOPES.readBusTopics)
+  MessageBusService
+    .getAllTopics()
+    .then(topics => {
+      console.log(topics)
+      utils.writeJson(res, topics)
     })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
+}
 
 module.exports.headTopics = function headTopics (req, res, next) {
   Topics.headTopics()
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response)
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
+      utils.writeJson(res, response)
+    })
+}

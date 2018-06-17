@@ -1,14 +1,12 @@
-'use strict';
+'use strict'
 
-var utils = require('../utils/writer.js');
-var Placeholders = require('../service/PlaceholdersService');
+const Placeholders = require('../service/PlaceholdersService')
+const utils = require('../utils/writer.js')
 
 module.exports.clearPlaceholdersCache = function clearPlaceholdersCache (req, res, next) {
-  Placeholders.clearPlaceholdersCache()
-    .then(function (response) {
-      utils.writeJson(res, response);
+  Placeholders
+    .clearAllPlaceholders()
+    .then(() => {
+      utils.writeJson(res, null, 200)
     })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
+}

@@ -1,15 +1,15 @@
-'use strict';
+'use strict'
 
-var utils = require('../utils/writer.js');
-var Events = require('../service/EventsService');
+const MessageBusService = require('../service/MessageBusService')
+const helper = require('../common/helper')
+const config = require('config')
+const utils = require('../utils/writer.js')
 
 module.exports.postEvent = function postEvent (req, res, next) {
-  var body = req.swagger.params['body'].value;
-  Events.postEvent(body)
-    .then(function (response) {
-      utils.writeJson(res, response);
+  helper.verifyTokenScope(req, config.SCOPES.writeBusApi)
+  MessageBusService
+    .postEvent(req.body)
+    .then(() => {
+      utils.writeJson(res, null, 204)
     })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
+}
