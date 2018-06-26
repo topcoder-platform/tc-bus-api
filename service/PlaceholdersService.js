@@ -9,13 +9,12 @@ const cache = require('memory-cache')
 const tcCoreLibAuth = require('tc-core-library-js').auth
 const m2m = tcCoreLibAuth.m2m(config)
 
-
 /**
  * Get all email template placeholders name.
  *
  * @returns {Array} list with email template placeholders name
  */
-async function getAllPlaceholders(name) {
+async function getAllPlaceholders (name) {
   const cachedData = cache.get(`placeholders-${name}`)
   if (cachedData == null) {
     try {
