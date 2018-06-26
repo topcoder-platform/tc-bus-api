@@ -79,7 +79,6 @@ The other configurations can be changed in `config/default.js` or by setting env
 - `ALLOWED_SERVICES` the allowed calling services
 - `JWT_TOKEN_SECRET` the secret to sign JWT tokens
 - `JWT_TOKEN_EXPIRES_IN` the JWT token expiration
-- `KAFKA_TOPIC_PREFIX` the prefix of all topics in Kafka
 - `TC_EMAIL_URL` the email service URL (http://localhost:4001, if deployed locally)
 - `TC_EMAIL_TOKEN` the email service authentication token (see tc-email README for details **link should be added later**)
 - `TC_EMAIL_CACHE_PERIOD` the period to cache template placeholders from email service (60 min default)
