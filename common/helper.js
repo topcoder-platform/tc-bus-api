@@ -190,7 +190,7 @@ function validateEventPayload (event) {
 }
 
 function verifyTokenScope (req, scope) {
-  const isMachineToken = _.get(req, 'authUser.isMachine', false)
+  const isMachineToken = _.get(req.swagger.params, 'authUser.isMachine', false)
   const scopes = _.get(req, 'authUser.scopes', [])
   if (isMachineToken && !(_.indexOf(scopes, scope) >= 0)) {
     throw createError.Unauthorized('Check your token scope.')
