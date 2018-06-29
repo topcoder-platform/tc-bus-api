@@ -82,7 +82,7 @@ workflows:
       - "build-dev":
           filters:
             branches:
-              only: ['dev', 'v5']
+              only: ['dev']
       - "build-prod":
           filters:
             branches:
