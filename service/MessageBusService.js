@@ -9,7 +9,7 @@ const Kafka = require('no-kafka')
 
 const helper = require('../common/helper')
 
-const PlaceholderService = require('./PlaceholderService')
+const PlaceholderService = require('./PlaceholdersService')
 
 // Create a new producer instance with KAFKA_URL, KAFKA_CLIENT_CERT, and
 // KAFKA_CLIENT_CERT_KEY environment variables
@@ -28,8 +28,6 @@ async function init () {
  * @param {Object} event the event to post
  */
 async function postEvent (event) {
-  // var result
-
   if (_.has(event, 'message')) {
     const message = helper.validateEvent(event)
 
