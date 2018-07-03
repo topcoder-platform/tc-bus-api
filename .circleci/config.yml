@@ -82,7 +82,7 @@ workflows:
       - "build-dev":
           filters:
             branches:
-              only: ['dev', 'hotfix/oldBusFormatCodeCleanup']
+              only: ['dev']
       - "build-prod":
           filters:
             branches:
