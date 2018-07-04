@@ -2,14 +2,10 @@
  * The Message Bus service provides operations to the remote Kafka.
  */
 const createError = require('http-errors')
-const Joi = require('joi')
 const _ = require('lodash')
-const config = require('config')
 const Kafka = require('no-kafka')
 
 const helper = require('../common/helper')
-
-const PlaceholderService = require('./PlaceholdersService')
 
 // Create a new producer instance with KAFKA_URL, KAFKA_CLIENT_CERT, and
 // KAFKA_CLIENT_CERT_KEY environment variables
@@ -28,46 +24,9 @@ async function init () {
  * @param {Object} event the event to post
  */
 async function postEvent (event) {
-  if (_.has(event, 'message')) {
-    const message = helper.validateEvent(event)
+  // var result
 
-    if (event.type.startsWith('email.')) {
-      let placeholders
-      try {
-        placeholders = await PlaceholderService.getAllPlaceholders(event.type)
-      } catch (err) {
-        throw createError.InternalServerError()
-      }
-
-      const keys = _.fromPairs(_.map(placeholders, o => [o, Joi.string().required().min(1)]))
-      const schema = Joi.object().keys({
-        data: Joi.object().keys(keys).required(),
-        recipients: Joi.array().items(Joi.string().email()).min(1).required(),
-        replyTo: Joi.string().email()
-      })
-      const { error } = Joi.validate(message, schema)
-      if (error) {
-        throw error
-      }
-    }
-
-    // Post old structure
-    const result = await producer.send({
-      topic: `${config.KAFKA_TOPIC_PREFIX}${event.type}`,
-      message: {
-        value: event.message
-      }
-    })
-    // Check if there is any error
-    const error = _.get(result, '[0].error')
-    if (error) {
-      if (error.code === 'UnknownTopicOrPartition') {
-        throw createError.BadRequest(`Unknown event type "${event.type}"`)
-      }
-
-      throw createError.InternalServerError()
-    }
-  } else if (_.has(event, 'payload')) {
+  if (_.has(event, 'payload')) {
     helper.validateEventPayload(event)
 
     // Post new structure
@@ -86,7 +45,7 @@ async function postEvent (event) {
       throw createError.InternalServerError()
     }
   } else {
-    throw createError.BadRequest(`Expecting either old (type-message) structure or new (mimetype-payload)`)
+    throw createError.BadRequest(`Expecting new (mimetype-payload) structure`)
   }
 }
 
