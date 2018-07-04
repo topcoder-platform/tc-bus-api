@@ -11,6 +11,7 @@ const jsyaml = require('js-yaml')
 
 const MessageBusService = require('./service/MessageBusService')
 const logger = require('./common/logger')
+const AuthService = require('./service/AuthService')
 
 const serverPort = config.PORT
 
@@ -31,13 +32,9 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   app.use(middleware.swaggerMetadata())
 
   // Authentication
-  // app.use(middleware.swaggerSecurity({
-  //   Bearer: (req, authOrSecDef, scopesOrApiKey, callback) => {
-  //     // authOrSecDef: { type: 'apiKey', name: 'Authorization', in: 'header' }
-  //     // scopesOrApiKey: Bearer test (What I passed in Authorization header)
-  //     callback()
-  //   }
-  // }))
+  app.use(middleware.swaggerSecurity({
+    Bearer: AuthService()
+  }))
 
   // Validate Swagger requests
   app.use(middleware.swaggerValidator())
