@@ -11,7 +11,6 @@ module.exports = {
   VALID_ISSUERS: process.env.VALID_ISSUERS ? process.env.VALID_ISSUERS.replace(/\\"/g, '') : null,
   JWT_TOKEN_SECRET: process.env.JWT_TOKEN_SECRET || '',
   JWT_TOKEN_EXPIRES_IN: process.env.JWT_TOKEN_EXPIRES_IN || '100 days',
-  KAFKA_TOPIC_PREFIX: process.env.KAFKA_TOPIC_PREFIX || '',
   ALLOWED_SERVICES: process.env.ALLOWED_SERVICES || ['project-service', 'message-service'],
   TC_EMAIL_SERVICE_URL: process.env.TC_EMAIL_SERVICE_URL,
   TC_EMAIL_SERVICE_CACHE_PERIOD: process.env.TC_EMAIL_SERVICE_CACHE_PERIOD || (3600 * 1000),
