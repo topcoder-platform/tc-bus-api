@@ -117,16 +117,6 @@ function verifyJwtToken (token) {
 }
 
 /**
- * Sign the payload and get the JWT token.
- *
- * @param {Object} payload the payload to be sign
- * @returns {String} the token
- */
-function signJwtToken (payload) {
-  return jwt.sign(payload, config.JWT_TOKEN_SECRET, {expiresIn: config.JWT_TOKEN_EXPIRES_IN})
-}
-
-/**
  * Validate the event payload
  *
  * @param {Object} event the event payload
@@ -164,7 +154,6 @@ function verifyTokenScope (req, scope) {
 module.exports = {
   buildService,
   verifyJwtToken,
-  signJwtToken,
   validateEventPayload,
   verifyTokenScope
 }

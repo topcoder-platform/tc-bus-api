@@ -36,15 +36,12 @@ AWS_ECS_CONTAINER_NAME=$(eval "echo \$${ENV}_AWS_ECS_CONTAINER_NAME")
 LOG_LEVEL=$(eval "echo \$${ENV}_LOG_LEVEL")
 JWT_TOKEN_SECRET=$(eval "echo \$${ENV}_JWT_TOKEN_SECRET")
 API_VERSION=$(eval "echo \$${ENV}_API_VERSION")
-ALLOWED_SERVICES=$(eval "echo \$${ENV}_ALLOWED_SERVICES")
-JWT_TOKEN_EXPIRES_IN=$(eval "echo \$${ENV}_JWT_TOKEN_EXPIRES_IN")
 PORT=$(eval "echo \$${ENV}_NODE_PORT")
 
 KAFKA_URL=$(eval "echo \$${ENV}_KAFKA_URL")
 KAFKA_CLIENT_CERT=$(eval "echo \$${ENV}_KAFKA_CLIENT_CERT")
 KAFKA_CLIENT_CERT_KEY=$(eval "echo \$${ENV}_KAFKA_CLIENT_CERT_KEY")
 
-AUTH_DOMAIN=$(eval "echo \$${ENV}_AUTH_DOMAIN")
 VALID_ISSUERS=$(eval "echo \$${ENV}_VALID_ISSUERS")
 
 TC_EMAIL_SERVICE_URL=$(eval "echo \$${ENV}_TC_EMAIL_SERVICE_URL")
@@ -124,23 +121,11 @@ make_task_def(){
 								"value": "%s"
 						},
 						{
-								"name": "ALLOWED_SERVICES",
-								"value": "%s"
-						},
-						{
-								"name": "JWT_TOKEN_EXPIRES_IN",
-								"value": "%s"
-						},
-						{
 								"name": "API_VERSION",
 								"value": "%s"
 						},
 						{
 								"name": "PORT",
-								"value": "%s"
-						},
-												{
-								"name": "AUTH_DOMAIN",
 								"value": "%s"
 						},
 						{
@@ -190,7 +175,7 @@ make_task_def(){
 		}
 	]'
 
-	task_def=$(printf "$task_template" $AWS_ECS_CONTAINER_NAME $AWS_ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $ENV $KAFKA_URL "$KAFKA_CLIENT_CERT" "$KAFKA_CLIENT_CERT_KEY" $LOG_LEVEL $JWT_TOKEN_SECRET "$ALLOWED_SERVICES" $JWT_TOKEN_EXPIRES_IN "$API_VERSION" $PORT "$AUTH_DOMAIN" "$VALID_ISSUERS" $TC_EMAIL_SERVICE_URL "$AUTH0_URL" "$AUTH0_AUDIENCE" $AUTH0_CLIENT_ID "$AUTH0_CLIENT_SECRET" $TOKEN_CACHE_TIME $AWS_ECS_CLUSTER $AWS_REGION $AWS_ECS_CLUSTER $ENV)
+	task_def=$(printf "$task_template" $AWS_ECS_CONTAINER_NAME $AWS_ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $ENV $KAFKA_URL "$KAFKA_CLIENT_CERT" "$KAFKA_CLIENT_CERT_KEY" $LOG_LEVEL $JWT_TOKEN_SECRET "$API_VERSION" $PORT "$VALID_ISSUERS" $TC_EMAIL_SERVICE_URL "$AUTH0_URL" "$AUTH0_AUDIENCE" $AUTH0_CLIENT_ID "$AUTH0_CLIENT_SECRET" $TOKEN_CACHE_TIME $AWS_ECS_CLUSTER $AWS_REGION $AWS_ECS_CLUSTER $ENV)
 }
 
 register_definition() {

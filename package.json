@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "lint": "standard --fix",
-    "generate-tokens": "node generate-tokens.js"
+    "lint": "standard --fix"
   },
   "keywords": [
     "swagger"
@@ -24,8 +23,8 @@
     "memory-cache": "^0.2.0",
     "no-kafka": "^3.2.10",
     "superagent": "^3.8.3",
-    "swagger-tools": "0.10.1",
-    "tc-core-library-js": "appirio-tech/tc-core-library-js.git#v2.3",
+    "swagger-tools": "^0.10.4",
+    "tc-core-library-js": "appirio-tech/tc-core-library-js.git#v2.4",
     "winston": "^3.0.0"
   },
   "engines": {

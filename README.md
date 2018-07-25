@@ -80,9 +80,7 @@ The other configurations can be changed in `config/default.js` or by setting env
 - `LOG_LEVEL` the logging level, `error` or `debug`
 - `PORT` the port on that app listens
 - `API_VERSION` the api version
-- `ALLOWED_SERVICES` the allowed calling services
 - `JWT_TOKEN_SECRET` the secret to sign JWT tokens
-- `JWT_TOKEN_EXPIRES_IN` the JWT token expiration
 - `TC_EMAIL_URL` the email service URL (http://localhost:4001, if deployed locally)
 - `TC_EMAIL_TOKEN` the email service authentication token (see tc-email README for details **link should be added later**)
 - `TC_EMAIL_CACHE_PERIOD` the period to cache template placeholders from email service (60 min default)
@@ -94,14 +92,6 @@ To deploy the server locally, run:
 ```bash
 npm install
 npm start
-```
-
-## Generate JWT Tokens:
-
-To generate JWT Tokens for allowed services, run:
-
-```bash
-npm run generate-tokens
 ```
 
 To view the Swagger UI interface visit `http://localhost:3000/docs`
