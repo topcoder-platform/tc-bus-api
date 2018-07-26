@@ -39,6 +39,7 @@ async function postEvent (event) {
     // Check if there is any error
     const error = _.get(result, '[0].error')
     if (error) {
+      console.log(JSON.stringify(error))
       if (error.code === 'UnknownTopicOrPartition') {
         throw createError.BadRequest(`Unknown event type "${event.topic}"`)
       }
