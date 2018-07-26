@@ -13,7 +13,7 @@ AWS_REGION=$(eval "echo \$${ENV}_AWS_REGION")
 AWS_ACCESS_KEY_ID=$(eval "echo \$${ENV}_AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY=$(eval "echo \$${ENV}_AWS_SECRET_ACCESS_KEY")
 AWS_ACCOUNT_ID=$(eval "echo \$${ENV}_AWS_ACCOUNT_ID")
-AWS_REPOSITORY=$(eval "echo \$${ENV}_AWS_REPOSITORY") 
+AWS_REPOSITORY=$(eval "echo \$${ENV}_AWS_REPOSITORY")
 
 
 # Builds Docker image of the app.

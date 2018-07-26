@@ -1,35 +1,36 @@
 {
-  "name": "bus-api",
-  "version": "1.0.0",
-  "description": "TopCoder Notifications - Bus API Server",
+  "name": "topcoder-meta-services-rest-api",
+  "version": "5.0.0",
+  "description": "REST API for Topcoder Meta Services.  This describes a service that can give information on other services existing on Topcoder.  Available service links can be listed by sending GET request. Also, each service can return links to further services in their responses.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "lint": "standard --fix",
-    "generate-tokens": "node generate-tokens.js"
+    "lint": "standard --fix"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "config": "^1.30.0",
+    "connect": "^3.2.0",
+    "get-parameter-names": "^0.3.0",
+    "http-errors": "^1.6.3",
+    "joi": "^13.4.0",
+    "js-yaml": "^3.3.0",
+    "lodash": "^4.17.10",
+    "memory-cache": "^0.2.0",
+    "no-kafka": "^3.2.10",
+    "superagent": "^3.8.3",
+    "swagger-tools": "^0.10.4",
+    "tc-core-library-js": "appirio-tech/tc-core-library-js.git#v2.4",
+    "winston": "^3.0.0"
   },
   "engines": {
-    "node": "8.7.0"
+    "node": "~8"
   },
   "devDependencies": {
-    "standard": "^10.0.3"
-  },
-  "dependencies": {
-    "body-parser": "^1.18.2",
-    "config": "^1.26.2",
-    "cors": "^2.8.4",
-    "express": "^4.16.1",
-    "get-parameter-names": "^0.3.0",
-    "http-errors": "^1.6.2",
-    "joi": "^11.1.1",
-    "jsonwebtoken": "^8.1.0",
-    "lodash": "^4.17.4",
-    "morgan": "^1.9.0",
-    "no-kafka": "^3.2.4",
-    "require-dir": "^0.3.2",
-    "tc-core-library-js": "appirio-tech/tc-core-library-js.git#v2.3",
-    "winston": "^2.4.0",
-    "memory-cache": "^0.2.0",
-    "superagent": "^3.8.2"
+    "standard": "^11.0.1"
   }
 }
