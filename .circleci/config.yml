@@ -1,78 +1,72 @@
 version: 2
+defaults: &defaults
+    docker:
+      - image: docker:17.06.1-ce-git
+install_dependency: &install_dependency
+          name: Installation of build and deployment dependencies.
+          command: |
+            apk update
+            apk add --no-cache bash curl
+            apk upgrade
+            apk add --no-cache jq py-pip sudo
+            sudo pip install awscli --upgrade
+install_deploysuite: &install_deploysuite
+          name: Installation of install_deploysuite.
+          command: |
+            git clone --branch v1.3 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
+            cp ./../buildscript/master_deploy.sh .
+            cp ./../buildscript/buildenv.sh .
+            cp ./../buildscript/awsconfiguration.sh .
+restore_cache_settings_for_build: &restore_cache_settings_for_build
+  key: docker-tc-bus-api-{{ checksum "package-lock.json" }}
 
+save_cache_settings: &save_cache_settings
+  key: docker-tc-bus-api-{{ checksum "package-lock.json" }}
+  paths:
+    - node_modules
+
+run_build: &run_build
+          name: Build of Docker image
+          command: ./build.sh
 jobs:
   # Build & Deploy against development backend rer
   "build-dev":
-    docker:
-      - image: docker:17.06.1-ce-git
+    <<: *defaults
     steps:
-      # Initialization.
       - checkout
       - setup_remote_docker
-      - run:
-          name: Installation of build dependencies.
-          command: apk add --no-cache bash
-
-      # Restoration of node_modules from cache.
-      - restore_cache:
-          key: docker-tc-bus-api-{{ checksum "package-lock.json" }}
-
-      # Build of Docker image.
-      - run:
-          name: Build of Docker image
-          command: ./build.sh DEV
-
-      # Caching node modules.
-      - save_cache:
-          key: docker-tc-bus-api-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
-
-      # Deployment.
-      - run:
-          name: Installing AWS client
-          command: |
-            apk add --no-cache jq py-pip sudo
-            sudo pip install awscli --upgrade
-
+      - run: *install_dependency
+      - run: *install_deploysuite
+      - restore_cache: *restore_cache_settings_for_build
+      - run: *run_build
+      - save_cache: *save_cache_settings
       - deploy:
-          command: ./deploy.sh DEV $CIRCLE_SHA1
+          command: |
+            ./awsconfiguration.sh DEV
+            source awsenvconf
+            ./buildenv.sh -e DEV -b dev-tc-bus-api-deployvar
+            source buildenvvar
+            ./master_deploy.sh -d ECS -e DEV -t latest -s dev-global-appvar,dev-tc-bus-api-appvar -i tc-bus-api
+            #./deploy.sh DEV $CIRCLE_SHA1
 
   "build-prod":
-    docker:
-      - image: docker:17.06.1-ce-git
+    <<: *defaults
     steps:
-      # Initialization.
       - checkout
       - setup_remote_docker
-      - run:
-          name: Installation of build dependencies.
-          command: apk add --no-cache bash
-
-      # Restoration of node_modules from cache.
-      - restore_cache:
-          key: docker-tc-bus-api-{{ checksum "package-lock.json" }}
-
-      # Build of Docker image.
-      - run:
-          name: Build of Docker image
-          command: ./build.sh PROD
-
-      # Caching node modules.
-      - save_cache:
-          key: docker-tc-bus-api-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
-
-      # Deployment.
-      - run:
-          name: Installing AWS client
-          command: |
-            apk add --no-cache jq py-pip sudo
-            sudo pip install awscli --upgrade
-
+      - run: *install_dependency
+      - run: *install_deploysuite
+      - restore_cache: *restore_cache_settings_for_build
+      - run: *run_build
+      - save_cache: *save_cache_settings
       - deploy:
-          command: ./deploy.sh PROD $CIRCLE_SHA1
+          command: |
+            ./awsconfiguration.sh PROD
+            source awsenvconf
+            ./buildenv.sh -e PROD -b prod-tc-bus-api-deployvar
+            source buildenvvar
+            ./master_deploy.sh -d ECS -e PROD -t latest -s prod-global-appvar,prod-tc-bus-api-appvar -i tc-bus-api
+            #./deploy.sh PROD $CIRCLE_SHA1
 
 workflows:
   version: 2
@@ -80,10 +74,12 @@ workflows:
     jobs:
       # Development builds are executed on "develop" branch only.
       - "build-dev":
+          context : org-global
           filters:
             branches:
               only: ['dev']
       - "build-prod":
+          context : org-global
           filters:
             branches:
               only: master
