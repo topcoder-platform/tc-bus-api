@@ -6,6 +6,7 @@ const http = require('http')
 const config = require('config')
 
 const app = require('connect')()
+const bodyParser = require('body-parser')
 const swaggerTools = require('swagger-tools')
 const jsyaml = require('js-yaml')
 
@@ -25,6 +26,10 @@ const options = {
 // The Swagger document (require it, build it programmatically, fetch it from a URL, ...)
 const spec = fs.readFileSync(path.join(__dirname, 'api/swagger.yaml'), 'utf8')
 const swaggerDoc = jsyaml.safeLoad(spec)
+
+// Extending payload size
+app.use(bodyParser.json({limit: '10mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
 
 // Initialize the Swagger middleware
 swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
