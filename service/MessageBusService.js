@@ -6,6 +6,7 @@ const _ = require('lodash')
 const Kafka = require('no-kafka')
 
 const helper = require('../common/helper')
+const tracer = require('../common/tracer')
 
 // Create a new producer instance with KAFKA_URL, KAFKA_CLIENT_CERT, and
 // KAFKA_CLIENT_CERT_KEY environment variables
@@ -22,30 +23,34 @@ async function init () {
  * Post a new event to Kafka.
  *
  * @param {Object} event the event to post
+ * @param {Object} parentSpan the parent Span object
  */
-async function postEvent (event) {
-  // var result
+async function postEvent (event, parentSpan) {
+  const childSpan = tracer.startChildSpans('MessageBusService.postEvent', parentSpan)
+  try {
+    if (_.has(event, 'payload')) {
+      helper.validateEventPayload(event)
 
-  if (_.has(event, 'payload')) {
-    helper.validateEventPayload(event)
-
-    // Post new structure
-    const result = await producer.send({
-      topic: event.topic,
-      message: {
-        value: JSON.stringify(event)
+      // Post new structure
+      const result = await producer.send({
+        topic: event.topic,
+        message: {
+          value: JSON.stringify(event)
+        }
+      })
+      // Check if there is any error
+      const error = _.get(result, '[0].error')
+      if (error) {
+        if (error.code === 'UnknownTopicOrPartition') {
+          throw createError.BadRequest(`Unknown event type "${event.topic}"`)
+        }
+        throw createError.InternalServerError()
       }
-    })
-    // Check if there is any error
-    const error = _.get(result, '[0].error')
-    if (error) {
-      if (error.code === 'UnknownTopicOrPartition') {
-        throw createError.BadRequest(`Unknown event type "${event.topic}"`)
-      }
-      throw createError.InternalServerError()
+    } else {
+      throw createError.BadRequest(`Expecting new (mimetype-payload) structure`)
     }
-  } else {
-    throw createError.BadRequest(`Expecting new (mimetype-payload) structure`)
+  } finally {
+    childSpan.finish()
   }
 }
 
@@ -53,14 +58,21 @@ async function postEvent (event) {
  * Get all topic names from Kafka.
  *
  * @returns {Array} the topic names
+ * @param {Object} parentSpan the parent Span object
  */
-async function getAllTopics () {
-  // Update the metadata from Kafka to make sure
-  // the no-kafka client has the latest info
-  await producer.client.updateMetadata()
+async function getAllTopics (parentSpan) {
+  const childSpan = tracer.startChildSpans('MessageBusService.getAllTopics', parentSpan)
 
-  // Get the topic names
-  return _.keys(producer.client.topicMetadata)
+  try {
+    // Update the metadata from Kafka to make sure
+    // the no-kafka client has the latest info
+    await producer.client.updateMetadata()
+
+    // Get the topic names
+    return _.keys(producer.client.topicMetadata)
+  } finally {
+    childSpan.finish()
+  }
 }
 
 module.exports = {

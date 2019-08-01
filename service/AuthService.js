@@ -1,6 +1,7 @@
 const config = require('config')
 const { verifier } = require('tc-core-library-js').auth
 const _ = require('lodash')
+const helper = require('../common/helper')
 
 const NOT_AUTHORIZED = 401
 
@@ -25,6 +26,7 @@ module.exports = function () {
   let authVerifier = verifier(validIssuers)
 
   return function (req, authOrSecDef, scopesOrApiKey, callback) {
+    req.span = helper.createSpan(`${req.swagger.operation.operationId}Request`, req.method, req.originalUrl, req.body)
     if (!!scopesOrApiKey && scopesOrApiKey.indexOf('Bearer') === 0) {
       const token = scopesOrApiKey.split('Bearer ')[1]
 

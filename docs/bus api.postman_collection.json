@@ -1,0 +1,1107 @@
+{
+	"info": {
+		"_postman_id": "76532b08-ef4e-41d5-a30b-fec59e41d07e",
+		"name": "bus api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get services",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/services",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "head services",
+			"request": {
+				"method": "HEAD",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/services",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post service",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"ap-challenge-service\",\n  \"version\": \"5.0.1\",\n  \"commitHash\": \"b2037acaf982370286b21eca2e40f4353b59e9c9\",\n  \"description\": \"TC Challenge API\",\n  \"baseURL\": \"https://api.topcoder.com/v5/challenges\",\n  \"payloads\": [\n    {\n      \"name\": \"createEvent\",\n      \"topics\": [\n        \"notifications.kafka.queue.java.test\"\n      ],\n      \"payloadMimeType\": \"application/json\",\n      \"payloadFormat\": {}\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "{{URL}}/bus/services",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get service",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/services/test",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "head service",
+			"request": {
+				"method": "HEAD",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/services/test",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post service",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"ap-challenge-service\",\n  \"version\": \"5.0.1\",\n  \"commitHash\": \"b2037acaf982370286b21eca2e40f4353b59e9c9\",\n  \"description\": \"TC Challenge API\",\n  \"baseURL\": \"https://api.topcoder.com/v5/challenges\",\n  \"payloads\": [\n    {\n      \"name\": \"createEvent\",\n      \"topics\": [\n        \"notifications.kafka.queue.java.test\"\n      ],\n      \"payloadMimeType\": \"application/json\",\n      \"payloadFormat\": {}\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "{{URL}}/bus/services/test",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete service",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/services/test",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patch bus service",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"ap-challenge-service\",\n  \"version\": \"5.0.1\",\n  \"commitHash\": \"b2037acaf982370286b21eca2e40f4353b59e9c9\",\n  \"description\": \"TC Challenge API\",\n  \"baseURL\": \"https://api.topcoder.com/v5/challenges\",\n  \"payloads\": [\n    {\n      \"name\": \"createEvent\",\n      \"topics\": [\n        \"notifications.kafka.queue.java.test\"\n      ],\n      \"payloadMimeType\": \"application/json\",\n      \"payloadFormat\": {}\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "{{URL}}/bus/services/test",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search service payload",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/services/test/payloads",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test",
+						"payloads"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "head service payload",
+			"request": {
+				"method": "HEAD",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/services/test/payloads",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test",
+						"payloads"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create service payload",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"createEvent\",\n  \"topics\": [\n    \"notifications.kafka.queue.java.test\"\n  ],\n  \"payloadMimeType\": \"application/json\",\n  \"payloadFormat\": {}\n}"
+				},
+				"url": {
+					"raw": "{{URL}}/bus/services/test/payloads",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test",
+						"payloads"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get service payload",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/services/test/payloads/name",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test",
+						"payloads",
+						"name"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "head service payload",
+			"request": {
+				"method": "HEAD",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/services/test/payloads/name",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test",
+						"payloads",
+						"name"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put service payload",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"createEvent\",\n  \"topics\": [\n    \"notifications.kafka.queue.java.test\"\n  ],\n  \"payloadMimeType\": \"application/json\",\n  \"payloadFormat\": {}\n}"
+				},
+				"url": {
+					"raw": "{{URL}}/bus/services/test/payloads/name",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test",
+						"payloads",
+						"name"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete service payload",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/services/test/payloads/name",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test",
+						"payloads",
+						"name"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patch service payload",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"createEvent\",\n  \"topics\": [\n    \"notifications.kafka.queue.java.test\"\n  ],\n  \"payloadMimeType\": \"application/json\",\n  \"payloadFormat\": {}\n}"
+				},
+				"url": {
+					"raw": "{{URL}}/bus/services/test/payloads/name",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test",
+						"payloads",
+						"name"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post event",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"topic\": \"topic.test\",\n\t\"mime-type\": \"application/json\",\n\t\"originator\": \"test-api\",\n\t\"timestamp\": \"2019-07-27T00:00:00Z\",\n\t\"payload\": {\n\t\t\"test\": 1\n\t}\n}"
+				},
+				"url": {
+					"raw": "{{URL}}/bus/events",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get topics",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/topics",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"topics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "head topics",
+			"request": {
+				"method": "HEAD",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/topics",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"topics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete placeholder cache",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/placeholders",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"placeholders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get bus health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/bus/health",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "head bus health",
+			"request": {
+				"method": "HEAD",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/bus/health",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get services 401",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/services",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "head services 401",
+			"request": {
+				"method": "HEAD",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/services",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post service 401",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"ap-challenge-service\",\n  \"version\": \"5.0.1\",\n  \"commitHash\": \"b2037acaf982370286b21eca2e40f4353b59e9c9\",\n  \"description\": \"TC Challenge API\",\n  \"baseURL\": \"https://api.topcoder.com/v5/challenges\",\n  \"payloads\": [\n    {\n      \"name\": \"createEvent\",\n      \"topics\": [\n        \"notifications.kafka.queue.java.test\"\n      ],\n      \"payloadMimeType\": \"application/json\",\n      \"payloadFormat\": {}\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "{{URL}}/bus/services",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get service 401",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/services/test",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "head service 401",
+			"request": {
+				"method": "HEAD",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/services/test",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post service 401",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"ap-challenge-service\",\n  \"version\": \"5.0.1\",\n  \"commitHash\": \"b2037acaf982370286b21eca2e40f4353b59e9c9\",\n  \"description\": \"TC Challenge API\",\n  \"baseURL\": \"https://api.topcoder.com/v5/challenges\",\n  \"payloads\": [\n    {\n      \"name\": \"createEvent\",\n      \"topics\": [\n        \"notifications.kafka.queue.java.test\"\n      ],\n      \"payloadMimeType\": \"application/json\",\n      \"payloadFormat\": {}\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "{{URL}}/bus/services/test",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete service 401",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/services/test",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patch bus service 401",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"ap-challenge-service\",\n  \"version\": \"5.0.1\",\n  \"commitHash\": \"b2037acaf982370286b21eca2e40f4353b59e9c9\",\n  \"description\": \"TC Challenge API\",\n  \"baseURL\": \"https://api.topcoder.com/v5/challenges\",\n  \"payloads\": [\n    {\n      \"name\": \"createEvent\",\n      \"topics\": [\n        \"notifications.kafka.queue.java.test\"\n      ],\n      \"payloadMimeType\": \"application/json\",\n      \"payloadFormat\": {}\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "{{URL}}/bus/services/test",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search service payload 401",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/services/test/payloads",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test",
+						"payloads"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "head service payload 401",
+			"request": {
+				"method": "HEAD",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/services/test/payloads",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test",
+						"payloads"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put service payload 401",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"createEvent\",\n  \"topics\": [\n    \"notifications.kafka.queue.java.test\"\n  ],\n  \"payloadMimeType\": \"application/json\",\n  \"payloadFormat\": {}\n}"
+				},
+				"url": {
+					"raw": "{{URL}}/bus/services/test/payloads/name",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test",
+						"payloads",
+						"name"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete service payload 401",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/services/test/payloads/name",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test",
+						"payloads",
+						"name"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patch service payload 401",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"createEvent\",\n  \"topics\": [\n    \"notifications.kafka.queue.java.test\"\n  ],\n  \"payloadMimeType\": \"application/json\",\n  \"payloadFormat\": {}\n}"
+				},
+				"url": {
+					"raw": "{{URL}}/bus/services/test/payloads/name",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"services",
+						"test",
+						"payloads",
+						"name"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post event 401",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"topic\": \"topic.test\",\n\t\"mime-type\": \"application/json\",\n\t\"originator\": \"test-api\",\n\t\"timestamp\": \"2019-07-27T00:00:00Z\",\n\t\"payload\": {\n\t\t\"test\": 1\n\t}\n}"
+				},
+				"url": {
+					"raw": "{{URL}}/bus/events",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get topics 401",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/bus/topics",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"topics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "head topics 401",
+			"request": {
+				"method": "HEAD",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/bus/topics",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"topics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete placeholder cache 401",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/bus/placeholders",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"bus",
+						"placeholders"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

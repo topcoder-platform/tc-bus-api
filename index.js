@@ -13,6 +13,13 @@ const jsyaml = require('js-yaml')
 const MessageBusService = require('./service/MessageBusService')
 const logger = require('./common/logger')
 const AuthService = require('./service/AuthService')
+const tracer = require('./common/tracer')
+
+// Initialize tracing if configured.
+// Even if tracer is not initialized, all calls to tracer module will not raise any errors
+if (config.has('tracing')) {
+  tracer.initTracing(config.get('tracing'))
+}
 
 const serverPort = config.PORT
 
@@ -30,6 +37,28 @@ const swaggerDoc = jsyaml.safeLoad(spec)
 // Extending payload size
 app.use(bodyParser.json({limit: '2mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '2mb', extended: true}))
+
+// global error handler
+function errorHandler (err, req, res, next) {
+  if (req.span) {
+    if (err.failedValidation) {
+      req.span.setTag('statusCode', 400)
+    } else {
+      req.span.setTag('statusCode', err.status)
+    }
+    req.span.setTag('error', true)
+    // log error
+    req.span.log({
+      event: 'error',
+      message: err.message,
+      stack: err.stack,
+      'error.object': err
+    })
+    req.span.finish()
+  }
+
+  throw err
+}
 
 // Initialize the Swagger middleware
 swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
@@ -49,6 +78,8 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
   // Serve the Swagger documents and Swagger UI
   app.use(middleware.swaggerUi())
+
+  app.use(errorHandler)
 
   MessageBusService.init()
     .then(() => {

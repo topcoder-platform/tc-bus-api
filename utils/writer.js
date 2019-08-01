@@ -7,12 +7,12 @@ exports.respondWithCode = function (code, payload) {
   return new ResponsePayload(code, payload)
 }
 
-const writeJson = exports.writeJson = function (response, arg1, arg2) {
+const writeJson = exports.writeJson = function (response, arg1, arg2, span) {
   let code
   let payload
 
   if (arg1 && arg1 instanceof ResponsePayload) {
-    writeJson(response, arg1.payload, arg1.code)
+    writeJson(response, arg1.payload, arg1.code, span)
     return
   }
 
@@ -38,6 +38,15 @@ const writeJson = exports.writeJson = function (response, arg1, arg2) {
   if (typeof payload === 'object') {
     payload = JSON.stringify(payload, null, 2)
   }
+
+  span.setTag('statusCode', code)
+  if (payload) {
+    span.log({
+      event: 'info',
+      responseBody: payload
+    })
+  }
+  span.finish()
 
   response.writeHead(code, {'Content-Type': 'application/json'})
   response.end(payload)

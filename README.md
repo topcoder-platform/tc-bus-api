@@ -8,7 +8,10 @@ This server was generated initially by the [swagger-codegen](https://github.com/
 
 ## Requirements
 
-Nodejs: ~8
+1. Nodejs
+2. DataDog
+3. LightStep
+4. SignalFX
 
 ## Configuration
 
@@ -73,6 +76,15 @@ Jp8xItVz3sqz5aCg+EvcewSGZ18AC+9cbxrbI2I83jQDHw+DQmVUyR6rl5+r+S6O
 -----END RSA PRIVATE KEY-----"
 ```
 
+## Open Tracing Configuration Setup
+Refer `config/default.js`, tracing object will contain all configuration relate to integrate open tracing.
+1. dataDogEnabled, whether data dog tracing is enabled
+2. lightStepEnabled, whether light step tracing is enabled
+3. signalFXEnabled, whether singal fx tracing is enabled
+4. dataDog, all related configuration to initialize data dog tracer, refer https://datadog.github.io/dd-trace-js/ for more information
+5. lightStep, all related configuration to initialize light step tracer, refer https://github.com/lightstep/lightstep-tracer-javascript for more information
+6. signalFX, all related configuration to initialize signal fx tracer, refer https://github.com/signalfx/signalfx-nodejs-tracing/blob/master/docs/API.md#advanced-configuration for more information
+
 ## Other Configurations
 
 The other configurations can be changed in `config/default.js` or by setting environment variables.
@@ -84,6 +96,18 @@ The other configurations can be changed in `config/default.js` or by setting env
 - `TC_EMAIL_URL` the email service URL (http://localhost:4001, if deployed locally)
 - `TC_EMAIL_TOKEN` the email service authentication token (see tc-email README for details **link should be added later**)
 - `TC_EMAIL_CACHE_PERIOD` the period to cache template placeholders from email service (60 min default)
+
+## Setup
+
+1. go to https://www.datadoghq.com/, register a free trial account. visited https://app.datadoghq.com/account/settings#agent to install and start Datadog agent. You would see a list of environment to be selected. You can select the environment match your local environment. Follow the step download and install the Datadog agent. You can got the api key from the command shown on that detail page. You need to enable APM and log on your Datadog agent. APM(refer https://docs.datadoghq.com/agent/apm/?tab=agent630) is enabled by default in Agent 6. Set apm_non_local_traffic: true in your main datadog.yaml configuration file if you are sending traces from a nonlocal environment (like a container).Log(refer https://docs.datadoghq.com/agent/logs/?tab=tailexistingfiles) collection requires the Datadog Agent v6.0+. Older versions of the Agent do not include the log collection interface.Collecting logs is disabled by default in the Datadog Agent. Enable log collection in the Agent’s main configuration file (datadog.yaml):
+```
+logs_enabled: true
+```
+
+2. go to https://go.lightstep.com/tracing.html, register a free trial account. Login the lightstep app, go to settings on the left tab, you would find the access token.
+
+3. go to https://www.signalfx.com/, register a free trial account, login the web app and click integrations menu, follow info in `SignalFx SmartAgent` to install and start agent. On top right user avatar, choose `Organization Settings` and `Access Tokens` to get the API token. Note: integrate signalfx is out of scope currently.
+
 
 ## Deploying the server
 

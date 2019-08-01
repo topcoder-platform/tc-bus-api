@@ -24,5 +24,27 @@ module.exports = {
   SCOPES: {
     'writeBusApi': 'write:bus_api',
     'readBusTopics': 'read:bus_topics'
+  },
+
+  tracing: {
+    dataDogEnabled: process.env.DATADOG_ENABLED ? process.env.DATADOG_ENABLED === 'true' : true,
+    lightStepEnabled: process.env.LIGHTSTEP_ENABLED ? process.env.LIGHTSTEP_ENABLED === 'true' : true,
+    signalFXEnabled: process.env.SIGNALFX_ENABLED ? process.env.SIGNALFX_ENABLED === 'true' : false,
+
+    dataDog: {
+      service: process.env.DATADOG_SERVICE_NAME || 'tc-bus-api',
+      hostname: process.env.DD_TRACE_AGENT_HOSTNAME
+    },
+
+    lightStep: {
+      access_token: process.env.LIGHTSTEP_ACCESS_TOKEN,
+      component_name: process.env.LIGHTSTEP_COMPONENT_NAME || 'tc-bus-api'
+    },
+
+    signalFX: {
+      service: process.env.SIGNALFX_SERVICE_NAME || 'tc-bus-api',
+      accessToken: process.env.SIGNALFX_ACCESS_TOKEN,
+      url: `http://${process.env.SIGNALFX_TRACE_AGENT_HOSTNAME}:9080/v1/trace`
+    }
   }
 }

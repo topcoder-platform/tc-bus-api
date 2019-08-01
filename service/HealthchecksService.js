@@ -1,33 +1,43 @@
-'use strict'
+/**
+ * The Health check service.
+ */
+const tracer = require('../common/tracer')
+const helper = require('../common/helper')
 
 /**
  * Check API is healthy.
- * Check API is healthy.
  *
- * returns HealthCheckStatus
- **/
-exports.getHealth = function () {
-  return new Promise(function (resolve, reject) {
+ * @param {Object} parentSpan the parent Span object
+ * @returns health check status
+ */
+async function getHealth (parentSpan) {
+  const childSpan = tracer.startChildSpans('HealthchecksService.getHealth', parentSpan)
+  try {
     const examples = {}
     examples['application/json'] = {
       'health': 'ok'
     }
     if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]])
-    } else {
-      resolve()
+      return examples[Object.keys(examples)[0]]
     }
-  })
+  } finally {
+    childSpan.finish()
+  }
 }
 
 /**
- * Get only response status and headers information but no response body for the endpoint.
- * Get response status and headers information for the endpoint. It does not contain response body.
+ * Head API health.
  *
- * no response value expected for this operation
- **/
-exports.headHealth = function () {
-  return new Promise(function (resolve, reject) {
-    resolve()
-  })
+ * @param {Object} parentSpan the parent Span object
+ */
+async function headHealth (parentSpan) {
+  const childSpan = tracer.startChildSpans('HealthchecksService.headHealth', parentSpan)
+  childSpan.finish()
 }
+
+module.exports = {
+  getHealth,
+  headHealth
+}
+
+helper.buildService(module.exports)

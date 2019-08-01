@@ -8,7 +8,7 @@ const getParams = require('get-parameter-names')
 const config = require('config')
 const jwt = require('jsonwebtoken')
 const createError = require('http-errors')
-
+const tracer = require('./tracer')
 const logger = require('./logger')
 
 /**
@@ -151,9 +151,30 @@ function verifyTokenScope (req, scope) {
   }
 }
 
+/**
+ * Create span for http request.
+ * @param {String} requestName the request name
+ * @param {String} operation the operation
+ * @param {String} url the request url
+ * @param {Object} body the request body
+ */
+function createSpan (requestName, operation, url, body) {
+  const span = tracer.startSpans(requestName)
+  span.setTag('Operation', operation)
+  span.setTag('Url', url)
+  if (body) {
+    span.log({
+      event: 'info',
+      requestBody: body
+    })
+  }
+  return span
+}
+
 module.exports = {
   buildService,
   verifyJwtToken,
   validateEventPayload,
-  verifyTokenScope
+  verifyTokenScope,
+  createSpan
 }

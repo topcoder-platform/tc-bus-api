@@ -1,13 +1,21 @@
-'use strict'
+/**
+ * Topics service.
+ */
+const tracer = require('../common/tracer')
+const helper = require('../common/helper')
 
 /**
- * Get only response status and headers information but no response body for the endpoint.
- * Get response status and headers information for the endpoint. It does not contain response body.
+ * Head topics
  *
- * no response value expected for this operation
- **/
-exports.headTopics = function () {
-  return new Promise(function (resolve, reject) {
-    resolve()
-  })
+ * @param {Object} parentSpan the parent Span object
+ */
+async function headTopics (parentSpan) {
+  const childSpan = tracer.startChildSpans('TopicsService.headTopics', parentSpan)
+  childSpan.finish()
 }
+
+module.exports = {
+  headTopics
+}
+
+helper.buildService(module.exports)

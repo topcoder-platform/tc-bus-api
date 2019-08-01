@@ -8,6 +8,8 @@ const request = require('superagent')
 const cache = require('memory-cache')
 const tcCoreLibAuth = require('tc-core-library-js').auth
 const m2m = tcCoreLibAuth.m2m(config)
+const tracer = require('../common/tracer')
+const helper = require('../common/helper')
 
 /**
  * Get all email template placeholders name.
@@ -42,12 +44,20 @@ getAllPlaceholders.schema = {
 
 /**
  * Clear template placeholder cache.
+ * @param {Object} parentSpan the parent Span object
  */
-async function clearAllPlaceholders () {
-  cache.clear()
+async function clearAllPlaceholders (parentSpan) {
+  const childSpan = tracer.startChildSpans('PlaceholdersService.clearAllPlaceholders', parentSpan)
+  try {
+    cache.clear()
+  } finally {
+    childSpan.finish()
+  }
 }
 
 module.exports = {
   getAllPlaceholders,
   clearAllPlaceholders
 }
+
+helper.buildService(module.exports)
