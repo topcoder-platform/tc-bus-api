@@ -19,7 +19,7 @@
     "http-errors": "^1.6.3",
     "joi": "^13.4.0",
     "js-yaml": "^3.3.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.19",
     "memory-cache": "^0.2.0",
     "no-kafka": "^3.2.10",
     "superagent": "^3.8.3",
