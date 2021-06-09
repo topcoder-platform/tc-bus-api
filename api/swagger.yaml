@@ -979,6 +979,10 @@ definitions:
         type: "string"
         example: "application/json"
         description: "Mime-type for 'payload'.\n"
+      key:
+        type: "string"
+        example: "application/json"
+        description: "optional field to assure the one partition for 'payload'.\n"
       payload:
         type: "object"
         example:
