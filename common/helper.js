@@ -133,6 +133,7 @@ function validateEventPayload (event) {
       originator: Joi.string().required(),
       timestamp: Joi.string().required(),
       'mime-type': Joi.string().required(),
+      key: Joi.string(),
       payload: Joi.any()
     })
   })
