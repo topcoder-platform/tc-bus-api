@@ -981,7 +981,7 @@ definitions:
         description: "Mime-type for 'payload'.\n"
       key:
         type: "string"
-        example: "application/json"
+        example: "abc123"
         description: "optional field to assure the one partition for 'payload'.\n"
       payload:
         type: "object"
