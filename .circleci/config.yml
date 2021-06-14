@@ -77,7 +77,7 @@ workflows:
           context : org-global
           filters:
             branches:
-              only: ['dev']
+              only: ['dev', 'feature/shapeup3']
       - "build-prod":
           context : org-global
           filters:
