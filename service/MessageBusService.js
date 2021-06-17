@@ -30,12 +30,17 @@ async function postEvent (event) {
     helper.validateEventPayload(event)
 
     // Post new structure
-    const result = await producer.send({
+    const message = {
+      value: JSON.stringify(event)
+    }
+    if (event.key) {
+      _.merge(message, { key: event.key })
+    }
+    const kafkaPayload = {
       topic: event.topic,
-      message: {
-        value: JSON.stringify(event)
-      }
-    })
+      message
+    }
+    const result = await producer.send(kafkaPayload)
     // Check if there is any error
     const error = _.get(result, '[0].error')
     if (error) {
