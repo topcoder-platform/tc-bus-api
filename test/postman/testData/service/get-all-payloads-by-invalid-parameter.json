@@ -1,0 +1,18 @@
+[
+    {
+        "token": "m2m_token",
+        "serviceName": "service",
+        "httpStatus": 400,
+        "requestParameters": {
+            "page": "a"
+        }
+    },
+    {
+        "token": "m2m_token",
+        "serviceName": "service",
+        "httpStatus": 400,
+        "requestParameters": {
+            "perPage": "a"
+        }
+    }
+]

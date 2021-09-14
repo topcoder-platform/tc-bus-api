@@ -1,0 +1,30 @@
+[
+    {
+        "token": "admin_token",
+        "httpStatus": 200,
+        "responseBody": [
+            "tc.test.topic"
+        ]
+    },
+    {
+        "token": "copilot_token",
+        "httpStatus": 200,
+        "responseBody": [
+            "tc.test.topic"
+        ]
+    },
+    {
+        "token": "user_token",
+        "httpStatus": 200,
+        "responseBody": [
+            "tc.test.topic"
+        ]
+    },
+    {
+        "token": "m2m_token",
+        "httpStatus": 200,
+        "responseBody": [
+            "tc.test.topic"
+        ]
+    }
+]

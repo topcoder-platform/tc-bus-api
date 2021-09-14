@@ -1,0 +1,26 @@
+[
+    {
+        "token": "invalid_token_1",
+        "serviceName": "service",
+        "payloadName": "payload",
+        "httpStatus": 401
+    },
+    {
+        "token": "invalid_token_2",
+        "serviceName": "service",
+        "payloadName": "payload",
+        "httpStatus": 401
+    },
+    {
+        "token": "invalid_token_3",
+        "serviceName": "service",
+        "payloadName": "payload",
+        "httpStatus": 401
+    },
+    {
+        "token": "invalid_token_4",
+        "serviceName": "service",
+        "payloadName": "payload",
+        "httpStatus": 401
+    }
+]

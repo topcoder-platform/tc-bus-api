@@ -1,0 +1,86 @@
+[
+    {
+        "token": "invalid_token_1",
+        "requestBody": {
+            "mime-type": "application/json",
+            "payload": {
+                "data": {
+                    "subject": "project topic created",
+                    "name": "name1"
+                },
+                "recipients": [
+                    "tc@topcoder.com",
+                    "tc2@topcoder.com"
+                ],
+                "replyTo": ""
+            },
+            "topic": "tc.test.topic",
+            "originator": "tc-notifications",
+            "timestamp": "2018-04-13T00:00:00Z"
+        },
+        "httpStatus": 401
+    },
+    {
+        "token": "invalid_token_2",
+        "requestBody": {
+            "mime-type": "application/json",
+            "payload": {
+                "data": {
+                    "subject": "project topic created",
+                    "name": "name1"
+                },
+                "recipients": [
+                    "tc@topcoder.com",
+                    "tc2@topcoder.com"
+                ],
+                "replyTo": ""
+            },
+            "topic": "tc.test.topic",
+            "originator": "tc-notifications",
+            "timestamp": "2018-04-13T00:00:00Z"
+        },
+        "httpStatus": 401
+    },
+    {
+        "token": "invalid_token_3",
+        "requestBody": {
+            "mime-type": "application/json",
+            "payload": {
+                "data": {
+                    "subject": "project topic created",
+                    "name": "name1"
+                },
+                "recipients": [
+                    "tc@topcoder.com",
+                    "tc2@topcoder.com"
+                ],
+                "replyTo": ""
+            },
+            "topic": "tc.test.topic",
+            "originator": "tc-notifications",
+            "timestamp": "2018-04-13T00:00:00Z"
+        },
+        "httpStatus": 401
+    },
+    {
+        "token": "invalid_token_4",
+        "requestBody": {
+            "mime-type": "application/json",
+            "payload": {
+                "data": {
+                    "subject": "project topic created",
+                    "name": "name1"
+                },
+                "recipients": [
+                    "tc@topcoder.com",
+                    "tc2@topcoder.com"
+                ],
+                "replyTo": ""
+            },
+            "topic": "tc.test.topic",
+            "originator": "tc-notifications",
+            "timestamp": "2018-04-13T00:00:00Z"
+        },
+        "httpStatus": 401
+    }
+]

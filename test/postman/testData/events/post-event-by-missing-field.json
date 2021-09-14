@@ -1,0 +1,92 @@
+[
+    {
+        "token": "m2m_token",
+        "requestBody": {
+            "payload": {
+                "data": {
+                    "subject": "project topic created",
+                    "name": "name1"
+                },
+                "recipients": [
+                    "tc@topcoder.com",
+                    "tc2@topcoder.com"
+                ],
+                "replyTo": ""
+            },
+            "topic": "tc.test.topic",
+            "originator": "tc-notifications",
+            "timestamp": "2018-04-13T00:00:00Z"
+        },
+        "httpStatus": 400
+    },
+    {
+        "token": "m2m_token",
+        "requestBody": {
+            "mime-type": "application/json",
+            "topic": "tc.test.topic",
+            "originator": "tc-notifications",
+            "timestamp": "2018-04-13T00:00:00Z"
+        },
+        "httpStatus": 400
+    },
+    {
+        "token": "m2m_token",
+        "requestBody": {
+            "mime-type": "application/json",
+            "payload": {
+                "data": {
+                    "subject": "project topic created",
+                    "name": "name1"
+                },
+                "recipients": [
+                    "tc@topcoder.com",
+                    "tc2@topcoder.com"
+                ],
+                "replyTo": ""
+            },
+            "originator": "tc-notifications",
+            "timestamp": "2018-04-13T00:00:00Z"
+        },
+        "httpStatus": 400
+    },
+    {
+        "token": "m2m_token",
+        "requestBody": {
+            "mime-type": "application/json",
+            "payload": {
+                "data": {
+                    "subject": "project topic created",
+                    "name": "name1"
+                },
+                "recipients": [
+                    "tc@topcoder.com",
+                    "tc2@topcoder.com"
+                ],
+                "replyTo": ""
+            },
+            "topic": "tc.test.topic",
+            "timestamp": "2018-04-13T00:00:00Z"
+        },
+        "httpStatus": 400
+    },
+    {
+        "token": "m2m_token",
+        "requestBody": {
+            "mime-type": "application/json",
+            "payload": {
+                "data": {
+                    "subject": "project topic created",
+                    "name": "name1"
+                },
+                "recipients": [
+                    "tc@topcoder.com",
+                    "tc2@topcoder.com"
+                ],
+                "replyTo": ""
+            },
+            "topic": "tc.test.topic",
+            "originator": "tc-notifications"
+        },
+        "httpStatus": 400
+    }
+]

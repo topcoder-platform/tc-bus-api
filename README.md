@@ -97,3 +97,38 @@ npm start
 To view the Swagger UI interface visit `http://localhost:3000/docs`
 
 This project leverages the mega-awesome [swagger-tools](https://github.com/apigee-127/swagger-tools) middleware which does most all the work.
+
+## Newman/Postman tests
+
+1. Set following config/test environment variables
+- General configuration
+```
+KAFKA_URL:
+JWT_TOKEN_SECRET:
+VALID_ISSUERS:
+```
+- Variables to auto generate tokens on automated postman testing
+```
+AUTH0_URL:
+AUTH0_AUDIENCE:
+AUTH0_CLIENT_ID:
+AUTH0_CLIENT_SECRET:
+AUTH_V2_URL:
+AUTH_V2_CLIENT_ID:
+AUTH_V3_URL:
+```
+- Following config/test environments are used to generate tokens.
+```
+ADMIN_CREDENTIALS_USERNAME:
+ADMIN_CREDENTIALS_PASSWORD:
+COPILOT_CREDENTIALS_USERNAME:
+COPILOT_CREDENTIALS_PASSWORD:
+USER_CREDENTIALS_USERNAME:
+USER_CREDENTIALS_PASSWORD:
+```
+
+1. run command `npm install`
+2. run command `npm run lint`
+3. run command `cd local` and `docker-compose up -d` to start local kafka
+4. run command `npm start`
+5. run command `npm run test:newman`

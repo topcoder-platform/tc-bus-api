@@ -1,0 +1,3807 @@
+{
+	"info": {
+		"_postman_id": "f1ec0fdf-527a-4416-8e8d-b4f7a75151b6",
+		"name": "TC-BUS-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health",
+			"item": [
+				{
+					"name": "health check",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/bus/health",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"bus",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "health check headers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "HEAD",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/bus/health",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"bus",
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Service",
+			"item": [
+				{
+					"name": "Create Service",
+					"item": [
+						{
+							"name": "create service successfully",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create service by invalid token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create service by missing field",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create service by invalid field",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Services",
+					"item": [
+						{
+							"name": "get all services successfully",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"const response = pm.response.json();\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"    pm.expect(response).to.deep.eq(iterationData.get('responseBody'));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all services by invalid token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all services by invalid parameter",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const params = iterationData.get('requestParameters')\r",
+											"Object.keys(params).forEach(param => {\r",
+											"  pm.request.addQueryParams(`${param}=${params[param]}`)  \r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all services headers successfully",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "HEAD",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all services headers by invalid token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "HEAD",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all services headers by invalid parameter",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const params = iterationData.get('requestParameters')\r",
+											"Object.keys(params).forEach(param => {\r",
+											"  pm.request.addQueryParams(`${param}=${params[param]}`)  \r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "HEAD",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get services successfully",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get services by invalid token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get services headers successfully",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "HEAD",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get services headers by invalid token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "HEAD",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update Service",
+					"item": [
+						{
+							"name": "update service successfully",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update service by invalid token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update service by missing field",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update service by invalid field",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "partially update service successfully",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "partially update service by invalid token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "partially update service by invalid field",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete Service",
+					"item": [
+						{
+							"name": "delete service successfully",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete service by invalid token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create Service Payload",
+					"item": [
+						{
+							"name": "create service payload successfully",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"const response = pm.response.json();\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"    pm.expect(response).to.deep.eq(iterationData.get('responseBody'));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create service payload by invalid token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create service payload by missing field",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create service payload by invalid field",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Service Payloads",
+					"item": [
+						{
+							"name": "get all payloads successfully",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"const response = pm.response.json();\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"    pm.expect(response).to.deep.eq(iterationData.get('responseBody'));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all payloads by invalid token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all payloads by invalid parameter",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const params = iterationData.get('requestParameters')\r",
+											"Object.keys(params).forEach(param => {\r",
+											"  pm.request.addQueryParams(`${param}=${params[param]}`)  \r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all payloads headers successfully",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "HEAD",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all payloads headers by invalid token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "HEAD",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all payloads headers by invalid parameter",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const params = iterationData.get('requestParameters')\r",
+											"Object.keys(params).forEach(param => {\r",
+											"  pm.request.addQueryParams(`${param}=${params[param]}`)  \r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "HEAD",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get payloads successfully",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"const response = pm.response.json();\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"    pm.expect(response).to.deep.eq(iterationData.get('responseBody'));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads/{{payloadName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads",
+										"{{payloadName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get payloads by invalid token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads/{{payloadName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads",
+										"{{payloadName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get payloads headers successfully",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "HEAD",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads/{{payloadName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads",
+										"{{payloadName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get payloads headers by invalid token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "HEAD",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads/{{payloadName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads",
+										"{{payloadName}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update Service Payload",
+					"item": [
+						{
+							"name": "update service payload successfully",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"const response = pm.response.json();\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"    pm.expect(response).to.deep.eq(iterationData.get('responseBody'));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads/{{payloadName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads",
+										"{{payloadName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update service payload by invalid token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads/{{payloadName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads",
+										"{{payloadName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update service payload by missing field",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads/{{payloadName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads",
+										"{{payloadName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update service payload by invalid field",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads/{{payloadName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads",
+										"{{payloadName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "partially update service payload successfully",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"const response = pm.response.json();\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"    pm.expect(response).to.deep.eq(iterationData.get('responseBody'));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads/{{payloadName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads",
+										"{{payloadName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "partially update service payload by invalid token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads/{{payloadName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads",
+										"{{payloadName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "partially update service payload by invalid field",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads/{{payloadName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads",
+										"{{payloadName}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete Service Payload",
+					"item": [
+						{
+							"name": "delete service payload successfully",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads/{{payloadName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads",
+										"{{payloadName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete service payload by invalid token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/services/{{serviceName}}/payloads/{{payloadName}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"services",
+										"{{serviceName}}",
+										"payloads",
+										"{{payloadName}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Post Event",
+					"item": [
+						{
+							"name": "post event successfully",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/events",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post event by invalid token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/events",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post event by missing field",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/events",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post event by invalid field",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{requestBody}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/events",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"events"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Topics",
+			"item": [
+				{
+					"name": "Get Topics",
+					"item": [
+						{
+							"name": "get topics successfully",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"const response = pm.response.json();\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"    pm.expect(response).to.deep.eq(iterationData.get('responseBody'));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/topics",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"topics"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get topics by invalid token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/topics",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"topics"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get topics headers successfully",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "HEAD",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/topics",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"topics"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get topics headers by invalid token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "HEAD",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/topics",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"topics"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Placeholders",
+			"item": [
+				{
+					"name": "Delete Placeholders",
+					"item": [
+						{
+							"name": "delete placeholders successfully",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/placeholders",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"placeholders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete placeholders by invalid token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const iterationData = pm.iterationData;\r",
+											"const httpStatus = iterationData.get('httpStatus');\r",
+											"pm.test(`Status code is ${httpStatus}`, function () {\r",
+											"    pm.response.to.have.status(httpStatus);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{{{token}}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/bus/placeholders",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"bus",
+										"placeholders"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

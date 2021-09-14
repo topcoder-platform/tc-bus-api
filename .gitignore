@@ -1,1 +1,6 @@
 node_modules/
+.env
+.eslintrc.y*ml
+
+# Newman tests
+newman

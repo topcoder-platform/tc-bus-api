@@ -863,6 +863,17 @@ paths:
             \ server-side."
       security: []
       x-swagger-router-controller: "Healthchecks"
+  /internal/jobs/clean:
+    post:
+      tags:
+      - "test"
+      summary: "Clears automation test data."
+      description: "Clear Test Data from automation testing with newman."
+      operationId: "clearTestData"
+      responses:
+        200:
+          description: "OK - The request performed, the resources are returned."
+      x-swagger-router-controller: "ClearTestData"
 securityDefinitions:
   Bearer:
     type: "apiKey"

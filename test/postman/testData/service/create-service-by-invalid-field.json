@@ -1,0 +1,184 @@
+[
+    {
+        "token": "m2m_token",
+        "requestBody": {
+            "name": 1,
+            "version": "5.0.1",
+            "commitHash": "b2037acaf982370286b21eca2e40f4353b59e9c9",
+            "description": "TC Challenge API",
+            "baseURL": "https://api.topcoder.com/v5/challenges",
+            "payloads": [
+                {
+                    "name": "createEvent",
+                    "topics": [
+                        "notifications.kafka.queue.java.test"
+                    ],
+                    "payloadMimeType": "application/json",
+                    "payloadFormat": {}
+                }
+            ]
+        },
+        "httpStatus": 400
+    },
+    {
+        "token": "m2m_token",
+        "requestBody": {
+            "name": "ap-challenge-service",
+            "version": 2,
+            "commitHash": "b2037acaf982370286b21eca2e40f4353b59e9c9",
+            "description": "TC Challenge API",
+            "baseURL": "https://api.topcoder.com/v5/challenges",
+            "payloads": [
+                {
+                    "name": "createEvent",
+                    "topics": [
+                        "notifications.kafka.queue.java.test"
+                    ],
+                    "payloadMimeType": "application/json",
+                    "payloadFormat": {}
+                }
+            ]
+        },
+        "httpStatus": 400
+    },
+    {
+        "token": "m2m_token",
+        "requestBody": {
+            "name": "ap-challenge-service",
+            "version": "5.0.1",
+            "commitHash": [
+                "b2037acaf982370286b21eca2e40f4353b59e9c9"
+            ],
+            "description": "TC Challenge API",
+            "baseURL": "https://api.topcoder.com/v5/challenges",
+            "payloads": [
+                {
+                    "name": "createEvent",
+                    "topics": [
+                        "notifications.kafka.queue.java.test"
+                    ],
+                    "payloadMimeType": "application/json",
+                    "payloadFormat": {}
+                }
+            ]
+        },
+        "httpStatus": 400
+    },
+    {
+        "token": "m2m_token",
+        "requestBody": {
+            "name": "ap-challenge-service",
+            "version": "5.0.1",
+            "commitHash": "b2037acaf982370286b21eca2e40f4353b59e9c9",
+            "description": true,
+            "baseURL": "https://api.topcoder.com/v5/challenges",
+            "payloads": [
+                {
+                    "name": "createEvent",
+                    "topics": [
+                        "notifications.kafka.queue.java.test"
+                    ],
+                    "payloadMimeType": "application/json",
+                    "payloadFormat": {}
+                }
+            ]
+        },
+        "httpStatus": 400
+    },
+    {
+        "token": "m2m_token",
+        "requestBody": {
+            "name": "ap-challenge-service",
+            "version": "5.0.1",
+            "commitHash": "b2037acaf982370286b21eca2e40f4353b59e9c9",
+            "description": "TC Challenge API",
+            "baseURL": [
+                "https://api.topcoder.com/v5/challenges"
+            ],
+            "payloads": [
+                {
+                    "name": "createEvent",
+                    "topics": [
+                        "notifications.kafka.queue.java.test"
+                    ],
+                    "payloadMimeType": "application/json",
+                    "payloadFormat": {}
+                }
+            ]
+        },
+        "httpStatus": 400
+    },
+    {
+        "token": "m2m_token",
+        "requestBody": {
+            "name": "ap-challenge-service",
+            "version": "5.0.1",
+            "commitHash": "b2037acaf982370286b21eca2e40f4353b59e9c9",
+            "description": "TC Challenge API",
+            "baseURL": "https://api.topcoder.com/v5/challenges",
+            "payloads": 2
+        },
+        "httpStatus": 400
+    },
+    {
+        "token": "m2m_token",
+        "requestBody": {
+            "name": "ap-challenge-service",
+            "version": "5.0.1",
+            "commitHash": "b2037acaf982370286b21eca2e40f4353b59e9c9",
+            "description": "TC Challenge API",
+            "baseURL": "https://api.topcoder.com/v5/challenges",
+            "payloads": [
+                {
+                    "name": "createEvent",
+                    "topics": "notifications.kafka.queue.java.test",
+                    "payloadMimeType": "application/json",
+                    "payloadFormat": {}
+                }
+            ]
+        },
+        "httpStatus": 400
+    },
+    {
+        "token": "m2m_token",
+        "requestBody": {
+            "name": "ap-challenge-service",
+            "version": "5.0.1",
+            "commitHash": "b2037acaf982370286b21eca2e40f4353b59e9c9",
+            "description": "TC Challenge API",
+            "baseURL": "https://api.topcoder.com/v5/challenges",
+            "payloads": [
+                {
+                    "name": "createEvent",
+                    "topics": [
+                        "notifications.kafka.queue.java.test"
+                    ],
+                    "payloadMimeType": null,
+                    "payloadFormat": {}
+                }
+            ]
+        },
+        "httpStatus": 400
+    },
+    {
+        "token": "m2m_token",
+        "requestBody": {
+            "name": "ap-challenge-service",
+            "version": "5.0.1",
+            "commitHash": "b2037acaf982370286b21eca2e40f4353b59e9c9",
+            "description": "TC Challenge API",
+            "baseURL": "https://api.topcoder.com/v5/challenges",
+            "payloads": [
+                {
+                    "name": "createEvent",
+                    "topics": [
+                        "notifications.kafka.queue.java.test"
+                    ],
+                    "payloadMimeType": "application/json",
+                    "payloadFormat": "{}"
+                }
+            ]
+        },
+        "httpStatus": 400
+    }
+]

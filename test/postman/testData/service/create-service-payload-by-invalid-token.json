@@ -1,0 +1,54 @@
+[
+    {
+        "token": "invalid_token_1",
+        "serviceName": "service",
+        "requestBody": {
+            "name": "createEvent",
+            "topics": [
+                "notifications.kafka.queue.java.test"
+            ],
+            "payloadMimeType": "application/json",
+            "payloadFormat": {}
+        },
+        "httpStatus": 401
+    },
+    {
+        "token": "invalid_token_2",
+        "serviceName": "service",
+        "requestBody": {
+            "name": "createEvent",
+            "topics": [
+                "notifications.kafka.queue.java.test"
+            ],
+            "payloadMimeType": "application/json",
+            "payloadFormat": {}
+        },
+        "httpStatus": 401
+    },
+    {
+        "token": "invalid_token_3",
+        "serviceName": "service",
+        "requestBody": {
+            "name": "createEvent",
+            "topics": [
+                "notifications.kafka.queue.java.test"
+            ],
+            "payloadMimeType": "application/json",
+            "payloadFormat": {}
+        },
+        "httpStatus": 401
+    },
+    {
+        "token": "invalid_token_4",
+        "serviceName": "service",
+        "requestBody": {
+            "name": "createEvent",
+            "topics": [
+                "notifications.kafka.queue.java.test"
+            ],
+            "payloadMimeType": "application/json",
+            "payloadFormat": {}
+        },
+        "httpStatus": 401
+    }
+]

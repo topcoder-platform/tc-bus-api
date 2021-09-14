@@ -1,0 +1,18 @@
+[
+    {
+        "token": "invalid_token_1",
+        "httpStatus": 401
+    },
+    {
+        "token": "invalid_token_2",
+        "httpStatus": 401
+    },
+    {
+        "token": "invalid_token_3",
+        "httpStatus": 401
+    },
+    {
+        "token": "invalid_token_4",
+        "httpStatus": 401
+    }
+]

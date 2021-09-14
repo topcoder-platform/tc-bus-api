@@ -1,0 +1,42 @@
+[
+    {
+        "token": "m2m_token",
+        "serviceName": "service",
+        "payloadName": "payload",
+        "requestBody": {
+            "name": "createEvent",
+            "topics": "notifications.kafka.queue.java.test",
+            "payloadMimeType": "application/json",
+            "payloadFormat": {}
+        },
+        "httpStatus": 400
+    },
+    {
+        "token": "m2m_token",
+        "serviceName": "service",
+        "payloadName": "payload",
+        "requestBody": {
+            "name": "createEvent",
+            "topics": [
+                "notifications.kafka.queue.java.test"
+            ],
+            "payloadMimeType": 1,
+            "payloadFormat": {}
+        },
+        "httpStatus": 400
+    },
+    {
+        "token": "m2m_token",
+        "serviceName": "service",
+        "payloadName": "payload",
+        "requestBody": {
+            "name": "createEvent",
+            "topics": [
+                "notifications.kafka.queue.java.test"
+            ],
+            "payloadMimeType": "application/json",
+            "payloadFormat": true
+        },
+        "httpStatus": 400
+    }
+]

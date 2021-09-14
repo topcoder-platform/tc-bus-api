@@ -1,0 +1,58 @@
+[
+    {
+        "token": "admin_token",
+        "serviceName": "service",
+        "payloadName": "payload",
+        "httpStatus": 200,
+        "responseBody": {
+            "name": "createEvent",
+            "topics": [
+                "notifications.kafka.queue.java.test"
+            ],
+            "payloadMimeType": "application/json",
+            "payloadFormat": {}
+        }
+    },
+    {
+        "token": "copilot_token",
+        "serviceName": "service",
+        "payloadName": "payload",
+        "httpStatus": 200,
+        "responseBody": {
+            "name": "createEvent",
+            "topics": [
+                "notifications.kafka.queue.java.test"
+            ],
+            "payloadMimeType": "application/json",
+            "payloadFormat": {}
+        }
+    },
+    {
+        "token": "user_token",
+        "serviceName": "service",
+        "payloadName": "payload",
+        "httpStatus": 200,
+        "responseBody": {
+            "name": "createEvent",
+            "topics": [
+                "notifications.kafka.queue.java.test"
+            ],
+            "payloadMimeType": "application/json",
+            "payloadFormat": {}
+        }
+    },
+    {
+        "token": "m2m_token",
+        "serviceName": "service",
+        "payloadName": "payload",
+        "httpStatus": 200,
+        "responseBody": {
+            "name": "createEvent",
+            "topics": [
+                "notifications.kafka.queue.java.test"
+            ],
+            "payloadMimeType": "application/json",
+            "payloadFormat": {}
+        }
+    }
+]
