@@ -8,7 +8,7 @@ This server was generated initially by the [swagger-codegen](https://github.com/
 
 ## Requirements
 
-Nodejs: ~8
+Nodejs: Version ~8
 
 ## Configuration
 
