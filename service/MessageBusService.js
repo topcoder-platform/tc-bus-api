@@ -5,14 +5,15 @@ const createError = require('http-errors')
 const _ = require('lodash')
 const { Kafka } = require('kafkajs')
 const helper = require('../common/helper')
+const config = require('config')
 
 
 const kafka = new Kafka({
   clientId: 'BUS-API',
-  brokers: KAFKA_URL,
+  brokers: config.get('KAFKA_URL').split(','),
   ssl: {
-    cert: KAFKA_CLIENT_CERT,
-    key: KAFKA_CLIENT_CERT_KEY,
+    cert: config.get('KAFKA_CLIENT_CERT'),
+    key: config.get('KAFKA_CLIENT_CERT_KEY'),
   }
 })
 // Create a new producer instance with KAFKA_URL, KAFKA_CLIENT_CERT, and
