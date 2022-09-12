@@ -1,12 +1,11 @@
-'use strict'
-
 const Placeholders = require('../service/PlaceholdersService')
 const utils = require('../utils/writer.js')
 
-module.exports.clearPlaceholdersCache = function clearPlaceholdersCache (req, res, next) {
-  Placeholders
-    .clearAllPlaceholders()
-    .then(() => {
-      utils.writeJson(res, null, 200)
-    })
+clearPlaceholdersCache = async (req, res) => {
+  await Placeholders.clearAllPlaceholders()
+  utils.writeJson(res, null, 200)
+}
+
+module.exports = {
+  clearPlaceholdersCache
 }

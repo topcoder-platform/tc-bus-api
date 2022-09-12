@@ -1,196 +1,198 @@
-'use strict'
+const utils = require('../utils/writer.js')
+const Service = require('../service/ServiceService')
 
-var utils = require('../utils/writer.js')
-var Service = require('../service/ServiceService')
-
-module.exports.createService = function createService (req, res, next) {
-  var body = req.swagger.params['body'].value
-  Service.createService(body)
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
+const createService = async (req, res) => {
+  const body = req.swagger.params['body'].value
+  try {
+    const response = await Service.createService(body)
+    utils.writeJson(res, response)
+  } catch (err) {
+    utils.writeJson(res, err)
+  }
 }
 
-module.exports.createServicePayload = function createServicePayload (req, res, next) {
-  var serviceName = req.swagger.params['serviceName'].value
-  var body = req.swagger.params['body'].value
-  Service.createServicePayload(serviceName, body)
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
+const createServicePayload = async (req, res) => {
+  const serviceName = req.swagger.params['serviceName'].value
+  const body = req.swagger.params['body'].value
+  try {
+    const response = await Service.createServicePayload(serviceName, body)
+    utils.writeJson(res, response)
+  } catch (err) {
+    utils.writeJson(res, err)
+  }
 }
 
-module.exports.deleteService = function deleteService (req, res, next) {
-  var serviceName = req.swagger.params['serviceName'].value
-  Service.deleteService(serviceName)
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
+const deleteService = async (req, res) => {
+  const serviceName = req.swagger.params['serviceName'].value
+  try {
+    const response = await Service.deleteService(serviceName)
+    utils.writeJson(res, response)
+  } catch (err) {
+    utils.writeJson(res, err)
+  }
 }
 
-module.exports.deleteServicePayload = function deleteServicePayload (req, res, next) {
-  var serviceName = req.swagger.params['serviceName'].value
-  var payloadName = req.swagger.params['payloadName'].value
-  Service.deleteServicePayload(serviceName, payloadName)
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
+const deleteServicePayload = async (req, res) => {
+  const serviceName = req.swagger.params['serviceName'].value
+  const payloadName = req.swagger.params['payloadName'].value
+  try {
+    const response = await Service.deleteServicePayload(serviceName, payloadName)
+    utils.writeJson(res, response)
+  } catch (err) {
+    utils.writeJson(res, err)
+  }
 }
 
-module.exports.getService = function getService (req, res, next) {
-  var serviceName = req.swagger.params['serviceName'].value
-  Service.getService(serviceName)
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
+const getService = async (req, res) => {
+  const serviceName = req.swagger.params['serviceName'].value
+  try {
+    const response = await Service.getService(serviceName)
+    utils.writeJson(res, response)
+  } catch (err) {
+    utils.writeJson(res, err)
+  }
 }
 
-module.exports.getServicePayload = function getServicePayload (req, res, next) {
-  var serviceName = req.swagger.params['serviceName'].value
-  var payloadName = req.swagger.params['payloadName'].value
-  Service.getServicePayload(serviceName, payloadName)
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
+const getServicePayload = async (req, res) => {
+  const serviceName = req.swagger.params['serviceName'].value
+  const payloadName = req.swagger.params['payloadName'].value
+  try {
+    const response = await Service.getServicePayload(serviceName, payloadName)
+    utils.writeJson(res, response)
+  } catch (err) {
+    utils.writeJson(res, err)
+  }
 }
 
-module.exports.getServicePayloads = function getServicePayloads (req, res, next) {
-  var serviceName = req.swagger.params['serviceName'].value
-  var page = req.swagger.params['page'].value
-  var perPage = req.swagger.params['perPage'].value
-  Service.getServicePayloads(serviceName, page, perPage)
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
+const getServicePayloads = async (req, res) => {
+  const serviceName = req.swagger.params['serviceName'].value
+  const page = req.swagger.params['page'].value
+  const perPage = req.swagger.params['perPage'].value
+  try {
+    const response = await Service.getServicePayloads(serviceName, page, perPage)
+    utils.writeJson(res, response)
+  } catch (err) {
+    utils.writeJson(res, err)
+  }
 }
 
-module.exports.getServices = function getServices (req, res, next) {
-  var page = req.swagger.params['page'].value
-  var perPage = req.swagger.params['perPage'].value
-  Service.getServices(page, perPage)
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
+const getServices = async (req, res) => {
+  const page = req.swagger.params['page'].value
+  const perPage = req.swagger.params['perPage'].value
+  try {
+    const response = await Service.getServices(page, perPage)
+    utils.writeJson(res, response)
+  } catch (err) {
+    utils.writeJson(res, err)
+  }
 }
 
-module.exports.headService = function headService (req, res, next) {
-  var serviceName = req.swagger.params['serviceName'].value
-  Service.headService(serviceName)
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
+const headService = async (req, res) => {
+  const serviceName = req.swagger.params['serviceName'].value
+  try {
+    const response = await Service.headService(serviceName)
+    utils.writeJson(res, response)
+  } catch (err) {
+    utils.writeJson(res, err)
+  }
 }
 
-module.exports.headServicePayload = function headServicePayload (req, res, next) {
-  var serviceName = req.swagger.params['serviceName'].value
-  var payloadName = req.swagger.params['payloadName'].value
-  Service.headServicePayload(serviceName, payloadName)
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
+const headServicePayload = async (req, res) => {
+  const serviceName = req.swagger.params['serviceName'].value
+  const payloadName = req.swagger.params['payloadName'].value
+  try {
+    const response = await Service.headServicePayload(serviceName, payloadName)
+    utils.writeJson(res, response)
+  } catch (err) {
+    utils.writeJson(res, err)
+  }
 }
 
-module.exports.headServicePayloads = function headServicePayloads (req, res, next) {
-  var serviceName = req.swagger.params['serviceName'].value
-  var page = req.swagger.params['page'].value
-  var perPage = req.swagger.params['perPage'].value
-  Service.headServicePayloads(serviceName, page, perPage)
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
+const headServicePayloads = async (req, res) => {
+  const serviceName = req.swagger.params['serviceName'].value
+  const page = req.swagger.params['page'].value
+  const perPage = req.swagger.params['perPage'].value
+  try {
+    const response = await Service.headServicePayloads(serviceName, page, perPage)
+    utils.writeJson(res, response)
+  } catch (err) {
+    utils.writeJson(res, err)
+  }
 }
 
-module.exports.headServices = function headServices (req, res, next) {
-  var page = req.swagger.params['page'].value
-  var perPage = req.swagger.params['perPage'].value
-  Service.headServices(page, perPage)
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
+const headServices = async (req, res) => {
+  const page = req.swagger.params['page'].value
+  const perPage = req.swagger.params['perPage'].value
+  try {
+    const response = await Service.headServices(page, perPage)
+    utils.writeJson(res, response)
+  } catch (err) {
+    utils.writeJson(res, err)
+  }
 }
 
-module.exports.patchService = function patchService (req, res, next) {
-  var serviceName = req.swagger.params['serviceName'].value
-  var body = req.swagger.params['body'].value
-  Service.patchService(serviceName, body)
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
+const patchService = async (req, res) => {
+  const serviceName = req.swagger.params['serviceName'].value
+  const body = req.swagger.params['body'].value
+  try {
+    const response = await Service.patchService(serviceName, body)
+    utils.writeJson(res, response)
+  } catch (err) {
+    utils.writeJson(res, err)
+  }
 }
 
-module.exports.patchServicePayload = function patchServicePayload (req, res, next) {
-  var serviceName = req.swagger.params['serviceName'].value
-  var payloadName = req.swagger.params['payloadName'].value
-  var body = req.swagger.params['body'].value
-  Service.patchServicePayload(serviceName, payloadName, body)
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
+const patchServicePayload = async (req, res) => {
+  const serviceName = req.swagger.params['serviceName'].value
+  const payloadName = req.swagger.params['payloadName'].value
+  const body = req.swagger.params['body'].value
+  try {
+    const response = await Service.patchServicePayload(serviceName, payloadName, body)
+    utils.writeJson(res, response)
+  } catch (err) {
+    utils.writeJson(res, err)
+  }
 }
 
-module.exports.updateService = function updateService (req, res, next) {
-  var serviceName = req.swagger.params['serviceName'].value
-  var body = req.swagger.params['body'].value
-  Service.updateService(serviceName, body)
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
+const updateService = async (req, res) => {
+  const serviceName = req.swagger.params['serviceName'].value
+  const body = req.swagger.params['body'].value
+  try {
+    const response = await Service.updateService(serviceName, body)
+    utils.writeJson(res, response)
+  } catch (err) {
+    utils.writeJson(res, err)
+  }
 }
 
-module.exports.updateServicePayload = function updateServicePayload (req, res, next) {
-  var serviceName = req.swagger.params['serviceName'].value
-  var payloadName = req.swagger.params['payloadName'].value
-  var body = req.swagger.params['body'].value
-  Service.updateServicePayload(serviceName, payloadName, body)
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
+const updateServicePayload = async (req, res) => {
+  const serviceName = req.swagger.params['serviceName'].value
+  const payloadName = req.swagger.params['payloadName'].value
+  const body = req.swagger.params['body'].value
+  try {
+    const response = await Service.updateServicePayload(serviceName, payloadName, body)
+    utils.writeJson(res, response)
+  } catch (err) {
+    utils.writeJson(res, err)
+  }
+}
+
+
+module.exports = {
+  createService,
+  createServicePayload,
+  deleteService,
+  deleteServicePayload,
+  getService,
+  getServicePayload,
+  getServicePayloads,
+  getServices,
+  headService,
+  headServicePayload,
+  headServicePayloads,
+  headServices,
+  patchService,
+  patchServicePayload,
+  updateService,
+  updateServicePayload,
 }

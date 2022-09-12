@@ -1,12 +1,10 @@
-'use strict'
-
 /**
  * Check API is healthy.
  * Check API is healthy.
  *
  * returns HealthCheckStatus
  **/
-exports.getHealth = function () {
+const getHealth = function () {
   return new Promise(function (resolve, reject) {
     const examples = {}
     examples['application/json'] = {
@@ -26,8 +24,14 @@ exports.getHealth = function () {
  *
  * no response value expected for this operation
  **/
-exports.headHealth = function () {
+const headHealth = function () {
   return new Promise(function (resolve, reject) {
     resolve()
   })
+}
+
+
+module.exports = {
+  getHealth,
+  headHealth
 }
