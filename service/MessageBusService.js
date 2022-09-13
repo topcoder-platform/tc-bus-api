@@ -6,15 +6,16 @@ const _ = require('lodash')
 const { Kafka } = require('kafkajs')
 const helper = require('../common/helper')
 const config = require('config')
+const logger = require('../common/logger')
 
 
 const kafka = new Kafka({
   clientId: 'BUS-API',
   brokers: config.get('KAFKA_URL').split(','),
-  ssl: {
-    cert: config.get('KAFKA_CLIENT_CERT'),
-    key: config.get('KAFKA_CLIENT_CERT_KEY'),
-  }
+  // ssl: {
+  //   cert: config.get('KAFKA_CLIENT_CERT'),
+  //   key: config.get('KAFKA_CLIENT_CERT_KEY'),
+  // }
 })
 // Create a new producer instance with KAFKA_URL, KAFKA_CLIENT_CERT, and
 // KAFKA_CLIENT_CERT_KEY environment variables
@@ -58,6 +59,7 @@ async function postEvent(event) {
       }
       throw createError.InternalServerError()
     }
+    return result
   } else {
     throw createError.BadRequest(`Expecting new (mimetype-payload) structure`)
   }
@@ -69,13 +71,20 @@ async function postEvent(event) {
  * @returns {Array} the topic names
  */
 async function getAllTopics() {
-  // Update the metadata from Kafka to make sure
-  // the no-kafka client has the latest info
-  await producer.client.updateMetadata()
+  try {
 
-  // Get the topic names
-  return _.keys(producer.client.topicMetadata)
+    const admin = kafka.admin()
+    await admin.connect()
+    const result = await admin.listTopics()
+    await admin.disconnect()
+    // Get the topic names
+    return result
+  } catch (err) {
+    logger.error(err)
+    return ["Error"]
+  }
 }
+
 
 module.exports = {
   init,

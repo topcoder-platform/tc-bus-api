@@ -19,7 +19,7 @@ const logger = require('./logger')
  * @returns {Object} the combined object
  * @private
  */
-function combineObject (params, arr) {
+function combineObject(params, arr) {
   const ret = {}
   _.forEach(arr, (arg, i) => {
     ret[params[i]] = arg
@@ -33,20 +33,18 @@ function combineObject (params, arr) {
  * @param {Object} service the service
  * @private
  */
-function decorateWithLogging (service) {
+function decorateWithLogging(service) {
   if (config.LOG_LEVEL !== 'debug') {
     return
   }
   _.forEach(service, (method, name) => {
     const params = method.params || getParams(method)
-    service[name] = async function serviceMethodWithLogging (...args) {
+    service[name] = async function serviceMethodWithLogging(...args) {
       logger.debug(`ENTER ${name}`)
-      logger.debug('input arguments')
-      logger.debug(util.inspect(combineObject(params, args)))
+      logger.info(`input arguments: ${util.inspect(combineObject(params, args))}`)
       const result = await method.apply(this, args)
       logger.debug(`EXIT ${name}`)
-      logger.debug('output arguments')
-      logger.debug(util.inspect(result))
+      logger.debug(`output: ${util.inspect(result)}`)
       return result
     }
   })
@@ -60,15 +58,15 @@ function decorateWithLogging (service) {
  * @param {Object} service the service
  * @private
  */
-function decorateWithValidator (service) {
+function decorateWithValidator(service) {
   _.forEach(service, (method, name) => {
     if (!method.schema) {
       return
     }
     const params = getParams(method)
-    service[name] = async function serviceMethodWithValidation (...args) {
+    service[name] = async function serviceMethodWithValidation(...args) {
       const value = combineObject(params, args)
-      const normalized = Joi.attempt(value, method.schema, {abortEarly: false})
+      const normalized = Joi.attempt(value, method.schema, { abortEarly: false })
       // Joi will normalize values
       // for example string number '1' to 1
       // if schema type is number
@@ -85,7 +83,7 @@ function decorateWithValidator (service) {
  * @export helper/buildService
  * @param {any} service the service to wrap
  */
-function buildService (service) {
+function buildService(service) {
   decorateWithValidator(service)
   decorateWithLogging(service)
 }
@@ -96,7 +94,7 @@ function buildService (service) {
  * @param {String} token the JWT token to verify
  * @returns {Object} the payload decoded from the token
  */
-function verifyJwtToken (token) {
+function verifyJwtToken(token) {
   let payload
 
   try {
@@ -121,7 +119,7 @@ function verifyJwtToken (token) {
  *
  * @param {Object} event the event payload
  */
-function validateEventPayload (event) {
+function validateEventPayload(event) {
   const schema = Joi.object().keys({
     event: Joi.object().keys({
       topic: Joi
@@ -138,13 +136,13 @@ function validateEventPayload (event) {
     })
   })
 
-  const { error } = Joi.validate({event}, schema)
+  const { error } = schema.validate({ event });
   if (error) {
     throw error
   }
 }
 
-function verifyTokenScope (req, scope) {
+function verifyTokenScope(req, scope) {
   const isMachineToken = _.get(req.swagger.params, 'authUser.isMachine', false)
   const scopes = _.get(req.swagger.params, 'authUser.scopes', [])
   if (isMachineToken && !(_.indexOf(scopes, scope) >= 0)) {

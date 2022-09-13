@@ -13,21 +13,22 @@
   "license": "Unlicense",
   "private": true,
   "dependencies": {
-    "config": "^1.30.0",
+    "config": "^3.3.7",
     "connect": "^3.2.0",
+    "dotenv": "^16.0.2",
     "get-parameter-names": "^0.3.0",
-    "http-errors": "^1.6.3",
-    "joi": "^13.4.0",
-    "js-yaml": "^3.3.0",
+    "http-errors": "^2.0.0",
+    "joi": "^17.6.0",
+    "js-yaml": "^4.1.0",
     "kafkajs": "^2.2.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.21",
     "memory-cache": "^0.2.0",
-    "superagent": "^3.8.3",
+    "superagent": "^8.0.0",
     "swagger-tools": "^0.10.4",
     "tc-core-library-js": "appirio-tech/tc-core-library-js.git#v2.6.3",
     "winston": "^3.0.0"
   },
   "devDependencies": {
-    "standard": "^11.0.1"
+    "standard": "^17.0.0"
   }
 }

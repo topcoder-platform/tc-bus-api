@@ -1,6 +1,7 @@
 /**
  * The default configuration.
  */
+require('dotenv').config()
 module.exports = {
   KAFKA_URL: process.env.KAFKA_URL || 'localhost:9092',
   KAFKA_CLIENT_CERT: process.env.KAFKA_CLIENT_CERT ? process.env.KAFKA_CLIENT_CERT.replace('\\n', '\n') : null,

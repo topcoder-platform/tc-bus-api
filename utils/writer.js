@@ -3,11 +3,11 @@ const ResponsePayload = function (code, payload) {
   this.payload = payload
 }
 
-exports.respondWithCode = function (code, payload) {
+respondWithCode = (code, payload) => {
   return new ResponsePayload(code, payload)
 }
 
-const writeJson = exports.writeJson = function (response, arg1, arg2) {
+const writeJson = (response, arg1, arg2) => {
   let code
   let payload
 
@@ -38,7 +38,12 @@ const writeJson = exports.writeJson = function (response, arg1, arg2) {
   if (typeof payload === 'object') {
     payload = JSON.stringify(payload, null, 2)
   }
-
-  response.writeHead(code, {'Content-Type': 'application/json'})
+  response.writeHead(code, { 'Content-Type': 'application/json' })
   response.end(payload)
+}
+
+module.exports = {
+  writeJson,
+  respondWithCode,
+
 }
