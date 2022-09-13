@@ -12,10 +12,10 @@ const logger = require('../common/logger')
 const kafka = new Kafka({
   clientId: 'BUS-API',
   brokers: config.get('KAFKA_URL').split(','),
-  // ssl: {
-  //   cert: config.get('KAFKA_CLIENT_CERT'),
-  //   key: config.get('KAFKA_CLIENT_CERT_KEY'),
-  // }
+  ssl: {
+    cert: config.get('KAFKA_CLIENT_CERT'),
+    key: config.get('KAFKA_CLIENT_CERT_KEY'),
+  }
 })
 // Create a new producer instance with KAFKA_URL, KAFKA_CLIENT_CERT, and
 // KAFKA_CLIENT_CERT_KEY environment variables
