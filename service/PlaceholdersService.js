@@ -8,13 +8,14 @@ const request = require('superagent')
 const cache = require('memory-cache')
 const tcCoreLibAuth = require('tc-core-library-js').auth
 const m2m = tcCoreLibAuth.m2m(config)
+const logger = require('../common/logger')
 
 /**
  * Get all email template placeholders name.
  *
  * @returns {Array} list with email template placeholders name
  */
-async function getAllPlaceholders (name) {
+async function getAllPlaceholders(name) {
   const cachedData = cache.get(`placeholders-${name}`)
   if (cachedData == null) {
     try {
@@ -29,6 +30,7 @@ async function getAllPlaceholders (name) {
 
       return parsedData
     } catch (err) {
+      logger.error(err)
       console.log(`Error generating m2m token: ${err.message}`)
     }
   }
@@ -43,7 +45,7 @@ getAllPlaceholders.schema = {
 /**
  * Clear template placeholder cache.
  */
-async function clearAllPlaceholders () {
+async function clearAllPlaceholders() {
   cache.clear()
 }
 

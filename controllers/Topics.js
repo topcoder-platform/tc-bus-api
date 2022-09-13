@@ -3,15 +3,15 @@ const Topics = require('../service/TopicsService')
 const MessageBusService = require('../service/MessageBusService')
 const helper = require('../common/helper')
 const config = require('config')
+const logger = require('../common/logger')
 
 const getTopics = async (req, res) => {
   helper.verifyTokenScope(req, config.SCOPES.readBusTopics)
   try {
     const topics = await MessageBusService.getAllTopics()
-    console.log(topics)
     utils.writeJson(res, topics)
-
   } catch (err) {
+    logger.error(err)
     utils.writeJson(res, err)
   }
 }
@@ -21,6 +21,7 @@ const headTopics = async (req, res) => {
     const response = await Topics.headTopics()
     utils.writeJson(res, response)
   } catch (err) {
+    logger.error(err)
     utils.writeJson(res, err)
   }
 }

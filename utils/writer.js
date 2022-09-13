@@ -38,12 +38,12 @@ const writeJson = (response, arg1, arg2) => {
   if (typeof payload === 'object') {
     payload = JSON.stringify(payload, null, 2)
   }
-
   response.writeHead(code, { 'Content-Type': 'application/json' })
   response.end(payload)
 }
 
 module.exports = {
   writeJson,
-  respondWithCode
+  respondWithCode,
+
 }

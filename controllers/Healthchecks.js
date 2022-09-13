@@ -1,5 +1,6 @@
 const utils = require('../utils/writer.js')
 const Healthchecks = require('../service/HealthchecksService')
+const logger = require('../common/logger.js')
 
 getHealth = async (req, res) => {
   try {
@@ -15,6 +16,7 @@ headHealth = async (req, res) => {
     const response = await Healthchecks.headHealth()
     utils.writeJson(res, response)
   } catch (err) {
+    logger.error(err)
     utils.writeJson(res, err)
   }
 }

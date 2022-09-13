@@ -55,5 +55,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
         logger.info(`Your server is listening on port ${serverPort} (http://localhost:${serverPort})`)
         logger.info(`Swagger-ui is available on http://localhost:${serverPort}/docs`)
       })
+    }).catch((err) => {
+      logger.error(`Server start error ${err}`)
     })
 })

@@ -6,6 +6,7 @@ const _ = require('lodash')
 const { Kafka } = require('kafkajs')
 const helper = require('../common/helper')
 const config = require('config')
+const logger = require('../common/logger')
 
 
 const kafka = new Kafka({
@@ -58,6 +59,7 @@ async function postEvent(event) {
       }
       throw createError.InternalServerError()
     }
+    return result
   } else {
     throw createError.BadRequest(`Expecting new (mimetype-payload) structure`)
   }
@@ -69,12 +71,18 @@ async function postEvent(event) {
  * @returns {Array} the topic names
  */
 async function getAllTopics() {
-  const admin = kafka.admin()
-  await admin.connect()
-  const result = await admin.listTopics()
-  await admin.disconnect()
-  // Get the topic names
-  return result
+  try {
+
+    const admin = kafka.admin()
+    await admin.connect()
+    const result = await admin.listTopics()
+    await admin.disconnect()
+    // Get the topic names
+    return result
+  } catch (err) {
+    logger.error(err)
+    return ["Error"]
+  }
 }
 
 
