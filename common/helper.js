@@ -38,6 +38,7 @@ function decorateWithLogging(service) {
     return
   }
   _.forEach(service, (method, name) => {
+    console.log({ name })
     const params = method.params || getParams(method)
     service[name] = async function serviceMethodWithLogging(...args) {
       logger.debug(`ENTER ${name}`)
