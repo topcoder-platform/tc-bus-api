@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * Create a service.
  * Create a new service.
@@ -26,9 +24,9 @@ exports.createServicePayload = function (serviceName, body) {
     var examples = {}
     examples['application/json'] = {
       'name': 'createEvent',
-      'topics': [ 'notifications.kafka.queue.java.test' ],
+      'topics': ['notifications.kafka.queue.java.test'],
       'payloadMimeType': 'application/json',
-      'payloadFormat': { }
+      'payloadFormat': {}
     }
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]])
@@ -97,9 +95,9 @@ exports.getServicePayload = function (serviceName, payloadName) {
     var examples = {}
     examples['application/json'] = {
       'name': 'createEvent',
-      'topics': [ 'notifications.kafka.queue.java.test' ],
+      'topics': ['notifications.kafka.queue.java.test'],
       'payloadMimeType': 'application/json',
-      'payloadFormat': { }
+      'payloadFormat': {}
     }
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]])
@@ -121,17 +119,17 @@ exports.getServicePayload = function (serviceName, payloadName) {
 exports.getServicePayloads = function (serviceName, page, perPage) {
   return new Promise(function (resolve, reject) {
     var examples = {}
-    examples['application/json'] = [ {
+    examples['application/json'] = [{
       'name': 'createEvent',
-      'topics': [ 'notifications.kafka.queue.java.test' ],
+      'topics': ['notifications.kafka.queue.java.test'],
       'payloadMimeType': 'application/json',
-      'payloadFormat': { }
+      'payloadFormat': {}
     }, {
       'name': 'createEvent',
-      'topics': [ 'notifications.kafka.queue.java.test' ],
+      'topics': ['notifications.kafka.queue.java.test'],
       'payloadMimeType': 'application/json',
-      'payloadFormat': { }
-    } ]
+      'payloadFormat': {}
+    }]
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]])
     } else {
@@ -151,7 +149,7 @@ exports.getServicePayloads = function (serviceName, page, perPage) {
 exports.getServices = function (page, perPage) {
   return new Promise(function (resolve, reject) {
     var examples = {}
-    examples['application/json'] = [ '', '' ]
+    examples['application/json'] = ['', '']
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]])
     } else {
@@ -250,9 +248,9 @@ exports.patchServicePayload = function (serviceName, payloadName, body) {
     var examples = {}
     examples['application/json'] = {
       'name': 'createEvent',
-      'topics': [ 'notifications.kafka.queue.java.test' ],
+      'topics': ['notifications.kafka.queue.java.test'],
       'payloadMimeType': 'application/json',
-      'payloadFormat': { }
+      'payloadFormat': {}
     }
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]])
@@ -296,9 +294,9 @@ exports.updateServicePayload = function (serviceName, payloadName, body) {
     var examples = {}
     examples['application/json'] = {
       'name': 'createEvent',
-      'topics': [ 'notifications.kafka.queue.java.test' ],
+      'topics': ['notifications.kafka.queue.java.test'],
       'payloadMimeType': 'application/json',
-      'payloadFormat': { }
+      'payloadFormat': {}
     }
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]])

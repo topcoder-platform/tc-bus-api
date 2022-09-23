@@ -1,6 +1,7 @@
 const config = require('config')
 const { verifier } = require('tc-core-library-js').auth
 const _ = require('lodash')
+const logger = require('../common/logger')
 
 const NOT_AUTHORIZED = 401
 
@@ -57,8 +58,8 @@ module.exports = function () {
             return (key.indexOf('gty') !== -1)
           })
           if (grantType === 'client-credentials' &&
-              !decoded.userId &&
-              !decoded.roles) {
+            !decoded.userId &&
+            !decoded.roles) {
             decoded.isMachine = true
           }
         }
@@ -70,6 +71,7 @@ module.exports = function () {
     } else {
       const error = new Error('You are not authorized to access this resource')
       error.statusCode = NOT_AUTHORIZED
+      logger.info(error)
       callback(error)
     }
   }

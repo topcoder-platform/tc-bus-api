@@ -1,24 +1,27 @@
-'use strict'
-
 const utils = require('../utils/writer.js')
 const Healthchecks = require('../service/HealthchecksService')
+const logger = require('../common/logger.js')
 
-module.exports.getHealth = function getHealth (req, res, next) {
-  Healthchecks.getHealth()
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
+getHealth = async (req, res) => {
+  try {
+    const response = await Healthchecks.getHealth()
+    utils.writeJson(res, response)
+  } catch (e) {
+    utils.writeJson(res, e)
+  }
 }
 
-module.exports.headHealth = function headHealth (req, res, next) {
-  Healthchecks.headHealth()
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
+headHealth = async (req, res) => {
+  try {
+    const response = await Healthchecks.headHealth()
+    utils.writeJson(res, response)
+  } catch (err) {
+    logger.error(err)
+    utils.writeJson(res, err)
+  }
+}
+
+module.exports = {
+  getHealth,
+  headHealth
 }

@@ -3,19 +3,38 @@
  */
 const createError = require('http-errors')
 const _ = require('lodash')
-const Kafka = require('no-kafka')
-
+const { Kafka } = require('kafkajs')
 const helper = require('../common/helper')
+const config = require('config')
+const logger = require('../common/logger')
 
+let brokers = ['']
+if (config.KAFKA_URL.startsWith('ssl://')) {
+  brokers = config.KAFKA_URL.split('ssl://')[1].split(',')
+} else {
+  brokers = config.KAFKA_URL.split(',')
+}
+const KafkaConfig = {
+  clientId: 'BUS-API',
+  brokers,
+}
+if (config.get('KAFKA_CLIENT_CERT')) {
+  kafkaConfig.ssl = {
+    cert: config.get('KAFKA_CLIENT_CERT'),
+    key: config.get('KAFKA_CLIENT_CERT_KEY'),
+  }
+}
+
+const kafka = new Kafka(KafkaConfig)
 // Create a new producer instance with KAFKA_URL, KAFKA_CLIENT_CERT, and
 // KAFKA_CLIENT_CERT_KEY environment variables
-const producer = new Kafka.Producer()
+const producer = kafka.producer()
 
 /**
  * Initialize the Kafka producer.
  */
-async function init () {
-  await producer.init()
+async function init() {
+  await producer.connect()
 }
 
 /**
@@ -23,22 +42,22 @@ async function init () {
  *
  * @param {Object} event the event to post
  */
-async function postEvent (event) {
+async function postEvent(event) {
   // var result
 
   if (_.has(event, 'payload')) {
     helper.validateEventPayload(event)
 
     // Post new structure
-    const message = {
+    const messages = [{
       value: JSON.stringify(event)
-    }
+    }]
     if (event.key) {
-      _.merge(message, { key: event.key })
+      _.merge(messages[0], { key: event.key })
     }
     const kafkaPayload = {
       topic: event.topic,
-      message
+      messages
     }
     const result = await producer.send(kafkaPayload)
     // Check if there is any error
@@ -49,6 +68,7 @@ async function postEvent (event) {
       }
       throw createError.InternalServerError()
     }
+    return result
   } else {
     throw createError.BadRequest(`Expecting new (mimetype-payload) structure`)
   }
@@ -59,19 +79,53 @@ async function postEvent (event) {
  *
  * @returns {Array} the topic names
  */
-async function getAllTopics () {
-  // Update the metadata from Kafka to make sure
-  // the no-kafka client has the latest info
-  await producer.client.updateMetadata()
+async function getAllTopics() {
+  try {
 
-  // Get the topic names
-  return _.keys(producer.client.topicMetadata)
+    const admin = kafka.admin()
+    await admin.connect()
+    const result = await admin.listTopics()
+    await admin.disconnect()
+    // Get the topic names
+    return result
+  } catch (err) {
+    logger.error(err)
+    return ["Error"]
+  }
 }
+
+/**
+ * Create topics in kafka.
+ *
+ * @returns {Array} the topic names
+ */
+async function createTopics(topicLists) {
+  try {
+    const topics = []
+    topicLists.map(topic => {
+      topic.topics.map(topicName => {
+        topics.push({ topic: topicName })
+      })
+    })
+    const admin = kafka.admin()
+    await admin.connect()
+    const result = await admin.createTopics({
+      topics,
+    })
+    await admin.disconnect()
+    return result ? topics : []
+  } catch (err) {
+    logger.error(err)
+    return ["Error"]
+  }
+}
+
 
 module.exports = {
   init,
   postEvent,
-  getAllTopics
+  getAllTopics,
+  createTopics
 }
 
 helper.buildService(module.exports)

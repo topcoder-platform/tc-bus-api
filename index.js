@@ -1,5 +1,4 @@
-'use strict'
-
+require('dotenv').config()
 const fs = require('fs')
 const path = require('path')
 const http = require('http')
@@ -25,11 +24,11 @@ const options = {
 
 // The Swagger document (require it, build it programmatically, fetch it from a URL, ...)
 const spec = fs.readFileSync(path.join(__dirname, 'api/swagger.yaml'), 'utf8')
-const swaggerDoc = jsyaml.safeLoad(spec)
+const swaggerDoc = jsyaml.load(spec)
 
 // Extending payload size
-app.use(bodyParser.json({limit: '2mb', extended: true}))
-app.use(bodyParser.urlencoded({limit: '2mb', extended: true}))
+app.use(bodyParser.json({ limit: '2mb', extended: true }))
+app.use(bodyParser.urlencoded({ limit: '2mb', extended: true }))
 
 // Initialize the Swagger middleware
 swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
@@ -56,5 +55,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
         logger.info(`Your server is listening on port ${serverPort} (http://localhost:${serverPort})`)
         logger.info(`Swagger-ui is available on http://localhost:${serverPort}/docs`)
       })
+    }).catch((err) => {
+      logger.error(`Server start error ${err}`)
     })
 })
