@@ -1,11 +1,12 @@
 const utils = require('../utils/writer.js')
 const Service = require('../service/ServiceService')
 const logger = require('../common/logger')
+const MessageBusService = require('../service/MessageBusService')
 
 const createService = async (req, res) => {
-  const body = req.swagger.params['body'].value
+  const body = req.swagger.params['body'].value.payloads
   try {
-    const response = await Service.createService(body)
+    const response = await MessageBusService.createTopics(body)
     utils.writeJson(res, response)
   } catch (err) {
     logger.error(err)

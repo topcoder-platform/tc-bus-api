@@ -8,7 +8,6 @@ postEvent = async (req, res) => {
   helper.verifyTokenScope(req, config.SCOPES.writeBusApi)
   try {
     const result = await MessageBusService.postEvent(req.body)
-
     utils.writeJson(res, result[0].errorCode === 0 ? 'ok' : 'error', 200)
   } catch (err) {
     logger.error(err)

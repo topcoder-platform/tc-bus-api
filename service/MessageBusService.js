@@ -8,15 +8,18 @@ const helper = require('../common/helper')
 const config = require('config')
 const logger = require('../common/logger')
 
-
-const kafka = new Kafka({
+const KafkaConfig = {
   clientId: 'BUS-API',
   brokers: config.get('KAFKA_URL').split(','),
-  ssl: {
+}
+if (config.get('KAFKA_CLIENT_CERT')) {
+  kafkaConfig.ssl = {
     cert: config.get('KAFKA_CLIENT_CERT'),
     key: config.get('KAFKA_CLIENT_CERT_KEY'),
   }
-})
+}
+
+const kafka = new Kafka(KafkaConfig)
 // Create a new producer instance with KAFKA_URL, KAFKA_CLIENT_CERT, and
 // KAFKA_CLIENT_CERT_KEY environment variables
 const producer = kafka.producer()
@@ -85,11 +88,38 @@ async function getAllTopics() {
   }
 }
 
+/**
+ * Create topics in kafka.
+ *
+ * @returns {Array} the topic names
+ */
+async function createTopics(topicLists) {
+  try {
+    const topics = []
+    topicLists.map(topic => {
+      topic.topics.map(topicName => {
+        topics.push({ topic: topicName })
+      })
+    })
+    const admin = kafka.admin()
+    await admin.connect()
+    const result = await admin.createTopics({
+      topics,
+    })
+    await admin.disconnect()
+    return result ? topics : []
+  } catch (err) {
+    logger.error(err)
+    return ["Error"]
+  }
+}
+
 
 module.exports = {
   init,
   postEvent,
-  getAllTopics
+  getAllTopics,
+  createTopics
 }
 
 helper.buildService(module.exports)

@@ -1,5 +1,4 @@
 const utils = require('../utils/writer.js')
-const Topics = require('../service/TopicsService')
 const MessageBusService = require('../service/MessageBusService')
 const helper = require('../common/helper')
 const config = require('config')
@@ -18,7 +17,7 @@ const getTopics = async (req, res) => {
 
 const headTopics = async (req, res) => {
   try {
-    const response = await Topics.headTopics()
+    const response = await MessageBusService.createTopics(req.body)
     utils.writeJson(res, response)
   } catch (err) {
     logger.error(err)
