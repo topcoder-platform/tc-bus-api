@@ -3,7 +3,7 @@ const ResponsePayload = function (code, payload) {
   this.payload = payload
 }
 
-respondWithCode = (code, payload) => {
+const respondWithCode = (code, payload) => {
   return new ResponsePayload(code, payload)
 }
 
@@ -44,6 +44,6 @@ const writeJson = (response, arg1, arg2) => {
 
 module.exports = {
   writeJson,
-  respondWithCode,
+  respondWithCode
 
 }

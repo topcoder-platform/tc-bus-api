@@ -25,7 +25,6 @@ const headTopics = async (req, res) => {
   }
 }
 
-
 module.exports = {
   getTopics,
   headTopics

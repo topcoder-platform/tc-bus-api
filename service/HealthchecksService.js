@@ -8,7 +8,7 @@ const getHealth = function () {
   return new Promise(function (resolve, reject) {
     const examples = {}
     examples['application/json'] = {
-      'health': 'ok'
+      health: 'ok'
     }
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]])
@@ -29,7 +29,6 @@ const headHealth = function () {
     resolve()
   })
 }
-
 
 module.exports = {
   getHealth,

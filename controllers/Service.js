@@ -4,7 +4,7 @@ const logger = require('../common/logger')
 const MessageBusService = require('../service/MessageBusService')
 
 const createService = async (req, res) => {
-  const body = req.swagger.params['body'].value.payloads
+  const body = req.swagger.params.body.value.payloads
   try {
     const response = await MessageBusService.createTopics(body)
     utils.writeJson(res, response)
@@ -15,8 +15,8 @@ const createService = async (req, res) => {
 }
 
 const createServicePayload = async (req, res) => {
-  const serviceName = req.swagger.params['serviceName'].value
-  const body = req.swagger.params['body'].value
+  const serviceName = req.swagger.params.serviceName.value
+  const body = req.swagger.params.body.value
   try {
     const response = await Service.createServicePayload(serviceName, body)
     utils.writeJson(res, response)
@@ -27,7 +27,7 @@ const createServicePayload = async (req, res) => {
 }
 
 const deleteService = async (req, res) => {
-  const serviceName = req.swagger.params['serviceName'].value
+  const serviceName = req.swagger.params.serviceName.value
   try {
     const response = await Service.deleteService(serviceName)
     utils.writeJson(res, response)
@@ -38,8 +38,8 @@ const deleteService = async (req, res) => {
 }
 
 const deleteServicePayload = async (req, res) => {
-  const serviceName = req.swagger.params['serviceName'].value
-  const payloadName = req.swagger.params['payloadName'].value
+  const serviceName = req.swagger.params.serviceName.value
+  const payloadName = req.swagger.params.payloadName.value
   try {
     const response = await Service.deleteServicePayload(serviceName, payloadName)
     utils.writeJson(res, response)
@@ -50,7 +50,7 @@ const deleteServicePayload = async (req, res) => {
 }
 
 const getService = async (req, res) => {
-  const serviceName = req.swagger.params['serviceName'].value
+  const serviceName = req.swagger.params.serviceName.value
   try {
     const response = await Service.getService(serviceName)
     utils.writeJson(res, response)
@@ -61,8 +61,8 @@ const getService = async (req, res) => {
 }
 
 const getServicePayload = async (req, res) => {
-  const serviceName = req.swagger.params['serviceName'].value
-  const payloadName = req.swagger.params['payloadName'].value
+  const serviceName = req.swagger.params.serviceName.value
+  const payloadName = req.swagger.params.payloadName.value
   try {
     const response = await Service.getServicePayload(serviceName, payloadName)
     utils.writeJson(res, response)
@@ -73,9 +73,9 @@ const getServicePayload = async (req, res) => {
 }
 
 const getServicePayloads = async (req, res) => {
-  const serviceName = req.swagger.params['serviceName'].value
-  const page = req.swagger.params['page'].value
-  const perPage = req.swagger.params['perPage'].value
+  const serviceName = req.swagger.params.serviceName.value
+  const page = req.swagger.params.page.value
+  const perPage = req.swagger.params.perPage.value
   try {
     const response = await Service.getServicePayloads(serviceName, page, perPage)
     utils.writeJson(res, response)
@@ -86,8 +86,8 @@ const getServicePayloads = async (req, res) => {
 }
 
 const getServices = async (req, res) => {
-  const page = req.swagger.params['page'].value
-  const perPage = req.swagger.params['perPage'].value
+  const page = req.swagger.params.page.value
+  const perPage = req.swagger.params.perPage.value
   try {
     const response = await Service.getServices(page, perPage)
     utils.writeJson(res, response)
@@ -98,7 +98,7 @@ const getServices = async (req, res) => {
 }
 
 const headService = async (req, res) => {
-  const serviceName = req.swagger.params['serviceName'].value
+  const serviceName = req.swagger.params.serviceName.value
   try {
     const response = await Service.headService(serviceName)
     utils.writeJson(res, response)
@@ -109,8 +109,8 @@ const headService = async (req, res) => {
 }
 
 const headServicePayload = async (req, res) => {
-  const serviceName = req.swagger.params['serviceName'].value
-  const payloadName = req.swagger.params['payloadName'].value
+  const serviceName = req.swagger.params.serviceName.value
+  const payloadName = req.swagger.params.payloadName.value
   try {
     const response = await Service.headServicePayload(serviceName, payloadName)
     utils.writeJson(res, response)
@@ -121,9 +121,9 @@ const headServicePayload = async (req, res) => {
 }
 
 const headServicePayloads = async (req, res) => {
-  const serviceName = req.swagger.params['serviceName'].value
-  const page = req.swagger.params['page'].value
-  const perPage = req.swagger.params['perPage'].value
+  const serviceName = req.swagger.params.serviceName.value
+  const page = req.swagger.params.page.value
+  const perPage = req.swagger.params.perPage.value
   try {
     const response = await Service.headServicePayloads(serviceName, page, perPage)
     utils.writeJson(res, response)
@@ -134,8 +134,8 @@ const headServicePayloads = async (req, res) => {
 }
 
 const headServices = async (req, res) => {
-  const page = req.swagger.params['page'].value
-  const perPage = req.swagger.params['perPage'].value
+  const page = req.swagger.params.page.value
+  const perPage = req.swagger.params.perPage.value
   try {
     const response = await Service.headServices(page, perPage)
     utils.writeJson(res, response)
@@ -146,8 +146,8 @@ const headServices = async (req, res) => {
 }
 
 const patchService = async (req, res) => {
-  const serviceName = req.swagger.params['serviceName'].value
-  const body = req.swagger.params['body'].value
+  const serviceName = req.swagger.params.serviceName.value
+  const body = req.swagger.params.body.value
   try {
     const response = await Service.patchService(serviceName, body)
     utils.writeJson(res, response)
@@ -158,9 +158,9 @@ const patchService = async (req, res) => {
 }
 
 const patchServicePayload = async (req, res) => {
-  const serviceName = req.swagger.params['serviceName'].value
-  const payloadName = req.swagger.params['payloadName'].value
-  const body = req.swagger.params['body'].value
+  const serviceName = req.swagger.params.serviceName.value
+  const payloadName = req.swagger.params.payloadName.value
+  const body = req.swagger.params.body.value
   try {
     const response = await Service.patchServicePayload(serviceName, payloadName, body)
     utils.writeJson(res, response)
@@ -171,8 +171,8 @@ const patchServicePayload = async (req, res) => {
 }
 
 const updateService = async (req, res) => {
-  const serviceName = req.swagger.params['serviceName'].value
-  const body = req.swagger.params['body'].value
+  const serviceName = req.swagger.params.serviceName.value
+  const body = req.swagger.params.body.value
   try {
     const response = await Service.updateService(serviceName, body)
     utils.writeJson(res, response)
@@ -183,9 +183,9 @@ const updateService = async (req, res) => {
 }
 
 const updateServicePayload = async (req, res) => {
-  const serviceName = req.swagger.params['serviceName'].value
-  const payloadName = req.swagger.params['payloadName'].value
-  const body = req.swagger.params['body'].value
+  const serviceName = req.swagger.params.serviceName.value
+  const payloadName = req.swagger.params.payloadName.value
+  const body = req.swagger.params.body.value
   try {
     const response = await Service.updateServicePayload(serviceName, payloadName, body)
     utils.writeJson(res, response)
@@ -194,7 +194,6 @@ const updateServicePayload = async (req, res) => {
     utils.writeJson(res, err)
   }
 }
-
 
 module.exports = {
   createService,
@@ -212,5 +211,5 @@ module.exports = {
   patchService,
   patchServicePayload,
   updateService,
-  updateServicePayload,
+  updateServicePayload
 }

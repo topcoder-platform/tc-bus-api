@@ -15,7 +15,7 @@ const logger = require('../common/logger')
  *
  * @returns {Array} list with email template placeholders name
  */
-async function getAllPlaceholders(name) {
+async function getAllPlaceholders (name) {
   const cachedData = cache.get(`placeholders-${name}`)
   if (cachedData == null) {
     try {
@@ -45,7 +45,7 @@ getAllPlaceholders.schema = {
 /**
  * Clear template placeholder cache.
  */
-async function clearAllPlaceholders() {
+async function clearAllPlaceholders () {
   cache.clear()
 }
 
