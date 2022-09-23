@@ -25,14 +25,14 @@ module.exports = function () {
 
   const authVerifier = verifier(validIssuers)
 
-  return function (req, authOrSecDef, scopesOrApiKey, callback) {
+  return function (req, authOrSecDef, scopesOrApiKey) {
     if (!!scopesOrApiKey && scopesOrApiKey.indexOf('Bearer') === 0) {
       const token = scopesOrApiKey.split('Bearer ')[1]
 
       authVerifier.validateToken(token, secret, (err, decoded) => {
         if (err) {
           err.statusCode = NOT_AUTHORIZED
-          return callback(err)
+          return err
         }
 
         decoded.userId = _.parseInt(_.find(decoded, (value, key) => {
@@ -64,13 +64,13 @@ module.exports = function () {
 
         req.swagger.params.authUser = decoded
 
-        callback()
+        return true
       })
     } else {
       const error = new Error('You are not authorized to access this resource')
       error.statusCode = NOT_AUTHORIZED
       logger.info(error)
-      callback(error)
+      return error
     }
   }
 }
