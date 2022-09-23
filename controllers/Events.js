@@ -4,7 +4,7 @@ const config = require('config')
 const utils = require('../utils/writer.js')
 const logger = require('../common/logger')
 
-postEvent = async (req, res) => {
+const postEvent = async (req, res) => {
   helper.verifyTokenScope(req, config.SCOPES.writeBusApi)
   try {
     const result = await MessageBusService.postEvent(req.body)

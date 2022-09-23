@@ -2,7 +2,7 @@ const logger = require('../common/logger')
 const Placeholders = require('../service/PlaceholdersService')
 const utils = require('../utils/writer.js')
 
-clearPlaceholdersCache = async (req, res) => {
+const clearPlaceholdersCache = async (req, res) => {
   try {
     await Placeholders.clearAllPlaceholders()
     utils.writeJson(res, null, 200)

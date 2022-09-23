@@ -12,8 +12,8 @@ const NOT_AUTHORIZED = 401
  * swagger code gen
  */
 module.exports = function () {
-  let secret = config.get('AUTH_SECRET')
-  let validIssuers = JSON.parse(config.get('VALID_ISSUERS'))
+  const secret = config.get('AUTH_SECRET')
+  const validIssuers = JSON.parse(config.get('VALID_ISSUERS'))
 
   if (!secret || secret.length === 0) {
     throw new Error('Auth secret not provided')
@@ -23,15 +23,13 @@ module.exports = function () {
     throw new Error('JWT Issuers are not configured')
   }
 
-  let authVerifier = verifier(validIssuers)
+  const authVerifier = verifier(validIssuers)
 
   return function (req, authOrSecDef, scopesOrApiKey, callback) {
     if (!!scopesOrApiKey && scopesOrApiKey.indexOf('Bearer') === 0) {
       const token = scopesOrApiKey.split('Bearer ')[1]
 
       authVerifier.validateToken(token, secret, (err, decoded) => {
-        let scopes
-
         if (err) {
           err.statusCode = NOT_AUTHORIZED
           return callback(err)
@@ -47,14 +45,14 @@ module.exports = function () {
           return (key.indexOf('roles') !== -1)
         })
 
-        scopes = _.find(decoded, (value, key) => {
+        const scopes = _.find(decoded, (value, key) => {
           return (key.indexOf('scope') !== -1)
         })
 
         if (scopes) {
           decoded.scopes = scopes.split(' ')
 
-          let grantType = _.find(decoded, (value, key) => {
+          const grantType = _.find(decoded, (value, key) => {
             return (key.indexOf('gty') !== -1)
           })
           if (grantType === 'client-credentials' &&

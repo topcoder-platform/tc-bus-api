@@ -14,18 +14,19 @@ if (config.KAFKA_URL.startsWith('ssl://')) {
 } else {
   brokers = config.KAFKA_URL.split(',')
 }
-const KafkaConfig = {
+const kafkaConfig = {
   clientId: 'BUS-API',
-  brokers,
+  brokers
 }
+
 if (config.get('KAFKA_CLIENT_CERT')) {
   kafkaConfig.ssl = {
     cert: config.get('KAFKA_CLIENT_CERT'),
-    key: config.get('KAFKA_CLIENT_CERT_KEY'),
+    key: config.get('KAFKA_CLIENT_CERT_KEY')
   }
 }
 
-const kafka = new Kafka(KafkaConfig)
+const kafka = new Kafka(kafkaConfig)
 // Create a new producer instance with KAFKA_URL, KAFKA_CLIENT_CERT, and
 // KAFKA_CLIENT_CERT_KEY environment variables
 const producer = kafka.producer()
@@ -33,7 +34,7 @@ const producer = kafka.producer()
 /**
  * Initialize the Kafka producer.
  */
-async function init() {
+async function init () {
   await producer.connect()
 }
 
@@ -42,7 +43,7 @@ async function init() {
  *
  * @param {Object} event the event to post
  */
-async function postEvent(event) {
+async function postEvent (event) {
   // var result
 
   if (_.has(event, 'payload')) {
@@ -70,7 +71,7 @@ async function postEvent(event) {
     }
     return result
   } else {
-    throw createError.BadRequest(`Expecting new (mimetype-payload) structure`)
+    throw createError.BadRequest('Expecting new (mimetype-payload) structure')
   }
 }
 
@@ -79,9 +80,8 @@ async function postEvent(event) {
  *
  * @returns {Array} the topic names
  */
-async function getAllTopics() {
+async function getAllTopics () {
   try {
-
     const admin = kafka.admin()
     await admin.connect()
     const result = await admin.listTopics()
@@ -90,7 +90,7 @@ async function getAllTopics() {
     return result
   } catch (err) {
     logger.error(err)
-    return ["Error"]
+    return ['Error']
   }
 }
 
@@ -99,27 +99,28 @@ async function getAllTopics() {
  *
  * @returns {Array} the topic names
  */
-async function createTopics(topicLists) {
+async function createTopics (topicLists) {
   try {
     const topics = []
     topicLists.map(topic => {
       topic.topics.map(topicName => {
         topics.push({ topic: topicName })
+        return ''
       })
+      return ''
     })
     const admin = kafka.admin()
     await admin.connect()
     const result = await admin.createTopics({
-      topics,
+      topics
     })
     await admin.disconnect()
     return result ? topics : []
   } catch (err) {
     logger.error(err)
-    return ["Error"]
+    return ['Error']
   }
 }
-
 
 module.exports = {
   init,

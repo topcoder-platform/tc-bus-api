@@ -24,7 +24,7 @@ module.exports = {
   AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
   AUTH0_CLIENT_SECRET: process.env.AUTH0_CLIENT_SECRET,
   SCOPES: {
-    'writeBusApi': 'write:bus_api',
-    'readBusTopics': 'read:bus_topics'
+    writeBusApi: 'write:bus_api',
+    readBusTopics: 'read:bus_topics'
   }
 }
