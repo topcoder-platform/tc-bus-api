@@ -8,9 +8,15 @@ const helper = require('../common/helper')
 const config = require('config')
 const logger = require('../common/logger')
 
+let brokers = ['']
+if (config.KAFKA_URL.startsWith('ssl://')) {
+  brokers = config.KAFKA_URL.split('ssl://')[1].split(',')
+} else {
+  brokers = config.KAFKA_URL.split(',')
+}
 const KafkaConfig = {
   clientId: 'BUS-API',
-  brokers: config.get('KAFKA_URL').split(','),
+  brokers,
 }
 if (config.get('KAFKA_CLIENT_CERT')) {
   kafkaConfig.ssl = {
