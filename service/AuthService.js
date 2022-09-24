@@ -25,16 +25,16 @@ module.exports = function () {
 
   const authVerifier = verifier(validIssuers)
 
-  return function (req, authOrSecDef, scopesOrApiKey) {
+  return function (req, authOrSecDef, scopesOrApiKey, next) {
     if (!!scopesOrApiKey && scopesOrApiKey.indexOf('Bearer') === 0) {
       const token = scopesOrApiKey.split('Bearer ')[1]
 
       authVerifier.validateToken(token, secret, (err, decoded) => {
-        if (err) {
+        if (err || !decoded) {
           err.statusCode = NOT_AUTHORIZED
-          return err
+          const error = new Error('You are not authorized to access this resource')
+          return next(error)
         }
-
         decoded.userId = _.parseInt(_.find(decoded, (value, key) => {
           return (key.indexOf('userId') !== -1)
         }))
@@ -64,13 +64,13 @@ module.exports = function () {
 
         req.swagger.params.authUser = decoded
 
-        return true
+        return next()
       })
     } else {
       const error = new Error('You are not authorized to access this resource')
       error.statusCode = NOT_AUTHORIZED
       logger.info(error)
-      return error
+      return next(error)
     }
   }
 }
