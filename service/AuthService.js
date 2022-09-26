@@ -29,43 +29,49 @@ module.exports = function () {
     if (!!scopesOrApiKey && scopesOrApiKey.indexOf('Bearer') === 0) {
       const token = scopesOrApiKey.split('Bearer ')[1]
 
-      authVerifier.validateToken(token, secret, (err, decoded) => {
-        if (err || !decoded) {
-          err.statusCode = NOT_AUTHORIZED
-          const error = new Error('You are not authorized to access this resource')
-          return next(error)
-        }
-        decoded.userId = _.parseInt(_.find(decoded, (value, key) => {
-          return (key.indexOf('userId') !== -1)
-        }))
-        decoded.handle = _.find(decoded, (value, key) => {
-          return (key.indexOf('handle') !== -1)
-        })
-        decoded.roles = _.find(decoded, (value, key) => {
-          return (key.indexOf('roles') !== -1)
-        })
+      try {
 
-        const scopes = _.find(decoded, (value, key) => {
-          return (key.indexOf('scope') !== -1)
-        })
-
-        if (scopes) {
-          decoded.scopes = scopes.split(' ')
-
-          const grantType = _.find(decoded, (value, key) => {
-            return (key.indexOf('gty') !== -1)
-          })
-          if (grantType === 'client-credentials' &&
-            !decoded.userId &&
-            !decoded.roles) {
-            decoded.isMachine = true
+        authVerifier.validateToken(token, secret, (err, decoded) => {
+          if (err || !decoded) {
+            err.statusCode = NOT_AUTHORIZED
+            const error = new Error('You are not authorized to access this resource')
+            return next(error)
           }
-        }
+          decoded.userId = _.parseInt(_.find(decoded, (value, key) => {
+            return (key.indexOf('userId') !== -1)
+          }))
+          decoded.handle = _.find(decoded, (value, key) => {
+            return (key.indexOf('handle') !== -1)
+          })
+          decoded.roles = _.find(decoded, (value, key) => {
+            return (key.indexOf('roles') !== -1)
+          })
 
-        req.swagger.params.authUser = decoded
+          const scopes = _.find(decoded, (value, key) => {
+            return (key.indexOf('scope') !== -1)
+          })
 
-        return next()
-      })
+          if (scopes) {
+            decoded.scopes = scopes.split(' ')
+
+            const grantType = _.find(decoded, (value, key) => {
+              return (key.indexOf('gty') !== -1)
+            })
+            if (grantType === 'client-credentials' &&
+              !decoded.userId &&
+              !decoded.roles) {
+              decoded.isMachine = true
+            }
+          }
+
+          req.swagger.params.authUser = decoded
+
+          return next()
+        })
+      } catch (e) {
+        logger.error(e)
+        return next(e)
+      }
     } else {
       const error = new Error('You are not authorized to access this resource')
       error.statusCode = NOT_AUTHORIZED
