@@ -1,22 +1,22 @@
 version: 2
 defaults: &defaults
-    docker:
-      - image: docker:17.06.1-ce-git
+  docker:
+    - image: docker:20.10.18-git
 install_dependency: &install_dependency
-          name: Installation of build and deployment dependencies.
-          command: |
-            apk update
-            apk add --no-cache bash curl
-            apk upgrade
-            apk add --no-cache jq py-pip sudo
-            sudo pip install awscli --upgrade
+  name: Installation of build and deployment dependencies.
+  command: |
+    apk update
+    apk add --no-cache bash curl
+    apk upgrade
+    apk add --no-cache jq py-pip sudo
+    sudo pip install awscli --upgrade
 install_deploysuite: &install_deploysuite
-          name: Installation of install_deploysuite.
-          command: |
-            git clone --branch v1.3 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
-            cp ./../buildscript/master_deploy.sh .
-            cp ./../buildscript/buildenv.sh .
-            cp ./../buildscript/awsconfiguration.sh .
+  name: Installation of install_deploysuite.
+  command: |
+    git clone --branch v1.3 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
+    cp ./../buildscript/master_deploy.sh .
+    cp ./../buildscript/buildenv.sh .
+    cp ./../buildscript/awsconfiguration.sh .
 restore_cache_settings_for_build: &restore_cache_settings_for_build
   key: docker-tc-bus-api-{{ checksum "package-lock.json" }}
 
@@ -26,8 +26,8 @@ save_cache_settings: &save_cache_settings
     - node_modules
 
 run_build: &run_build
-          name: Build of Docker image
-          command: ./build.sh
+  name: Build of Docker image
+  command: ./build.sh
 jobs:
   # Build & Deploy against development backend rer
   "build-dev":
@@ -74,12 +74,12 @@ workflows:
     jobs:
       # Development builds are executed on "develop" branch only.
       - "build-dev":
-          context : org-global
+          context: org-global
           filters:
             branches:
-              only: ['dev', 'feature/shapeup3']
+              only: ["dev", "feature/shapeup3"]
       - "build-prod":
-          context : org-global
+          context: org-global
           filters:
             branches:
               only: master
