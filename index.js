@@ -15,6 +15,32 @@ const AuthService = require('./service/AuthService')
 
 const serverPort = config.PORT
 
+
+const errorTypes = ['unhandledRejection', 'uncaughtException']
+const signalTraps = ['SIGTERM', 'SIGINT', 'SIGUSR2']
+
+errorTypes.forEach(type => {
+  process.on(type, e => {
+    try {
+      console.log(`process.on ${type}`)
+      console.log(e)
+      process.exit(0)
+    } catch (_) {
+      process.exit(1)
+    }
+  })
+})
+
+signalTraps.forEach(type => {
+  process.once(type, () => {
+    try {
+      console.log(`process.once ${type}`)
+    } finally {
+      process.kill(process.pid, type)
+    }
+  })
+})
+
 // swaggerRouter configuration
 const options = {
   swaggerUi: path.join(__dirname, '/swagger.json'),
