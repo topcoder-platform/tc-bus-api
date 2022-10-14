@@ -9,7 +9,7 @@ function functionWrapper(fn, fnName) {
       return result
     } catch (e) {
       await logger.endSpanWithError(span, err)
-      return e
+      throw e
     }
   };
 }
