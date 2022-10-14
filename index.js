@@ -62,9 +62,11 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   app.use(middleware.swaggerMetadata())
 
   // Authentication
-  app.use(middleware.swaggerSecurity({
-    Bearer: AuthService()
-  }))
+  if (!config.BYPASS_AUTH) {
+    app.use(middleware.swaggerSecurity({
+      Bearer: AuthService()
+    }))
+  }
 
   // Validate Swagger requests
   app.use(middleware.swaggerValidator())
