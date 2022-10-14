@@ -1,6 +1,6 @@
 const logger = require('../common/logger')
 
-function functionWrapper (fn, fnName) {
+function functionWrapper(fn, fnName) {
   return async function () {
     const span = await logger.startSpan(fnName ?? fn.name)
     try {
