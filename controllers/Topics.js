@@ -6,23 +6,27 @@ const logger = require('../common/logger')
 
 const getTopics = async (req, res) => {
   helper.verifyTokenScope(req, config.SCOPES.readBusTopics)
-  try {
-    const topics = await MessageBusService.getAllTopics()
-    utils.writeJson(res, topics)
-  } catch (err) {
-    logger.error(err)
-    utils.writeJson(res, err)
-  }
+    (await functionWrapper(async () => {
+      try {
+        const topics = await MessageBusService.getAllTopics()
+        utils.writeJson(res, topics)
+      } catch (err) {
+        logger.error(err)
+        utils.writeJson(res, err)
+      }
+    }, 'getTopics'))(req, res)
 }
 
 const headTopics = async (req, res) => {
-  try {
-    const response = await MessageBusService.createTopics(req.body)
-    utils.writeJson(res, response)
-  } catch (err) {
-    logger.error(err)
-    utils.writeJson(res, err)
-  }
+  (await functionWrapper(async () => {
+    try {
+      const response = await MessageBusService.createTopics(req.body)
+      utils.writeJson(res, response)
+    } catch (err) {
+      logger.error(err)
+      utils.writeJson(res, err)
+    }
+  }, 'headTopics'))(req, res)
 }
 
 module.exports = {

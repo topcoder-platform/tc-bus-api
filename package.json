@@ -25,7 +25,8 @@
     "memory-cache": "^0.2.0",
     "superagent": "^8.0.0",
     "swagger-tools": "^0.10.4",
-    "tc-core-library-js": "appirio-tech/tc-core-library-js.git#v2.6.3",
+    "tc-core-library-js": "appirio-tech/tc-core-library-js.git#v2.6.4",
+    "tc-framework": "topcoder-platform/tc-framework.git#develop",
     "winston": "^3.0.0"
   },
   "devDependencies": {
