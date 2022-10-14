@@ -1,17 +1,17 @@
 const logger = require('../common/logger')
 
-function functionWrapper(fn, fnName) {
+function functionWrapper (fn, fnName) {
   return async function () {
+    const span = await logger.startSpan(fnName ?? fn.name)
     try {
-      const span = await logger.startSpan(fnName ?? fn.name)
-      const result = await fn.apply(this, arguments);
+      const result = await fn.apply(this, arguments)
       await logger.endSpan(span)
       return result
     } catch (e) {
-      await logger.endSpanWithError(span, err)
+      await logger.endSpanWithError(span, e)
       throw e
     }
-  };
+  }
 }
 
 module.exports = {

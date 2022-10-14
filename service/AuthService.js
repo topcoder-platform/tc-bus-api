@@ -30,7 +30,6 @@ module.exports = function () {
       const token = scopesOrApiKey.split('Bearer ')[1]
 
       try {
-
         authVerifier.validateToken(token, secret, (err, decoded) => {
           if (err || !decoded) {
             err.statusCode = NOT_AUTHORIZED

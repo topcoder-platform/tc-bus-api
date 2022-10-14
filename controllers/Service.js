@@ -6,7 +6,6 @@ const { functionWrapper } = require('../utils/wrapper.js')
 
 const createService = async (req, res) => {
   (await functionWrapper(async () => {
-
     const body = req.swagger.params.body.value.payloads
     try {
       const response = await MessageBusService.createTopics(body)
@@ -71,7 +70,7 @@ const getService = async (req, res) => {
 }
 
 const getServicePayload = async (req, res) => {
-  (await functionWrapper((async () => {
+  (await functionWrapper(async () => {
     const serviceName = req.swagger.params.serviceName.value
     const payloadName = req.swagger.params.payloadName.value
     try {
@@ -81,7 +80,7 @@ const getServicePayload = async (req, res) => {
       logger.error(err)
       utils.writeJson(res, err)
     }
-  }), 'getServicePayload'))(req, res)
+  }, 'getServicePayload'))(req, res)
 }
 
 const getServicePayloads = async (req, res) => {
@@ -142,7 +141,6 @@ const headServicePayload = async (req, res) => {
 
 const headServicePayloads = async (req, res) => {
   (await functionWrapper(async () => {
-
     const serviceName = req.swagger.params.serviceName.value
     const page = req.swagger.params.page.value
     const perPage = req.swagger.params.perPage.value
