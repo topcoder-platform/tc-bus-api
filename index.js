@@ -15,7 +15,6 @@ const AuthService = require('./service/AuthService')
 
 const serverPort = config.PORT
 
-
 const errorTypes = ['unhandledRejection', 'uncaughtException']
 const signalTraps = ['SIGTERM', 'SIGINT', 'SIGUSR2']
 
