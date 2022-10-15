@@ -4,7 +4,7 @@
   "description": "REST API for Topcoder Meta Services.  This describes a service that can give information on other services existing on Topcoder.  Available service links can be listed by sending GET request. Also, each service can return links to further services in their responses.",
   "main": "index.js",
   "scripts": {
-    "start": "node --require './utils/tracing.js' index.js",
+    "start": "node  index.js",
     "lint": "standard --fix"
   },
   "keywords": [
@@ -15,6 +15,7 @@
   "dependencies": {
     "@opentelemetry/api": "^1.2.0",
     "@opentelemetry/auto-instrumentations-node": "^0.33.1",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.33.0",
     "@opentelemetry/sdk-node": "^0.33.0",
     "config": "^3.3.7",
     "connect": "^3.2.0",
