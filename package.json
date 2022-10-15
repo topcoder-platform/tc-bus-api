@@ -13,10 +13,6 @@
   "license": "Unlicense",
   "private": true,
   "dependencies": {
-    "@opentelemetry/api": "^1.2.0",
-    "@opentelemetry/auto-instrumentations-node": "^0.33.1",
-    "@opentelemetry/exporter-trace-otlp-http": "^0.33.0",
-    "@opentelemetry/sdk-node": "^0.33.0",
     "config": "^3.3.7",
     "connect": "^3.2.0",
     "dotenv": "^16.0.2",
