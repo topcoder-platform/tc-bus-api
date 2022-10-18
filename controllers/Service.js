@@ -2,228 +2,246 @@ const utils = require('../utils/writer.js')
 const Service = require('../service/ServiceService')
 const logger = require('../common/logger')
 const MessageBusService = require('../service/MessageBusService')
-const { functionWrapper } = require('../utils/wrapper.js')
 
 const createService = async (req, res) => {
-  (await functionWrapper(async () => {
-    const body = req.swagger.params.body.value.payloads
-    try {
-      const response = await MessageBusService.createTopics(body)
-      utils.writeJson(res, response)
-    } catch (err) {
-      logger.error(err)
-      utils.writeJson(res, err)
-    }
-  }, 'createService'))(req, res)
+  const body = req.swagger.params.body.value.payloads
+  const span = await logger.startSpan('createService')
+  try {
+    const response = await MessageBusService.createTopics(body)
+    await logger.endSpan(span)
+    utils.writeJson(res, response)
+  } catch (err) {
+    logger.error(err)
+    await logger.endSpanWithError(span, err)
+    utils.writeJson(res, err)
+  }
 }
 
 const createServicePayload = async (req, res) => {
   const serviceName = req.swagger.params.serviceName.value
   const body = req.swagger.params.body.value
+  const span = await logger.startSpan('createServicePayload')
   try {
     const response = await Service.createServicePayload(serviceName, body)
+    await logger.endSpan(span)
     utils.writeJson(res, response)
   } catch (err) {
     logger.error(err)
+    await logger.endSpanWithError(span, err)
     utils.writeJson(res, err)
   }
 }
 
 const deleteService = async (req, res) => {
-  (await functionWrapper(async () => {
-    const serviceName = req.swagger.params.serviceName.value
-    try {
-      const response = await Service.deleteService(serviceName)
-      utils.writeJson(res, response)
-    } catch (err) {
-      logger.error(err)
-      utils.writeJson(res, err)
-    }
-  }, 'deleteService'))(req, res)
+  const span = await logger.startSpan('deleteService')
+  const serviceName = req.swagger.params.serviceName.value
+  try {
+    const response = await Service.deleteService(serviceName)
+    await logger.endSpan(span)
+    utils.writeJson(res, response)
+  } catch (err) {
+    logger.error(err)
+    await logger.endSpanWithError(span, err)
+    utils.writeJson(res, err)
+  }
 }
 
 const deleteServicePayload = async (req, res) => {
-  (await functionWrapper(async () => {
-    const serviceName = req.swagger.params.serviceName.value
-    const payloadName = req.swagger.params.payloadName.value
-    try {
-      const response = await Service.deleteServicePayload(serviceName, payloadName)
-      utils.writeJson(res, response)
-    } catch (err) {
-      logger.error(err)
-      utils.writeJson(res, err)
-    }
-  }, 'deleteServicePayload'))
+  const serviceName = req.swagger.params.serviceName.value
+  const payloadName = req.swagger.params.payloadName.value
+  const span = await logger.startSpan('deleteServicePayload')
+  try {
+    const response = await Service.deleteServicePayload(serviceName, payloadName)
+    await logger.endSpan(span)
+    utils.writeJson(res, response)
+  } catch (err) {
+    logger.error(err)
+    await logger.endSpanWithError(span, err)
+    utils.writeJson(res, err)
+  }
 }
 
 const getService = async (req, res) => {
-  (await functionWrapper(async () => {
-    const serviceName = req.swagger.params.serviceName.value
-    try {
-      const response = await Service.getService(serviceName)
-      utils.writeJson(res, response)
-    } catch (err) {
-      logger.error(err)
-      utils.writeJson(res, err)
-    }
-  }, 'getService'))(req, res)
+  const serviceName = req.swagger.params.serviceName.value
+  const span = await logger.startSpan('getService')
+  try {
+    const response = await Service.getService(serviceName)
+    await logger.endSpan(span)
+    utils.writeJson(res, response)
+  } catch (err) {
+    logger.error(err)
+    await logger.endSpanWithError(span, err)
+    utils.writeJson(res, err)
+  }
 }
 
 const getServicePayload = async (req, res) => {
-  (await functionWrapper(async () => {
-    const serviceName = req.swagger.params.serviceName.value
-    const payloadName = req.swagger.params.payloadName.value
-    try {
-      const response = await Service.getServicePayload(serviceName, payloadName)
-      utils.writeJson(res, response)
-    } catch (err) {
-      logger.error(err)
-      utils.writeJson(res, err)
-    }
-  }, 'getServicePayload'))(req, res)
+  const serviceName = req.swagger.params.serviceName.value
+  const payloadName = req.swagger.params.payloadName.value
+  const span = await logger.startSpan('getServicePayload')
+  try {
+    const response = await Service.getServicePayload(serviceName, payloadName)
+    await logger.endSpan(span)
+    utils.writeJson(res, response)
+  } catch (err) {
+    logger.error(err)
+    await logger.endSpanWithError(span, err)
+    utils.writeJson(res, err)
+  }
 }
 
 const getServicePayloads = async (req, res) => {
-  (await functionWrapper(async () => {
-    const serviceName = req.swagger.params.serviceName.value
-    const page = req.swagger.params.page.value
-    const perPage = req.swagger.params.perPage.value
-    try {
-      const response = await Service.getServicePayloads(serviceName, page, perPage)
-      utils.writeJson(res, response)
-    } catch (err) {
-      logger.error(err)
-      utils.writeJson(res, err)
-    }
-  }, 'getServicePayloads'))(req, res)
+  const serviceName = req.swagger.params.serviceName.value
+  const page = req.swagger.params.page.value
+  const perPage = req.swagger.params.perPage.value
+  const span = await logger.startSpan('getServicePayloads')
+  try {
+    const response = await Service.getServicePayloads(serviceName, page, perPage)
+    await logger.endSpan(span)
+    utils.writeJson(res, response)
+  } catch (err) {
+
+    logger.error(err)
+    await logger.endSpanWithError(span, err)
+    utils.writeJson(res, err)
+  }
 }
 
 const getServices = async (req, res) => {
-  (await functionWrapper(async () => {
-    const page = req.swagger.params.page.value
-    const perPage = req.swagger.params.perPage.value
-    try {
-      const response = await Service.getServices(page, perPage)
-      utils.writeJson(res, response)
-    } catch (err) {
-      logger.error(err)
-      utils.writeJson(res, err)
-    }
-  }, 'getServices'))(req, res)
+  const page = req.swagger.params.page.value
+  const perPage = req.swagger.params.perPage.value
+  const span = await logger.startSpan('getServices')
+  try {
+    const response = await Service.getServices(page, perPage)
+    await logger.endSpan(span)
+    utils.writeJson(res, response)
+  } catch (err) {
+    logger.error(err)
+    await logger.endSpanWithError(span, err)
+    utils.writeJson(res, err)
+  }
 }
 
 const headService = async (req, res) => {
-  (await functionWrapper(async () => {
-    const serviceName = req.swagger.params.serviceName.value
-    try {
-      const response = await Service.headService(serviceName)
-      utils.writeJson(res, response)
-    } catch (err) {
-      logger.error(err)
-      utils.writeJson(res, err)
-    }
-  }, 'headService'))(req, res)
+  const serviceName = req.swagger.params.serviceName.value
+  const span = await logger.startSpan('headService')
+  try {
+    const response = await Service.headService(serviceName)
+    await logger.endSpan(span)
+    utils.writeJson(res, response)
+  } catch (err) {
+    logger.error(err)
+    await logger.endSpanWithError(span, err)
+    utils.writeJson(res, err)
+  }
 }
 
 const headServicePayload = async (req, res) => {
-  (await functionWrapper(async () => {
-    const serviceName = req.swagger.params.serviceName.value
-    const payloadName = req.swagger.params.payloadName.value
-    try {
-      const response = await Service.headServicePayload(serviceName, payloadName)
-      utils.writeJson(res, response)
-    } catch (err) {
-      logger.error(err)
-      utils.writeJson(res, err)
-    }
-  }, 'headServicePayload'))(req, res)
+  const serviceName = req.swagger.params.serviceName.value
+  const payloadName = req.swagger.params.payloadName.value
+  const span = await logger.startSpan('headServicePayload')
+  try {
+    const response = await Service.headServicePayload(serviceName, payloadName)
+    await logger.endSpan(span)
+    utils.writeJson(res, response)
+  } catch (err) {
+    logger.error(err)
+    await logger.endSpanWithError(span, err)
+    utils.writeJson(res, err)
+  }
 }
 
 const headServicePayloads = async (req, res) => {
-  (await functionWrapper(async () => {
-    const serviceName = req.swagger.params.serviceName.value
-    const page = req.swagger.params.page.value
-    const perPage = req.swagger.params.perPage.value
-    try {
-      const response = await Service.headServicePayloads(serviceName, page, perPage)
-      utils.writeJson(res, response)
-    } catch (err) {
-      logger.error(err)
-      utils.writeJson(res, err)
-    }
-  }, 'headServicePayloads'))(req, res)
+  const serviceName = req.swagger.params.serviceName.value
+  const page = req.swagger.params.page.value
+  const perPage = req.swagger.params.perPage.value
+  const span = await logger.startSpan('headServicePayloads')
+  try {
+    const response = await Service.headServicePayloads(serviceName, page, perPage)
+    await logger.endSpan(span)
+    utils.writeJson(res, response)
+  } catch (err) {
+    logger.error(err)
+    await logger.endSpanWithError(span, err)
+    utils.writeJson(res, err)
+  }
 }
 
 const headServices = async (req, res) => {
-  (await functionWrapper(async () => {
-    const page = req.swagger.params.page.value
-    const perPage = req.swagger.params.perPage.value
-    try {
-      const response = await Service.headServices(page, perPage)
-      utils.writeJson(res, response)
-    } catch (err) {
-      logger.error(err)
-      utils.writeJson(res, err)
-    }
-  }, 'headServices'))(req, res)
+  const page = req.swagger.params.page.value
+  const perPage = req.swagger.params.perPage.value
+  const span = await logger.startSpan('headServices')
+  try {
+    const response = await Service.headServices(page, perPage)
+    await logger.endSpan(span)
+    utils.writeJson(res, response)
+  } catch (err) {
+    logger.error(err)
+    await logger.endSpanWithError(span, err)
+    utils.writeJson(res, err)
+  }
 }
 
 const patchService = async (req, res) => {
-  (await functionWrapper(async () => {
-    const serviceName = req.swagger.params.serviceName.value
-    const body = req.swagger.params.body.value
-    try {
-      const response = await Service.patchService(serviceName, body)
-      utils.writeJson(res, response)
-    } catch (err) {
-      logger.error(err)
-      utils.writeJson(res, err)
-    }
-  }, 'patchService'))(req, res)
+  const serviceName = req.swagger.params.serviceName.value
+  const body = req.swagger.params.body.value
+  const span = await logger.startSpan('patchService')
+  try {
+    const response = await Service.patchService(serviceName, body)
+    await logger.endSpan(span)
+    utils.writeJson(res, response)
+  } catch (err) {
+    logger.error(err)
+    await logger.endSpanWithError(span, err)
+    utils.writeJson(res, err)
+  }
 }
 
 const patchServicePayload = async (req, res) => {
-  (await functionWrapper(async () => {
-    const serviceName = req.swagger.params.serviceName.value
-    const payloadName = req.swagger.params.payloadName.value
-    const body = req.swagger.params.body.value
-    try {
-      const response = await Service.patchServicePayload(serviceName, payloadName, body)
-      utils.writeJson(res, response)
-    } catch (err) {
-      logger.error(err)
-      utils.writeJson(res, err)
-    }
-  }, 'patchServicePayload'))(req, res)
+  const serviceName = req.swagger.params.serviceName.value
+  const payloadName = req.swagger.params.payloadName.value
+  const body = req.swagger.params.body.value
+  const span = await logger.startSpan('patchServicePayload')
+  try {
+    const response = await Service.patchServicePayload(serviceName, payloadName, body)
+    await logger.endSpan(span)
+    utils.writeJson(res, response)
+  } catch (err) {
+    logger.error(err)
+    await logger.endSpanWithError(span, err)
+    utils.writeJson(res, err)
+  }
 }
 
 const updateService = async (req, res) => {
-  (await functionWrapper(async () => {
-    const serviceName = req.swagger.params.serviceName.value
-    const body = req.swagger.params.body.value
-    try {
-      const response = await Service.updateService(serviceName, body)
-      utils.writeJson(res, response)
-    } catch (err) {
-      logger.error(err)
-      utils.writeJson(res, err)
-    }
-  }, 'updateService'))(req, res)
+  const serviceName = req.swagger.params.serviceName.value
+  const body = req.swagger.params.body.value
+  const span = await logger.startSpan('updateService')
+  try {
+    const response = await Service.updateService(serviceName, body)
+    await logger.endSpan(span)
+    utils.writeJson(res, response)
+  } catch (err) {
+    logger.error(err)
+    await logger.endSpanWithError(span, err)
+    utils.writeJson(res, err)
+  }
 }
 
 const updateServicePayload = async (req, res) => {
-  (await functionWrapper(async () => {
-    const serviceName = req.swagger.params.serviceName.value
-    const payloadName = req.swagger.params.payloadName.value
-    const body = req.swagger.params.body.value
-    try {
-      const response = await Service.updateServicePayload(serviceName, payloadName, body)
-      utils.writeJson(res, response)
-    } catch (err) {
-      logger.error(err)
-      utils.writeJson(res, err)
-    }
-  }, 'updateServicePayload'))(req, res)
+  const serviceName = req.swagger.params.serviceName.value
+  const payloadName = req.swagger.params.payloadName.value
+  const body = req.swagger.params.body.value
+  const span = await logger.startSpan('updateServicePayload')
+  try {
+    const response = await Service.updateServicePayload(serviceName, payloadName, body)
+    await logger.endSpan(span)
+    utils.writeJson(res, response)
+  } catch (err) {
+    logger.error(err)
+    await logger.endSpanWithError(span, err)
+    utils.writeJson(res, err)
+  }
 }
 
 module.exports = {
@@ -244,3 +262,5 @@ module.exports = {
   updateService,
   updateServicePayload
 }
+
+logger.buildService(module.exports)
