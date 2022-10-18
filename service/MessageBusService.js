@@ -34,7 +34,7 @@ const producer = kafka.producer()
 /**
  * Initialize the Kafka producer.
  */
-async function init () {
+async function init() {
   await producer.connect()
 }
 
@@ -43,9 +43,9 @@ async function init () {
  *
  * @param {Object} event the event to post
  */
-async function postEvent (event) {
+async function postEvent(event) {
   // var result
-
+  const span = await logger.startSpan('postEventKafka')
   if (_.has(event, 'payload')) {
     helper.validateEventPayload(event)
 
@@ -69,8 +69,10 @@ async function postEvent (event) {
       }
       throw createError.InternalServerError()
     }
+    await logger.endSpan(span)
     return result
   } else {
+    await logger.endSpanWithError(span, 'Invalid event payload')
     throw createError.BadRequest('Expecting new (mimetype-payload) structure')
   }
 }
@@ -80,16 +82,19 @@ async function postEvent (event) {
  *
  * @returns {Array} the topic names
  */
-async function getAllTopics () {
+async function getAllTopics() {
+  const span = await logger.startSpan('getAllTopicsKafka')
   try {
     const admin = kafka.admin()
     await admin.connect()
     const result = await admin.listTopics()
     await admin.disconnect()
+    await logger.endSpan(span)
     // Get the topic names
     return result
   } catch (err) {
     logger.error(err)
+    await logger.endSpanWithError(span, err)
     return ['Error']
   }
 }
@@ -99,7 +104,8 @@ async function getAllTopics () {
  *
  * @returns {Array} the topic names
  */
-async function createTopics (topicLists) {
+async function createTopics(topicLists) {
+  const span = await logger.startSpan('createTopicsKafka')
   try {
     const topics = []
     topicLists.map(topic => {
@@ -115,9 +121,11 @@ async function createTopics (topicLists) {
       topics
     })
     await admin.disconnect()
+    await logger.endSpan(span)
     return result ? topics : []
   } catch (err) {
     logger.error(err)
+    await logger.endSpanWithError(span, err)
     return ['Error']
   }
 }
