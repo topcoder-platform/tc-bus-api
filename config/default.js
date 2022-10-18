@@ -30,8 +30,8 @@ module.exports = {
 
   // Logger configuration
   APM_OTLP_TRACE_EXPORTER_URL: process.env.APM_OTLP_TRACE_EXPORTER_URL || '',
-  APM_SERVICE_NAME: process.env.APM_SERVICE_NAME || 'tc-bus-api',
-  APM_TRACER_NAME: process.env.APM_TRACER_NAME || 'tc-bus-api',
+  APM_SERVICE_NAME: process.env.APM_SERVICE_NAME || 'tc-bus-api-svc',
+  APM_TRACER_NAME: process.env.APM_TRACER_NAME || 'tc-bus-api-svc',
 
   // bypass auth
   BYPASS_AUTH: process.env.BYPASS_AUTH || false
