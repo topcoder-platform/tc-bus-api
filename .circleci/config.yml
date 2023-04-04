@@ -1,19 +1,19 @@
 version: 2
 defaults: &defaults
     docker:
-      - image: docker:17.06.1-ce-git
+      - image: cimg/python:3.11.0-browsers
 install_dependency: &install_dependency
           name: Installation of build and deployment dependencies.
           command: |
-            apk update
-            apk add --no-cache bash curl
-            apk upgrade
-            apk add --no-cache jq py-pip sudo
-            sudo pip install awscli --upgrade
+            sudo apt update
+            sudo apt install jq
+            sudo apt install python3-pip
+            sudo pip3 install awscli --upgrade
+            sudo pip3 install docker-compose
 install_deploysuite: &install_deploysuite
           name: Installation of install_deploysuite.
           command: |
-            git clone --branch v1.3 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
+            git clone --branch v1.4.14 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
             cp ./../buildscript/master_deploy.sh .
             cp ./../buildscript/buildenv.sh .
             cp ./../buildscript/awsconfiguration.sh .
