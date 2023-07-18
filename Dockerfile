@@ -10,4 +10,4 @@ WORKDIR /opt/app
 COPY . .
 RUN npm install
 RUN npm run lint
-CMD ["npm", "start"]
+CMD ["node", "index.js"]
