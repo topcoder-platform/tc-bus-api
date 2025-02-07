@@ -46,7 +46,7 @@ jobs:
             source awsenvconf
             ./buildenv.sh -e DEV -b dev-tc-bus-api-deployvar
             source buildenvvar
-            ./master_deploy.sh -d ECS -e DEV -t latest -s dev-global-appvar,dev-tc-bus-api-appvar -i tc-bus-api
+            ./master_deploy.sh -d ECS -e DEV -t latest -s dev-global-appvar,dev-tc-bus-api-appvar -i tc-bus-api -p FARGATE
             #./deploy.sh DEV $CIRCLE_SHA1
 
   "build-prod":
@@ -65,7 +65,7 @@ jobs:
             source awsenvconf
             ./buildenv.sh -e PROD -b prod-tc-bus-api-deployvar
             source buildenvvar
-            ./master_deploy.sh -d ECS -e PROD -t latest -s prod-global-appvar,prod-tc-bus-api-appvar -i tc-bus-api
+            ./master_deploy.sh -d ECS -e PROD -t latest -s prod-global-appvar,prod-tc-bus-api-appvar -i tc-bus-api -p FARGATE
             #./deploy.sh PROD $CIRCLE_SHA1
 
 workflows:
