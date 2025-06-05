@@ -8,6 +8,7 @@ const app = require('connect')()
 const bodyParser = require('body-parser')
 const swaggerTools = require('swagger-tools')
 const jsyaml = require('js-yaml')
+const cors = require('cors')
 
 const MessageBusService = require('./service/MessageBusService')
 const logger = require('./common/logger')
@@ -54,6 +55,29 @@ const swaggerDoc = jsyaml.load(spec)
 // Extending payload size
 app.use(bodyParser.json({ limit: '20mb', extended: true }))
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: true }))
+
+// CORS
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) {
+        // disable cors if service to service request
+        callback(null, false)
+      } else {
+        callback(null, /topcoder(-dev|-qa)?\.com$/)
+      }
+    },
+    exposedHeaders: [
+      'X-Prev-Page',
+      'X-Next-Page',
+      'X-Page',
+      'X-Per-Page',
+      'X-Total',
+      'X-Total-Pages',
+      'Link'
+    ]
+  })
+)
 
 // Initialize the Swagger middleware
 swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {

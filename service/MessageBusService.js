@@ -34,7 +34,7 @@ const producer = kafka.producer()
 /**
  * Initialize the Kafka producer.
  */
-async function init() {
+async function init () {
   await producer.connect()
 }
 
@@ -43,7 +43,7 @@ async function init() {
  *
  * @param {Object} event the event to post
  */
-async function postEvent(event) {
+async function postEvent (event) {
   // var result
   const span = await logger.startSpan('postEventKafka')
   if (_.has(event, 'payload')) {
@@ -82,7 +82,7 @@ async function postEvent(event) {
  *
  * @returns {Array} the topic names
  */
-async function getAllTopics() {
+async function getAllTopics () {
   const span = await logger.startSpan('getAllTopicsKafka')
   try {
     const admin = kafka.admin()
@@ -104,7 +104,7 @@ async function getAllTopics() {
  *
  * @returns {Array} the topic names
  */
-async function createTopics(topicLists) {
+async function createTopics (topicLists) {
   const span = await logger.startSpan('createTopicsKafka')
   try {
     const topics = []
