@@ -15,6 +15,7 @@
   "dependencies": {
     "config": "^3.3.7",
     "connect": "^3.2.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.2",
     "get-parameter-names": "^0.3.0",
     "http-errors": "^2.0.0",

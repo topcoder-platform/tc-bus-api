@@ -100,7 +100,6 @@ const getServicePayloads = async (req, res) => {
     await logger.endSpan(span)
     utils.writeJson(res, response)
   } catch (err) {
-
     logger.error(err)
     await logger.endSpanWithError(span, err)
     utils.writeJson(res, err)
