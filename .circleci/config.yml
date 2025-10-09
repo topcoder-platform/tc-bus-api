@@ -1,20 +1,22 @@
 version: 2
 defaults: &defaults
-    docker:
-      - image: cimg/python:3.11.11-browsers
+  docker:
+    - image: docker:20.10.18-git
 install_dependency: &install_dependency
-          name: Installation of build and deployment dependencies.
-          command: |
-            sudo apt update
-            sudo apt install jq python3-pip
-            sudo pip3 install awscli --upgrade
+  name: Installation of build and deployment dependencies.
+  command: |
+    apk update
+    apk add --no-cache bash curl
+    apk upgrade
+    apk add --no-cache jq py-pip sudo
+    sudo pip install awscli --upgrade
 install_deploysuite: &install_deploysuite
-          name: Installation of install_deploysuite.
-          command: |
-            git clone --branch v1.4.15 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
-            cp ./../buildscript/master_deploy.sh .
-            cp ./../buildscript/buildenv.sh .
-            cp ./../buildscript/awsconfiguration.sh .
+  name: Installation of install_deploysuite.
+  command: |
+    git clone --branch v1.4.15 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
+    cp ./../buildscript/master_deploy.sh .
+    cp ./../buildscript/buildenv.sh .
+    cp ./../buildscript/awsconfiguration.sh .
 restore_cache_settings_for_build: &restore_cache_settings_for_build
   key: docker-tc-bus-api-{{ checksum "package-lock.json" }}
 
@@ -24,8 +26,8 @@ save_cache_settings: &save_cache_settings
     - node_modules
 
 run_build: &run_build
-          name: Build of Docker image
-          command: ./build.sh
+  name: Build of Docker image
+  command: ./build.sh
 jobs:
   # Build & Deploy against development backend rer
   "build-dev":
@@ -44,7 +46,7 @@ jobs:
             source awsenvconf
             ./buildenv.sh -e DEV -b dev-tc-bus-api-deployvar
             source buildenvvar
-            ./master_deploy.sh -d ECS -e DEV -t latest -s dev-global-appvar,dev-tc-bus-api-appvar -i tc-bus-api
+            ./master_deploy.sh -d ECS -e DEV -t latest -s dev-global-appvar,dev-tc-bus-api-appvar -i tc-bus-api -p FARGATE
             #./deploy.sh DEV $CIRCLE_SHA1
 
   "build-prod":
@@ -63,7 +65,7 @@ jobs:
             source awsenvconf
             ./buildenv.sh -e PROD -b prod-tc-bus-api-deployvar
             source buildenvvar
-            ./master_deploy.sh -d ECS -e PROD -t latest -s prod-global-appvar,prod-tc-bus-api-appvar -i tc-bus-api
+            ./master_deploy.sh -d ECS -e PROD -t latest -s prod-global-appvar,prod-tc-bus-api-appvar -i tc-bus-api -p FARGATE
             #./deploy.sh PROD $CIRCLE_SHA1
 
 workflows:
@@ -72,12 +74,12 @@ workflows:
     jobs:
       # Development builds are executed on "develop" branch only.
       - "build-dev":
-          context : org-global
+          context: org-global
           filters:
             branches:
-              only: ['develop']
+              only: develop
       - "build-prod":
-          context : org-global
+          context: org-global
           filters:
             branches:
               only: master
