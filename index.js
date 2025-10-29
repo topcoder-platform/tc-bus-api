@@ -14,6 +14,11 @@ const MessageBusService = require('./service/MessageBusService')
 const logger = require('./common/logger')
 const AuthService = require('./service/AuthService')
 
+const allowedOrigins = [
+  /^https?:\/\/(?:.*\.)?topcoder\.com$/i,
+  /^https?:\/\/(?:.*\.)?topcoder-dev\.com$/i
+]
+
 const serverPort = config.PORT
 
 // swaggerRouter configuration
@@ -30,6 +35,29 @@ const swaggerDoc = jsyaml.safeLoad(spec)
 // Extending payload size
 app.use(bodyParser.json({limit: '2mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '2mb', extended: true}))
+
+// Handle CORS for trusted Topcoder domains
+app.use((req, res, next) => {
+  const origin = req.headers.origin
+  if (origin && allowedOrigins.some(pattern => pattern.test(origin))) {
+    res.setHeader('Access-Control-Allow-Origin', origin)
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
+    res.setHeader('Vary', 'Origin')
+  }
+  const requestHeaders = req.headers['access-control-request-headers']
+  if (requestHeaders) {
+    res.setHeader('Access-Control-Allow-Headers', requestHeaders)
+  } else {
+    res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type, Content-Length, X-Requested-With')
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204)
+    res.end()
+    return
+  }
+  next()
+})
 
 // Initialize the Swagger middleware
 swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
