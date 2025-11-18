@@ -6,6 +6,7 @@ const _ = require('lodash')
 const Kafka = require('no-kafka')
 
 const helper = require('../common/helper')
+const logger = require('../common/logger')
 
 // Create a new producer instance with KAFKA_URL, KAFKA_CLIENT_CERT, and
 // KAFKA_CLIENT_CERT_KEY environment variables
@@ -44,7 +45,7 @@ async function postEvent (event) {
     // Check if there is any error
     const error = _.get(result, '[0].error')
     if (error) {
-      console.log(JSON.stringify(error))
+      logger.error(JSON.stringify(error))
       if (error.code === 'UnknownTopicOrPartition') {
         throw createError.BadRequest(`Unknown event type "${event.topic}"`)
       }

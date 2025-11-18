@@ -7,6 +7,7 @@ const config = require('config')
 const request = require('superagent')
 const cache = require('memory-cache')
 const tcCoreLibAuth = require('tc-core-library-js').auth
+const logger = require('../common/logger')
 const m2m = tcCoreLibAuth.m2m(config)
 
 /**
@@ -29,7 +30,7 @@ async function getAllPlaceholders (name) {
 
       return parsedData
     } catch (err) {
-      console.log(`Error generating m2m token: ${err.message}`)
+      logger.error(`Error generating m2m token: ${err.message}`)
     }
   }
 

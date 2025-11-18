@@ -77,7 +77,7 @@ Jp8xItVz3sqz5aCg+EvcewSGZ18AC+9cbxrbI2I83jQDHw+DQmVUyR6rl5+r+S6O
 
 The other configurations can be changed in `config/default.js` or by setting environment variables.
 
-- `LOG_LEVEL` the logging level, `error` or `debug`
+- `LOG_LEVEL` the logging level. Default is `info`. Supported levels include `error`, `warn`, `info`, and `debug`.
 - `PORT` the port on that app listens
 - `API_VERSION` the api version
 - `JWT_TOKEN_SECRET` the secret to sign JWT tokens
