@@ -39,6 +39,7 @@ builddeploy_steps: &builddeploy_steps
   - run: *run_build
   - save_cache: *save_cache_settings
   - deploy:
+      name: Running deployment.
       command: |
         ./awsconfiguration.sh DEV
         source awsenvconf
