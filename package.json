@@ -24,7 +24,7 @@
     "no-kafka": "^3.2.10",
     "superagent": "^3.8.3",
     "swagger-tools": "^0.10.4",
-    "tc-core-library-js": "appirio-tech/tc-core-library-js.git#v2.6.3.1",
+    "tc-core-library-js": "topcoder-platform/tc-core-library-js.git#master",
     "winston": "^3.0.0"
   },
   "engines": {

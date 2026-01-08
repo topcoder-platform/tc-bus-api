@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 defaults: &defaults
   docker:
     - image: docker:20.10.18-git
@@ -13,10 +13,11 @@ install_dependency: &install_dependency
 install_deploysuite: &install_deploysuite
   name: Installation of install_deploysuite.
   command: |
-    git clone --branch v1.4.15 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
+    git clone --branch v1.4.17 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
     cp ./../buildscript/master_deploy.sh .
     cp ./../buildscript/buildenv.sh .
     cp ./../buildscript/awsconfiguration.sh .
+    cp ./../buildscript/psvar-processor.sh .
 restore_cache_settings_for_build: &restore_cache_settings_for_build
   key: docker-tc-bus-api-{{ checksum "package-lock.json" }}
 
@@ -28,45 +29,45 @@ save_cache_settings: &save_cache_settings
 run_build: &run_build
   name: Build of Docker image
   command: ./build.sh
+
+builddeploy_steps: &builddeploy_steps
+  - checkout
+  - setup_remote_docker
+  - run: *install_dependency
+  - run: *install_deploysuite
+  - restore_cache: *restore_cache_settings_for_build
+  - run: *run_build
+  - save_cache: *save_cache_settings
+  - deploy:
+      name: Running deployment.
+      command: |
+        ./awsconfiguration.sh DEV
+        source awsenvconf
+        #./buildenv.sh -e DEV -b ${LOGICAL_ENV}-${APPNAME}-deployvar
+        #source buildenvvar
+        #./master_deploy.sh -d ECS -e DEV -t latest -s dev-global-appvar,${LOGICAL_ENV}-${APPNAME}-appvar -i ${APPNAME} -p FARGATE
+        #./deploy.sh DEV $CIRCLE_SHA1  
+        ./psvar-processor.sh -t appenv -p /config/${APPNAME}/deployvar
+        source deployvar_env
+        ./master_deploy.sh -d ECS -e $DEPLOY_ENV -t latest -j /config/${APPNAME}/appvar,/config/common/global-appvar -i ${APPNAME} -p FARGATE
+
 jobs:
   # Build & Deploy against development backend rer
   "build-dev":
     <<: *defaults
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run: *install_dependency
-      - run: *install_deploysuite
-      - restore_cache: *restore_cache_settings_for_build
-      - run: *run_build
-      - save_cache: *save_cache_settings
-      - deploy:
-          command: |
-            ./awsconfiguration.sh DEV
-            source awsenvconf
-            ./buildenv.sh -e DEV -b dev-tc-bus-api-deployvar
-            source buildenvvar
-            ./master_deploy.sh -d ECS -e DEV -t latest -s dev-global-appvar,dev-tc-bus-api-appvar -i tc-bus-api -p FARGATE
-            #./deploy.sh DEV $CIRCLE_SHA1
+    environment:
+      DEPLOY_ENV: "DEV"
+      LOGICAL_ENV: "dev"
+      APPNAME: "tc-bus-api"
+    steps: *builddeploy_steps
 
   "build-prod":
     <<: *defaults
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run: *install_dependency
-      - run: *install_deploysuite
-      - restore_cache: *restore_cache_settings_for_build
-      - run: *run_build
-      - save_cache: *save_cache_settings
-      - deploy:
-          command: |
-            ./awsconfiguration.sh PROD
-            source awsenvconf
-            ./buildenv.sh -e PROD -b prod-tc-bus-api-deployvar
-            source buildenvvar
-            ./master_deploy.sh -d ECS -e PROD -t latest -s prod-global-appvar,prod-tc-bus-api-appvar -i tc-bus-api -p FARGATE
-            #./deploy.sh PROD $CIRCLE_SHA1
+    environment:
+      DEPLOY_ENV: "PROD"
+      LOGICAL_ENV: "prod"
+      APPNAME: "tc-bus-api"    
+    steps: *builddeploy_steps
 
 workflows:
   version: 2
