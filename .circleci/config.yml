@@ -41,7 +41,7 @@ builddeploy_steps: &builddeploy_steps
   - deploy:
       name: Running deployment.
       command: |
-        ./awsconfiguration.sh DEV
+        ./awsconfiguration.sh $DEPLOY_ENV
         source awsenvconf
         #./buildenv.sh -e DEV -b ${LOGICAL_ENV}-${APPNAME}-deployvar
         #source buildenvvar
